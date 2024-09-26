@@ -13,7 +13,7 @@ public class Battle
 
     public void Start(int Floor)
     {
-        List<Enemy> enemies = new List<Enemy>
+        List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
         {
             //에너미 리스트의 예시
             // 이름, 속도, 체력 순서
@@ -107,6 +107,7 @@ public class Battle
         while (!validInput)
         {
             string choice = Console.ReadLine();
+            //공격한다면
             if (choice == "1")
             {
                 // 살아있는 적만 필터링
@@ -136,17 +137,20 @@ public class Battle
                     validInput = true; // 더 이상 선택할 적이 없으므로 종료
                 }
             }
+            //스킬을 쓴다면
             else if (choice == "2")
             {
                 // 스킬 사용 로직 추가 필요
                 Console.WriteLine("스킬 사용 로직을 구현하세요.");
                 validInput = true;
             }
+            //방어를 한다면
             else if (choice == "3")
             {
                 player.Defend(); // Defend 메소드 필요
                 validInput = true;
             }
+            //도망을 간다면
             else if (choice == "4")
             {
                 Console.WriteLine("도망쳤습니다!");

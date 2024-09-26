@@ -1,10 +1,12 @@
 ﻿namespace _26TextRPG
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello,World!");
+            MainScene mainScene = new MainScene();
+            mainScene.RunGame();
+            //게임시작
         }
     }
 }

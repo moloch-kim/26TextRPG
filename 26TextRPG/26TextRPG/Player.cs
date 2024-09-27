@@ -13,10 +13,12 @@ public class Player
     public int Gold { get; set; } = 1500;
     public int Speed { get; set; }
     public int Mana { get; set; }
+    public int Exp { get; set; }
     public int ActionGauge { get; set; }
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; set; }
+    public Quest quest { get; set; }
     public Player(string name, int speed)
     {
         Name = name;

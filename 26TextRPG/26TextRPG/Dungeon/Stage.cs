@@ -52,13 +52,13 @@ namespace _26TextRPG.Dungeon
                 switch (randomtext)
                 {
                     case 1:
-                        Console.Write("당신은 어두운 방과 던전 사이를 걷습니다.");
+                        mainScene.TypingEffect("당신은 어두운 방과 던전 사이를 걷습니다.", 50);
                         break;
                     case 2:
-                        Console.Write("당신의 길은 어둠과 미지로 가득차있습니다.");
+                        mainScene.TypingEffect("당신의 길은 어둠과 미지로 가득차있습니다.", 50);  
                         break;
                     case 3:
-                        Console.Write(" 당신 : 온통 어둠과 먼지 뿐이군."); // 플레이어 이름 값 삽입
+                        mainScene.TypingEffect(" 당신 : 온통 어둠과 먼지 뿐이군.", 50); // 플레이어 이름 값 삽입
                         break;
                 }
                 // ... 삽입 딜레이 연출
@@ -66,23 +66,22 @@ namespace _26TextRPG.Dungeon
             }
             else
             {
-                Console.WriteLine("더 탐험할게 없습니다.");
+                mainScene.TypingEffect("더 탐험할게 없습니다.", 50);
                 return;
             }
-
-            Console.WriteLine($"진행도 : {Progress}/{MaxProgress}"); // 진행도 출력
+            mainScene.TypingEffect($"진행도 : {Progress}/{MaxProgress}", 20); // 진행도 출력
             Thread.Sleep(200);
 
             if(Progress >= MaxProgress) 
             {
                 if (!StairFound)
                 {
-                    Console.WriteLine("무언가 잘못되었습니다. 스테이지를 다시 시작합니다.");
+                    mainScene.TypingEffect("무언가 잘못되었습니다. 스테이지를 다시 시작합니다.", 50);
                     //리스타트
                 }
                 else
                 {
-                    Console.WriteLine($"{StageFloor}층 탐험이 완료되었습니다!");
+                    mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
                 }
             }
             
@@ -92,7 +91,8 @@ namespace _26TextRPG.Dungeon
             if (Progress >= StairPosition && !StairFound)
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용
-                Console.WriteLine("계단을 발견했습니다! 다음 스테이지로 이동 가능합니다.");
+                mainScene.TypingEffect("계단을 발견했습니다! 다음 스테이지로 이동 가능합니다.", 50);
+                mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
             }
             else
             {
@@ -122,13 +122,13 @@ namespace _26TextRPG.Dungeon
                 switch (randomtext)
                 {
                     case 1:
-                        Console.WriteLine("조심스런 발소리만이 복도에 이어질 뿐입니다...");
+                        mainScene.TypingEffect("조심스런 발소리만이 복도에 이어질 뿐입니다...", 50);
                         break;
                     case 2:
-                        Console.WriteLine("아무일도 일어나지 않았습니다...");
+                        mainScene.TypingEffect("아무일도 일어나지 않았습니다...", 50);
                         break;
                     case 3:
-                        Console.WriteLine(" 당신 : 아무것도 없군...");
+                        mainScene.TypingEffect(" 당신 : 아무것도 없군...", 50);
                         break;
                 }
             }
@@ -143,19 +143,19 @@ namespace _26TextRPG.Dungeon
             switch (randomtext)
             {
                 case 1:
-                    Console.WriteLine("역시 적입니다! 전투 준비!");
+                    mainScene.TypingEffect("역시 적입니다! 전투 준비!", 50);
                     break;
                 case 2:
-                    Console.WriteLine("적을 만났습니다! 전투에 들어갑니다!");
+                    mainScene.TypingEffect("적을 만났습니다! 전투에 들어갑니다!", 50);
                     break;
                 case 3:
-                    Console.WriteLine("당신 : 덤벼라!! 너같은 애송이가 내 길을 막게 두지 않겠다!");
+                    mainScene.TypingEffect("당신 : 덤벼라!! 너같은 애송이가 내 길을 막게 두지 않겠다!", 50);
                     break;
             }
             Thread.Sleep(800);
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("계속_(아무키나 입력해 진행)");
+            mainScene.TypingEffect("계속_(아무키나 입력해 진행)", 50);
             Console.ReadLine();
 
             Battle battle = new (player);
@@ -185,6 +185,8 @@ namespace _26TextRPG.Dungeon
             }
             ShopFound = true; // '상점' 선택지 활성화에 사용
         }
+
+
 
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
+using static System.Net.Mime.MediaTypeNames;
 namespace _26TextRPG.Main
 {
     public class MainScene
@@ -92,11 +94,22 @@ namespace _26TextRPG.Main
 
         public void RunStage()
         {
-            Stage runStage = new(1);
+            int test = 1;
+            
+            Stage runStage = new(test);
+
             while (true)
             {
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("탐험하기 : A");
+
+                // 다음층 확인
+                if (runStage.StairFound)
+                {
+                    Console.WriteLine("다음층으로 : S");
+                }
+
                 Console.WriteLine("나가기 : ESC");
                 Console.ResetColor();
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -107,6 +120,13 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.Escape:
                         return;
+                    case ConsoleKey.S:
+                        if(runStage.StairFound)
+                        {
+                            ++test;
+                            runStage.StairFound = false;
+                        }
+                        break;
                 }
             }
         }

@@ -36,16 +36,15 @@ namespace _26TextRPG.Dungeon
             Random = new Random();
 
             StairPosition = Random.Next(20, MaxProgress); // 계단의 위치 = 진행도 최소 20부터 등장
-            Console.Clear(); // 해당 층 최초 입장시 콘솔 초기화
+        }
+        public void Explore() 
+        {
+            Console.Clear();
             mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
             mainScene.TypingEffect($"[ 던전 {StageFloor}층 ]", 50);
             Console.WriteLine();
-        }
-        public void Explore() 
-        {
-            Console.Clear();
             if (!IsCompleted)
             {
                 Progress += 10;

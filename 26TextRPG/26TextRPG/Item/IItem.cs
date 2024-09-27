@@ -9,10 +9,10 @@ namespace _26TextRPG.Item
 {
     public class Item
     {
-        protected int ID;
-        protected string? Name;
-        protected string? Description;
-        protected int Value;
+        public int ID;
+        public string? Name;
+        public string? Description;
+        public int Value;
 
         public void UseItem()
         {

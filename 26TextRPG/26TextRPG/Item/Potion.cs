@@ -9,12 +9,12 @@ namespace _26TextRPG.Item
 {
     internal class Potion : Item, IConsumable
     {
-        public int ID { get; }
-        public int PotionType { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public int Effect { get; }
-        public int Value { get; }
+        public int ID { get; private set; }
+        public int PotionType { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public int Effect { get; private set; }
+        public int Value { get; private set; }
 
         public Potion(int iD, int potionType, string name, string description, int effect, int value)
         {

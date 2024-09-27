@@ -9,11 +9,11 @@ namespace _26TextRPG.Item
 {
     internal class ItemRepository
     {
-        public static List<Item> Allitems {  get; set; }
-        public static List<IEquipable> Gears { get; set; }
-        public static List<Armor> Armors { get; set; }
-        public static List<Potion> Potions { get; set; }
-        public static List<Weapon> Weapons { get; set; }
+        public static List<Item> Allitems {  get; private set; }
+        public static List<IEquipable> Gears { get; private set; }
+        public static List<Armor> Armors { get; private set; }
+        public static List<Potion> Potions { get; private set; }
+        public static List<Weapon> Weapons { get; private set; }
         // 정렬 기준은 솔루션 탐색기
         static ItemRepository()
         {

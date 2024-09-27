@@ -9,25 +9,15 @@ namespace _26TextRPG.Item
 {
     public class Weapon : Item , IEquipable
     {
-<<<<<<< Updated upstream
-        public int ID { get; }
-        public int WeaponType { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public int Offense { get; }
-        public int Speed { get; }
-        public int Value { get; }
-        public bool IsEquip { get; }
+        public int ID { get; private set; }
+        public int WeaponType { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public int Offense { get; private set; }
+        public int Speed { get; private set; }
+        public int Value { get; private set; }
+        public bool IsEquip { get; private set; }
         public Weapon(int id,int weapontype, string name, string description, int offense,int speed, int value) // 생성자
-=======
-        public new int ID { get; }
-        public new string Name { get; }
-        protected new string Description;
-        protected int Offense;
-        protected new int Value;
-        protected bool IsEquip;
-        public Weapon(int id, string name, string description, int offense, int value) // 생성자
->>>>>>> Stashed changes
         {
             ID = id;
             WeaponType = weapontype;

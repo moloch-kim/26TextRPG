@@ -4,22 +4,13 @@ namespace _26TextRPG.Item
 {
     public class Armor : Item, IEquipable
     {
-<<<<<<< Updated upstream
-        public int ID { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public int Defense { get; }
-        public int Encumbrance { get; }
-        public int Value { get; }
-        public bool IsEquip {  get; }
-=======
-        protected new int ID;
-        protected new string Name;
-        protected new string Description;
-        protected int Defense;
-        protected new int Value;
-        protected bool IsEquip;
->>>>>>> Stashed changes
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public int Defense { get; private set; }
+        public int Encumbrance { get; private set; }
+        public int Value { get; private set; }
+        public bool IsEquip {  get; private set; }
 
         public Armor(int id, string name, string description, int defense,int ecumbrance, int value) // 생성자
         {

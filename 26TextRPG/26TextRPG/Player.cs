@@ -19,10 +19,8 @@ public class Player
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<_26TextRPG.Item.Item> Inventory { get; set; }
-    public Quest Quest { get; set; }
-
-
-    public Player(string name, int speed)
+    public _26TextRPG.Quest Quest { get; set; }
+    public Player(string name)
     {
         Name = name;
         // speed = _speed;

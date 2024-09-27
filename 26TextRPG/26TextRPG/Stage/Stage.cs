@@ -97,13 +97,13 @@ namespace _26TextRPG.Stage
                 return;
             }
         }
-        public void TriggerEvent() 
+        public void TriggerEvent(Character player) 
         {
             int eventChance = Random.Next(1, 101);
 
             if (eventChance <= 50)
             {
-                //적 조우 메소드 - 50퍼센트
+                EncounterEnemy(player);//적 조우 메소드 - 50퍼센트
             }
             else if (eventChance <= 70)
             {
@@ -132,7 +132,7 @@ namespace _26TextRPG.Stage
             }
 
         }
-        public void EncounterEnemy() 
+        public void EncounterEnemy(Character player) 
         {
             Console.WriteLine("어둠속에서 무언가가 움직입니다....!!");
             Thread.Sleep(800);
@@ -155,6 +155,9 @@ namespace _26TextRPG.Stage
             Console.WriteLine();
             Console.WriteLine("계속_(아무키나 입력해 진행)");
             Console.ReadLine();
+
+            Battle battle = new (player);
+            battle.Start(StageFloor);
 
             // 전투 돌입 메소드 호출
 

@@ -1,4 +1,6 @@
-﻿namespace _26TextRPG.Main
+﻿using System.Net.Sockets;
+
+namespace _26TextRPG.Main
 {
     public class MainScene
     {
@@ -29,6 +31,29 @@
             Console.WriteLine("r. 휴식하기");
             Console.WriteLine("esc. 종료");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.S:
+                    Console.WriteLine("S");
+                    break;
+                case ConsoleKey.I:
+                    Console.WriteLine("I");
+                    break;
+                case ConsoleKey.P:
+                    Console.WriteLine("P");
+                    break;
+                case ConsoleKey.D:
+                    Console.WriteLine("D");
+                    break;
+                case ConsoleKey.R:
+                    Console.WriteLine("R");
+                    break;
+                case ConsoleKey.Escape:
+                    Console.WriteLine("Esc");
+                    break;
+            }
         }
 
         public void TypingEffect(string text, int delay) // (타이핑을 직접 치는것 같은 효과) srting 문자열과 int 딜레이 값을 넣어주면

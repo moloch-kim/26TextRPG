@@ -1,4 +1,4 @@
-	public class Enemy
+	public class Enemy: Character
 	{
 		public string Name { get; }
 		public int Health { get; set; }

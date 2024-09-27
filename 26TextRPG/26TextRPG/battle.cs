@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Battle
 {
-    Character player = new Character;
+    Character player = new Character("",0);
 
     public Battle(Character player)
     {
@@ -13,13 +13,13 @@ public class Battle
 
     public void Start(int Floor)
     {
-        List<Enemy> enemies = new List<Enemy>
+        List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
         {
             //에너미 리스트의 예시
             // 이름, 속도, 체력 순서
-            new Enemy("고블린", 10, 30), 
-            new Enemy("오크", 12, 50),
-            new Enemy("트롤", 8, 80)
+            new Enemy("고블린", 50, 10, 2, 8, 20, 50),
+            new Enemy("오크", 80, 12, 4, 6, 40, 100),
+            new Enemy("트롤", 100, 8, 6, 5, 60, 150)
         };
 
         Random random = new Random();
@@ -33,15 +33,15 @@ public class Battle
             Console.WriteLine($"{player.Name} VS 적들: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
             Console.WriteLine();
 
-            player.ChargeActionGauge();
+            player.ChargeCharacterActionGauge();
             foreach (var enemy in selectedEnemies)
             {
-                enemy.ChargeActionGauge();
+                enemy.ChargeEnemyActionGauge();
             }
 
             DisplayStatus(player, selectedEnemies);
 
-            if (player.CharacterCanAct()) // 수정된 부분
+            if (player.CharacterCanAct())
             {
                 PlayerTurn(selectedEnemies);
             }
@@ -79,7 +79,7 @@ public class Battle
 
     private void ReturnToStage()
     {
-        Console.WriteLine($"{player.name}은 다음 방으로 눈을 돌립니다...");
+        Console.WriteLine($"{player.Name}은 다음 방으로 눈을 돌립니다...");
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
     }
@@ -109,49 +109,23 @@ public class Battle
             string choice = Console.ReadLine();
             if (choice == "1")
             {
-                // 살아있는 적만 필터링
-                var aliveEnemies = enemies.Where(e => e.Health > 0).ToList();
-                if (aliveEnemies.Count > 0)
-                {
-                    Console.WriteLine("공격할 적의 번호를 선택하세요:");
-                    for (int i = 0; i < aliveEnemies.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}. {aliveEnemies[i].Name}");
-                    }
-
-                    int targetIndex = int.Parse(Console.ReadLine()) - 1;
-                    if (targetIndex >= 0 && targetIndex < aliveEnemies.Count)
-                    {
-                        player.Attack(aliveEnemies[targetIndex]); // Attack 메소드 필요
-                        validInput = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("잘못된 선택입니다. 다시 선택하세요.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("공격할 적이 없습니다.");
-                    validInput = true; // 더 이상 선택할 적이 없으므로 종료
-                }
+                AttackChoice(enemies);
+                validInput = true;
             }
             else if (choice == "2")
             {
-                // 스킬 사용 로직 추가 필요
-                Console.WriteLine("스킬 사용 로직을 구현하세요.");
+                SkillChoice(enemies);
                 validInput = true;
             }
             else if (choice == "3")
             {
-                player.Defend(); // Defend 메소드 필요
+                player.Defend(); // 방어 메소드
                 validInput = true;
             }
             else if (choice == "4")
             {
                 Console.WriteLine("도망쳤습니다!");
-                // 도망치기 로직 추가 필요
-                validInput = true;
+                validInput = true; // 도망치기 로직 필요
             }
             else
             {
@@ -159,6 +133,71 @@ public class Battle
             }
         }
     }
+
+    private void AttackChoice(List<Enemy> enemies)
+    {
+        var aliveEnemies = enemies.Where(e => e.Health > 0).ToList();
+        if (aliveEnemies.Count > 0)
+        {
+            Console.WriteLine("공격할 적의 번호를 선택하세요:");
+            for (int i = 0; i < aliveEnemies.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {aliveEnemies[i].Name}");
+            }
+
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out int targetIndex) && targetIndex > 0 && targetIndex <= aliveEnemies.Count)
+            {
+                player.Attack(aliveEnemies[targetIndex - 1]);
+            }
+            else
+            {
+                Console.WriteLine("잘못된 선택입니다. 다시 선택하세요.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("공격할 적이 없습니다.");
+        }
+    }
+
+    private void SkillChoice(List<Enemy> enemies)
+    {
+        Console.WriteLine("사용할 스킬을 선택하세요:");
+        for (int i = 0; i < player.SkillList.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {player.SkillList[i].Name} (소모 마나: {player.SkillList[i].ManaCost})");
+        }
+
+        string input = Console.ReadLine();
+        if (int.TryParse(input, out int skillIndex) && skillIndex > 0 && skillIndex <= player.SkillList.Count)
+        {
+            Skill selectedSkill = player.SkillList[skillIndex - 1];
+            if (player.Mana >= selectedSkill.ManaCost)
+            {
+                if (selectedSkill.IsArea)
+                {
+                    foreach (var enemy in enemies.Where(e => e.Health > 0))
+                    {
+                        player.UseSkill(selectedSkill, enemy);
+                    }
+                }
+                else
+                {
+                    AttackChoice(enemies);
+                }
+            }
+            else
+            {
+                Console.WriteLine("마나가 부족합니다.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("잘못된 선택입니다. 다시 선택하세요.");
+        }
+    }
+
 
 
     private void EnemyTurn(Enemy enemy)

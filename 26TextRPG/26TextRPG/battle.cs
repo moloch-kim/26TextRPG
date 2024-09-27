@@ -13,7 +13,7 @@ public class Battle
 
     public void Start(int Floor)
     {
-        List<Enemy> enemies = new List<Enemy>
+        List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
         {
             //에너미 리스트의 예시
             // 이름, 속도, 체력 순서
@@ -107,6 +107,7 @@ public class Battle
         while (!validInput)
         {
             string choice = Console.ReadLine();
+            //공격한다면
             if (choice == "1")
             {
                 // 살아있는 적만 필터링
@@ -122,7 +123,7 @@ public class Battle
                     int targetIndex = int.Parse(Console.ReadLine()) - 1;
                     if (targetIndex >= 0 && targetIndex < aliveEnemies.Count)
                     {
-                        player.Attack(aliveEnemies[targetIndex]); // Attack 메소드 필요
+                        player.Attack(aliveEnemies[targetIndex]);
                         validInput = true;
                     }
                     else
@@ -136,17 +137,62 @@ public class Battle
                     validInput = true; // 더 이상 선택할 적이 없으므로 종료
                 }
             }
+            //스킬을 쓴다면
             else if (choice == "2")
             {
-                // 스킬 사용 로직 추가 필요
-                Console.WriteLine("스킬 사용 로직을 구현하세요.");
-                validInput = true;
+                Console.WriteLine("사용할 스킬을 선택하세요:");
+                for (int i = 0; i < player.SkillList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {player.SkillList[i].Name} (소모 마나: {player.SkillList[i].ManaCost})");
+                }
+
+                int skillIndex = int.Parse(Console.ReadLine()) - 1;
+                if (skillIndex >= 0 && skillIndex < player.SkillList.Count)
+                {
+                    Skill selectedSkill = player.SkillList[skillIndex];
+                    if (player.Mana >= selectedSkill.ManaCost)
+                    {
+                        if (selectedSkill.IsArea)
+                        {
+                            foreach (var enemy in enemies.Where(e => e.Health > 0))
+                            {
+                                UseSkill(selectedSkill, enemy);
+                            }
+                        }
+                        else
+                        {
+                            var aliveEnemies = enemies.Where(e => e.Health > 0).ToList();
+                            Console.WriteLine("공격할 적의 번호를 선택하세요:");
+                            for (int i = 0; i < aliveEnemies.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {aliveEnemies[i].Name}");
+                            }
+
+                            int targetIndex = int.Parse(Console.ReadLine()) - 1;
+                            if (targetIndex >= 0 && targetIndex < aliveEnemies.Count)
+                            {
+                                UseSkill(selectedSkill, aliveEnemies[targetIndex]);
+                            }
+                        }
+                        validInput = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("마나가 부족합니다.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 선택입니다. 다시 선택하세요.");
+                }
             }
+            //방어를 한다면
             else if (choice == "3")
             {
                 player.Defend(); // Defend 메소드 필요
                 validInput = true;
             }
+            //도망을 간다면
             else if (choice == "4")
             {
                 Console.WriteLine("도망쳤습니다!");

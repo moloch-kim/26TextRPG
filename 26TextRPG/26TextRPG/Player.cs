@@ -16,10 +16,10 @@ public class Player
     public int ActionGauge { get; set; }
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
-
-    public Player(string _name, int _speed)
+    public List<Item> Inventory { get; set; }
+    public Player(string name, int speed)
     {
-        Name = _name;
+        Name = name;
         // speed = _speed;
     }
 
@@ -35,12 +35,12 @@ public class Player
 		return ActionGauge >= 100;
 	}
 
-    public void CharacterActionGauge()
+    public void ResetActionGauge()
 	{
 		ActionGauge = 0;
 	}
 
-    	public void Attack(Enemy enemy)
+    public void Attack(Enemy enemy)
 	{
 		int damage = TotalAttackPower - enemy.DefensePower;
 		if (damage < 0) damage = 0;
@@ -54,7 +54,7 @@ public class Player
         Console.WriteLine($"{Name}이(가) 방어 태세를 취했습니다.");
     }
 
-    	public void UseSkill(Skill skill, Enemy enemy)
+    public void UseSkill(Skill skill, Enemy enemy)
 	{
 
 		Mana -= skill.ManaCost;

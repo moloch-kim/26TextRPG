@@ -1,7 +1,10 @@
 ﻿using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
+
 using static System.Net.Mime.MediaTypeNames;
+
 namespace _26TextRPG.Main
 {
     public class MainScene
@@ -39,48 +42,52 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
-            Console.Clear();
-            Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("=======================================================");
-            Console.WriteLine("||                                                   ||");
-            Console.Write("||       ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("능력치 : S    인벤토리 : I    상점 : P");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("      ||");
-            Console.Write("||         ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("던전 : D    휴식 : R    종료 : ESC");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("        ||");
-            Console.WriteLine("||                                                   ||");
-            Console.WriteLine("=======================================================");
-            Console.ResetColor();
-            Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
-
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
+            RestScene restScene = new RestScene();
+            while (true)
             {
-                case ConsoleKey.S:
-                    Console.WriteLine("S");
-                    break;
-                case ConsoleKey.I:
-                    Console.WriteLine("I");
-                    break;
-                case ConsoleKey.P:
-                    Console.WriteLine("P");
-                    break;
-                case ConsoleKey.D:
-                    RunStage();
-                    break;
-                case ConsoleKey.R:
-                    Console.WriteLine("R");
-                    break;
-                case ConsoleKey.Escape:
-                    Environment.Exit(0);
-                    break;
+                Console.Clear();
+                Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("=======================================================");
+                Console.WriteLine("||                                                   ||");
+                Console.Write("||       ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("능력치 : S    인벤토리 : I    상점 : P");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("      ||");
+                Console.Write("||         ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("던전 : D    휴식 : R    종료 : ESC");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("        ||");
+                Console.WriteLine("||                                                   ||");
+                Console.WriteLine("=======================================================");
+                Console.ResetColor();
+                Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.S:
+                        Console.WriteLine("S");
+                        break;
+                    case ConsoleKey.I:
+                        Console.WriteLine("I");
+                        break;
+                    case ConsoleKey.P:
+                        Console.WriteLine("P");
+                        break;
+                    case ConsoleKey.D:
+                        RunStage();
+                        break;
+                    case ConsoleKey.R:
+                        restScene.Rest();
+                        break;
+                    case ConsoleKey.Escape:
+                        Environment.Exit(0);
+                        break;
+                }
             }
         }
 

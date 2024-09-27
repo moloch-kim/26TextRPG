@@ -97,13 +97,13 @@ namespace _26TextRPG.Stage
                 return;
             }
         }
-        public void TriggerEvent() 
+        public void TriggerEvent(Character player) 
         {
             int eventChance = Random.Next(1, 101);
 
             if (eventChance <= 50)
             {
-                //적 조우 메소드 - 50퍼센트
+                EncounterEnemy(player);//적 조우 메소드 - 50퍼센트
             }
             else if (eventChance <= 70)
             {
@@ -132,7 +132,7 @@ namespace _26TextRPG.Stage
             }
 
         }
-        public void EncounterEnemy() 
+        public void EncounterEnemy(Character player) 
         {
             Console.WriteLine("어둠속에서 무언가가 움직입니다....!!");
             Thread.Sleep(800);
@@ -147,7 +147,7 @@ namespace _26TextRPG.Stage
                     Console.WriteLine("적을 만났습니다! 전투에 들어갑니다!");
                     break;
                 case 3:
-                    Console.WriteLine(" 당신 : 덤벼라!! 너같은 애송이가 내 길을 막게 두지 않겠다!");
+                    Console.WriteLine("당신 : 덤벼라!! 너같은 애송이가 내 길을 막게 두지 않겠다!");
                     break;
             }
             Thread.Sleep(800);
@@ -155,6 +155,9 @@ namespace _26TextRPG.Stage
             Console.WriteLine();
             Console.WriteLine("계속_(아무키나 입력해 진행)");
             Console.ReadLine();
+
+            Battle battle = new (player);
+            battle.Start(StageFloor);
 
             // 전투 돌입 메소드 호출
 
@@ -175,7 +178,7 @@ namespace _26TextRPG.Stage
                     Console.WriteLine("이곳에서 물건을 사거나 휴식할수 있습니다.");
                     break;
                 case 3:
-                    Console.WriteLine(" 당신 : 이런곳에 상점이라니?");
+                    Console.WriteLine("당신 : 이런곳에 상점이라니?");
                     break;
             }
             ShopFound = true; // '상점' 선택지 활성화에 사용

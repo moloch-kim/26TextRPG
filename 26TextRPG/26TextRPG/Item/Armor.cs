@@ -2,35 +2,46 @@
 
 namespace _26TextRPG.Item
 {
-    public class Armor : IItem
+    public class Armor : Item, IEquipable
     {
-        public int ID { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public int Defense { get; }
-        public int Value { get; }
-        public bool IsEquip {  get; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public int Defense { get; private set; }
+        public int Encumbrance { get; private set; }
+        public int Value { get; private set; }
+        public bool IsEquip {  get; private set; }
 
-        public Armor(int id, string name, string description, int defense, int value) // 생성자
+        public Armor(int id, string name, string description, int defense,int ecumbrance, int value) // 생성자
         {
             ID = id;
             Name = name;
             Description = description;
             Defense = defense;
+            Encumbrance = ecumbrance;
             Value = value;
         }
 
-        public void UseItem()
+        public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입
         {
-            
+            if (IsEquip)
+            {
+                UnEquip();
+            }
+            else
+            {
+                Equip();
+            }
         }
 
-        public void Equip()
+        public void Equip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Console.WriteLine($"{Name}을(를) 장착했습니다.");
             //장착 메소드
         }
-        public void Unequip()
+        public void UnEquip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
             //장착해제 메소드
         }
     }

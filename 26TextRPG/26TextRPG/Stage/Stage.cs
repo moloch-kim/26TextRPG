@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using _26TextRPG.Main;
 
 namespace _26TextRPG.Stage
 {
@@ -21,6 +22,8 @@ namespace _26TextRPG.Stage
         private Random Random;
         private int StairPosition;
 
+        MainScene mainScene = new MainScene();
+
         public Stage(int stagefloor) //생성자 Stage
         {
             StageFloor = stagefloor;
@@ -33,12 +36,11 @@ namespace _26TextRPG.Stage
             Random = new Random();
 
             StairPosition = Random.Next(20, MaxProgress); // 계단의 위치 = 진행도 최소 20부터 등장
-
             Console.Clear(); // 해당 층 최초 입장시 콘솔 초기화
-            Console.Write("당신은 던전에 입장했습니다."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500);
+            mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
-            Console.WriteLine($"[ 던전 {StageFloor}층 ]");
+            mainScene.TypingEffect($"[ 던전 {StageFloor}층 ]", 50);
             Console.WriteLine();
         }
         public void Explore() 

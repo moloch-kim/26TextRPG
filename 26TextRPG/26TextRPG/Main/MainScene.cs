@@ -31,7 +31,7 @@ namespace _26TextRPG.Main
             Console.WriteLine("r. 휴식하기");
             Console.WriteLine("esc. 종료");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
-
+            
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
             {
@@ -46,6 +46,7 @@ namespace _26TextRPG.Main
                     break;
                 case ConsoleKey.D:
                     Console.WriteLine("D");
+
                     break;
                 case ConsoleKey.R:
                     Console.WriteLine("R");

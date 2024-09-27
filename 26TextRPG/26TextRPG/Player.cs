@@ -1,4 +1,4 @@
-    public class Player
+    public class Player 
     {
         int level { get; set; } = 1;
         string name { get; set; }

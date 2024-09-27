@@ -32,7 +32,7 @@ public class Character
 		ActionGauge = 0;
 	}
 
-		//기본공격
+	//기본공격
 	public void Attack(Enemy enemy)
 	{
 		int damage = TotalAttackPower - enemy.DefensePower;

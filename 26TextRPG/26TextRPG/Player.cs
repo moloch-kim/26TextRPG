@@ -19,7 +19,7 @@ public class Player
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; set; }
     public Quest quest { get; set; }
-    public Player(string name, int speed)
+    public Player(string name)
     {
         Name = name;
         // speed = _speed;

@@ -52,17 +52,7 @@ namespace _26TextRPG.Main
             };
             SaveLoadSystem.SaveGame(gameData);
         }
-        public void Load()
-        {
-            GameData loadedData = SaveLoadSystem.LoadGame();
-            if (loadedData != null)
-            {
-                //불러올변수 = loadedData.저장했던변수;
-                //level = loadedData.level;
-                //exp = loadedData.exp;
-                //gold = loadedData.gold;
-            }
-        }
+        
 
 
     }

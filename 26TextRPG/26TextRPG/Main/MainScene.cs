@@ -64,5 +64,6 @@ namespace _26TextRPG.Main
                 Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
+
     }
 }

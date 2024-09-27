@@ -10,17 +10,40 @@ namespace _26TextRPG.Main
 
     public class MainScene
     {
-        public void Load()
+        private Player currentPlayer;// 진행상황 저장용
+        public void Save()// 저장
         {
-            GameData loadedData = SaveLoadSystem.LoadGame();
-            if (loadedData != null)
+            SaveLoadSystem.SaveGame(currentPlayer);
+        }
+        public void Load()//불러오기
+        {
+
+            Player loadedPlayer = SaveLoadSystem.LoadGame();
+
+            if (loadedPlayer != null)
             {
-                //불러올변수 = loadedData.저장했던변수;
-                //level = loadedData.level;
-                //exp = loadedData.exp;
-                //gold = loadedData.gold;
+                currentPlayer = loadedPlayer;
+                Console.WriteLine($"{currentPlayer.Name}의 데이터를 성공적으로 불러왔습니다.");
+                Thread.Sleep( 2000 );
+            }
+            else
+            {
+                Console.WriteLine("저장된 파일이 없습니다. 새로운 플레이어를 생성합니다.");
+                CreatePlayer(); // 닉네임 생성
             }
         }
+        public void CreatePlayer()// 닉네임 생성
+        {
+            Console.WriteLine("게임에 처음 접속하셨습니다.");
+            Console.WriteLine("원하는 닉네임을 입력해주세요.");
+            string nickName = Console.ReadLine();
+            currentPlayer = new Player(nickName);
+            //currentPlayer.Level = 1; 초기값 설정
+            //currentPlayer.Gold = 1500;
+            Console.WriteLine($"닉네임 : {nickName}");
+            Thread.Sleep(2000);
+        }
+
         public void Opening()
         {
             Logo();
@@ -72,9 +95,13 @@ namespace _26TextRPG.Main
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
         }
 
-        public void RunGame(Player player)
+        public void RunGame()
         {
+
+            Load();
+            Player player = currentPlayer;
             RestScene restScene = new RestScene();
+
             while (true)
             {
                 MainMenu();
@@ -136,7 +163,7 @@ namespace _26TextRPG.Main
                         runStage.Explore(player);
                         break;
                     case ConsoleKey.Escape:
-                        RunGame(player);
+                        RunGame();
                         break;
                     case ConsoleKey.S:
                         if(runStage.StairFound)

@@ -8,15 +8,17 @@ namespace _26TextRPG.Item
         public string Name { get; }
         public string Description { get; }
         public int Defense { get; }
+        public int Encumbrance { get; }
         public int Value { get; }
         public bool IsEquip {  get; }
 
-        public Armor(int id, string name, string description, int defense, int value) // 생성자
+        public Armor(int id, string name, string description, int defense,int ecumbrance, int value) // 생성자
         {
             ID = id;
             Name = name;
             Description = description;
             Defense = defense;
+            Encumbrance = ecumbrance;
             Value = value;
         }
 

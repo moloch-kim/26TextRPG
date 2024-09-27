@@ -30,11 +30,12 @@ namespace _26TextRPG.Item
             Console.WriteLine($"당신은 {Name}을(를) 들이킵니다.");
             switch (PotionType) // 포션 타입에 따라 다른 효과
             {
-                case 1:
+                case 1: //체력 회복 포션
+
                     break;
-                case 2:
+                case 2: //
                     break;
-                case 3:
+                case 3: //
                     break;
             }
         }

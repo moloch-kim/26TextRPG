@@ -10,17 +10,21 @@ namespace _26TextRPG.Item
     public class Weapon : IItem
     {
         public int ID { get; }
+        public int WeaponType { get; }
         public string Name { get; }
         public string Description { get; }
         public int Offense { get; }
+        public int Speed { get; }
         public int Value { get; }
         public bool IsEquip { get; }
-        public Weapon(int id, string name, string description, int offense, int value) // 생성자
+        public Weapon(int id,int weapontype, string name, string description, int offense,int speed, int value) // 생성자
         {
             ID = id;
+            WeaponType = weapontype;
             Name = name;
             Description = description;
             Offense = offense;
+            Speed = speed;
             Value = value;
         }
         public void UseItem()

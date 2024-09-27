@@ -40,12 +40,22 @@ namespace _26TextRPG.Main
             Console.Clear();
             Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
             Console.WriteLine("");
-            Console.WriteLine("s. 능력치");
-            Console.WriteLine("i. 인벤토리");
-            Console.WriteLine("p. 상점");
-            Console.WriteLine("d. 던전 입장");
-            Console.WriteLine("r. 휴식하기");
-            Console.WriteLine("esc. 종료");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=======================================================");
+            Console.WriteLine("||                                                   ||");
+            Console.Write("||       ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("능력치 : S    인벤토리 : I    상점 : P");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("      ||");
+            Console.Write("||         ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("던전 : D    휴식 : R    종료 : ESC");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("        ||");
+            Console.WriteLine("||                                                   ||");
+            Console.WriteLine("=======================================================");
+            Console.ResetColor();
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -67,8 +77,7 @@ namespace _26TextRPG.Main
                     Console.WriteLine("R");
                     break;
                 case ConsoleKey.Escape:
-                    Console.WriteLine("Esc");
-                    break;
+                    return;
             }
         }
 
@@ -83,10 +92,22 @@ namespace _26TextRPG.Main
 
         public void RunStage()
         {
-            Stage runstage = new(1);
+            Stage runStage = new(1);
             while (true)
             {
-                runstage.Explore();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("탐험하기 : A");
+                Console.WriteLine("나가기 : ESC");
+                Console.ResetColor();
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.A:
+                        runStage.Explore();
+                        break;
+                    case ConsoleKey.Escape:
+                        return;
+                }
             }
         }
 

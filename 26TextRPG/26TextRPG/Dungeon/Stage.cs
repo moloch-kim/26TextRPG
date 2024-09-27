@@ -45,6 +45,7 @@ namespace _26TextRPG.Dungeon
         }
         public void Explore() 
         {
+            Console.Clear();
             if (!IsCompleted)
             {
                 Progress += 10;

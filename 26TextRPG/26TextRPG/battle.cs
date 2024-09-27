@@ -4,9 +4,9 @@ using System.Linq;
 
 public class Battle
 {
-    Character player = new Character("",0);
+    Player player = new Player("",0);
 
-    public Battle(Character player)
+    public Battle(Player player)
     {
         this.player = player;
     }
@@ -16,10 +16,10 @@ public class Battle
         List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
         {
             //에너미 리스트의 예시
-            // 이름, 속도, 체력 순서
-            new Enemy("고블린", 50, 10, 2, 8, 20, 50),
-            new Enemy("오크", 80, 12, 4, 6, 40, 100),
-            new Enemy("트롤", 100, 8, 6, 5, 60, 150)
+            // 이름, id, 체력, 공격력, 방어력, 속도, 경험치보상, 골드보상 순서
+            new Enemy("고블린", 1, 50, 10, 2, 8, 20, 50),
+            new Enemy("오크", 2, 80, 12, 4, 6, 40, 100),
+            new Enemy("트롤", 3, 100, 8, 6, 5, 60, 150)
         };
 
         Random random = new Random();
@@ -33,22 +33,22 @@ public class Battle
             Console.WriteLine($"{player.Name} VS 적들: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
             Console.WriteLine();
 
-            player.ChargeCharacterActionGauge();
+            player.ChargeActionGauge();
             foreach (var enemy in selectedEnemies)
             {
-                enemy.ChargeEnemyActionGauge();
+                enemy.ChargeActionGauge();
             }
 
             DisplayStatus(player, selectedEnemies);
 
-            if (player.CharacterCanAct())
+            if (player.CanAct())
             {
                 PlayerTurn(selectedEnemies);
             }
 
             foreach (var enemy in selectedEnemies)
             {
-                if (enemy.Health > 0 && enemy.EnemyCanAct())
+                if (enemy.Health > 0 && enemy.CanAct())
                 {
                     EnemyTurn(enemy);
                 }
@@ -85,7 +85,7 @@ public class Battle
     }
 
 
-    private void DisplayStatus(Character player, List<Enemy> enemies)
+    private void DisplayStatus(Player player, List<Enemy> enemies)
     {
         Console.WriteLine($"{player.Name}: Health = {player.Health}/{player.MaxHealth}, Action Gauge = {player.ActionGauge}%");
         foreach (var enemy in enemies)
@@ -96,7 +96,7 @@ public class Battle
 
     private void PlayerTurn(List<Enemy> enemies)
     {
-        player.ResetCharacterActionGauge();
+        player.CharacterActionGauge();
         Console.WriteLine("당신의 턴입니다. 할 행동을 선택하십시오.");
         Console.WriteLine("1. 공격");
         Console.WriteLine("2. 스킬");
@@ -198,12 +198,10 @@ public class Battle
         }
     }
 
-
-
     private void EnemyTurn(Enemy enemy)
     {
         Console.WriteLine($"적 {enemy.Name}의 턴입니다....");
         enemy.Attack(player); //enemy클래스에 Attack(player) 메소드 필요
-        enemy.ResetEnemyActionGauge();
+        enemy.ResetActionGauge();
     }
 }

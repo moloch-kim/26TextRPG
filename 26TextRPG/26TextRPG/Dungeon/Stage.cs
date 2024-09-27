@@ -40,7 +40,10 @@ namespace _26TextRPG.Dungeon
         public void Explore() 
         {
             Console.Clear();
-            mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
+            if (Progress == 0)
+            {
+                mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
+            }
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
             mainScene.TypingEffect($"[ 던전 {StageFloor}층 ]", 50);

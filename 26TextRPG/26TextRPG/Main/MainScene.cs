@@ -79,7 +79,8 @@ namespace _26TextRPG.Main
                     Console.WriteLine("R");
                     break;
                 case ConsoleKey.Escape:
-                    return;
+                    Environment.Exit(0);
+                    break;
             }
         }
 
@@ -94,9 +95,7 @@ namespace _26TextRPG.Main
 
         public void RunStage()
         {
-            int test = 1;
-            
-            Stage runStage = new(test);
+            Stage runStage = new(1);
 
             while (true)
             {
@@ -119,11 +118,12 @@ namespace _26TextRPG.Main
                         runStage.Explore();
                         break;
                     case ConsoleKey.Escape:
-                        return;
+                        RunGame();
+                        break;
                     case ConsoleKey.S:
                         if(runStage.StairFound)
                         {
-                            ++test;
+                            ++runStage.StageFloor;
                             runStage.StairFound = false;
                         }
                         break;

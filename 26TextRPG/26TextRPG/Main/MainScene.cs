@@ -1,5 +1,5 @@
 ﻿using System.Net.Sockets;
-
+using _26TextRPG.Dungeon;
 namespace _26TextRPG.Main
 {
     public class MainScene
@@ -83,7 +83,7 @@ namespace _26TextRPG.Main
 
         public void RunStage()
         {
-             _26TextRPG.Stage.Stage runstage = new _26TextRPG.Stage.Stage(1);
+            Stage runstage = new(1);
             while (true)
             {
                 runstage.Explore();

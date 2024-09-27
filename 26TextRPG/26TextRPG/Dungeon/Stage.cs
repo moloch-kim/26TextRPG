@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _26TextRPG.Main;
 
-namespace _26TextRPG.Stage
+namespace _26TextRPG.Dungeon
 {
     public class Stage
     {

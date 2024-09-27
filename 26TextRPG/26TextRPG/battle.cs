@@ -41,7 +41,7 @@ public class Battle
 
             DisplayStatus(player, selectedEnemies);
 
-            if (player.CharacterCanAct()) // 수정된 부분
+            if (player.CharacterCanAct())
             {
                 PlayerTurn(selectedEnemies);
             }

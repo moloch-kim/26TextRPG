@@ -37,7 +37,7 @@ namespace _26TextRPG.Dungeon
 
             StairPosition = Random.Next(20, MaxProgress); // 계단의 위치 = 진행도 최소 20부터 등장
         }
-        public void Explore() 
+        public void Explore(Player player) 
         {
             Console.Clear();
             if (Progress == 0)
@@ -73,6 +73,8 @@ namespace _26TextRPG.Dungeon
                 return;
             }
             mainScene.TypingEffect($"진행도 : {Progress}/{MaxProgress}", 20); // 진행도 출력
+            FindStair();
+            TriggerEvent(player);
             Thread.Sleep(200);
 
             if(Progress >= MaxProgress) 
@@ -102,7 +104,7 @@ namespace _26TextRPG.Dungeon
                 return;
             }
         }
-        public void TriggerEvent(Character player) 
+        public void TriggerEvent(Player player) 
         {
             int eventChance = Random.Next(1, 101);
 
@@ -137,7 +139,7 @@ namespace _26TextRPG.Dungeon
             }
 
         }
-        public void EncounterEnemy(Character player) 
+        public void EncounterEnemy(Player player) 
         {
             Console.WriteLine("어둠속에서 무언가가 움직입니다....!!");
             Thread.Sleep(800);
@@ -162,9 +164,7 @@ namespace _26TextRPG.Dungeon
             Console.ReadLine();
 
             Battle battle = new (player);
-            battle.Start(StageFloor);
-
-            // 전투 돌입 메소드 호출
+            battle.Start(StageFloor); // 전투 돌입 메소드 호출
 
         }
 

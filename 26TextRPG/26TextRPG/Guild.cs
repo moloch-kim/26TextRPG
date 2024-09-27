@@ -7,7 +7,7 @@
         public Guild()
         {
             // 예시 퀘스트 추가
-            availableQuests.Add(new Quest("오크 죽이기", "오크를 5마리 처치하시오.", "Orc", 5, 1000, 100, null));
+            availableQuests.Add(new Quest("오크 죽이기", "오크를 5마리 처치하시오.", "오크", 5, 1000, 100, null));
             
         }
 
@@ -20,7 +20,7 @@
             }
         }
 
-        public void CompleteQuest(Character player)
+        public void CompleteQuest(Player player)
         {
             Quest quest = player.Quest;
 

@@ -12,11 +12,11 @@
         public int RewardGold { get; set; }
         public int RewardExp { get; set; }
 
-        public Item RewardItem { get; set; }
+        public _26TextRPG.Item.Item RewardItem { get; set; }
 
 
 
-        public Quest(string name, string description, string targetRace, int targetCount, int rewardGold, int rewardExp, Item rewardItem)
+        public Quest(string name, string description, string targetRace, int targetCount, int rewardGold, int rewardExp, _26TextRPG.Item.Item rewardItem)
         {
             Name = name;
             Description = description;
@@ -30,11 +30,12 @@
 
         public void UpdateQuest(Enemy enemy)
         {
-            if (enemy.Race == TargetRace)
+            if (enemy.Name.Contains(TargetRace, StringComparison.OrdinalIgnoreCase))
             {
                 CurrentCount++;
             }
         }
+
 
         public void DisplayQuestStatus()
         {
@@ -42,7 +43,7 @@
             Console.WriteLine($"목표: {CurrentCount}/{TargetCount} ({TargetRace} 처치)");
         }
 
-        public void CompleteQuest(Character player)
+        public void CompleteQuest(Player player)
         {
             if (IsCompleted)
             {

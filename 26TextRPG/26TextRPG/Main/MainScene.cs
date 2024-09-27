@@ -7,8 +7,20 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace _26TextRPG.Main
 {
+
     public class MainScene
     {
+        public void Load()
+        {
+            GameData loadedData = SaveLoadSystem.LoadGame();
+            if (loadedData != null)
+            {
+                //불러올변수 = loadedData.저장했던변수;
+                //level = loadedData.level;
+                //exp = loadedData.exp;
+                //gold = loadedData.gold;
+            }
+        }
         public void Opening()
         {
             Logo();
@@ -21,11 +33,7 @@ namespace _26TextRPG.Main
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
-            Logo();
-            message = "저장된 게임 없음 새로운 게임 시작...";
-            TypingEffect(message, 50);
-            Thread.Sleep(1000);
-
+            Load();
         }
 
         public void Logo()
@@ -40,32 +48,44 @@ namespace _26TextRPG.Main
             Console.WriteLine("                      |___/                                                   ");
         }
 
+        public void MainMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=======================================================");
+            Console.WriteLine("||                                                   ||");
+            Console.Write("||       ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("능력치 : S    인벤토리 : I    상점 : P");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("      ||");
+            Console.Write("||         ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("던전 : D    휴식 : R    종료 : ESC");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("        ||");
+            Console.WriteLine("||                                                   ||");
+            Console.WriteLine("=======================================================");
+            Console.ResetColor();
+            Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+        }
+
+        public void Stat()
+        {
+            CreateAcc createAcc = new CreateAcc();
+            Player player = new Player(createAcc.nickName);
+            Console.WriteLine($"닉네임 : {player.Name}");
+        }
+
         public void RunGame()
         {
             RestScene restScene = new RestScene();
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
-                Console.WriteLine("");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("=======================================================");
-                Console.WriteLine("||                                                   ||");
-                Console.Write("||       ");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("능력치 : S    인벤토리 : I    상점 : P");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("      ||");
-                Console.Write("||         ");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("던전 : D    휴식 : R    종료 : ESC");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("        ||");
-                Console.WriteLine("||                                                   ||");
-                Console.WriteLine("=======================================================");
-                Console.ResetColor();
-                Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
-
+                MainMenu();
+                Stat();
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
                 {
@@ -99,7 +119,7 @@ namespace _26TextRPG.Main
                 Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
-
+        
         public void RunStage()
         {
             Stage runStage = new(1);

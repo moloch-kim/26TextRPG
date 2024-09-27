@@ -9,7 +9,7 @@ class Program
     public static void selectStartScreen(Player player, List<Item> storeItem, List<Item> inventoryItem)
     {
         Console.WriteLine(@"
-            🗡️ 스파르타 마을에 오신 여러분 환영합니다. 
+            🗡️ 스파르타 마을에 오신 여러분 환영합니다.
             이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
             
             0. 게임 종료

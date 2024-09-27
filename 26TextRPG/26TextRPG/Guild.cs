@@ -1,6 +1,6 @@
 ﻿namespace _26TextRPG
 {
-    internal class Guild
+    public class Guild
     {
         private List<Quest> availableQuests = new List<Quest>();
 

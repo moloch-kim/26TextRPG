@@ -16,7 +16,8 @@ public class Player
     public int ActionGauge { get; set; }
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
-    public List<Item> Inventory { get; set; }
+    public List<_26TextRPG.Item.Item> Inventory { get; set; }
+
     public Player(string name, int speed)
     {
         Name = name;

@@ -1,3 +1,5 @@
+using _26TextRPG;
+
 public class Player
 {
     // 초기값 설정(상태 보기 화면에 뜨는)
@@ -17,8 +19,10 @@ public class Player
     public int ActionGauge { get; set; }
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
-    public List<Item> Inventory { get; set; }
-    public Quest quest { get; set; }
+    public List<_26TextRPG.Item.Item> Inventory { get; set; }
+    public Quest Quest { get; set; }
+
+
     public Player(string name, int speed)
     {
         Name = name;

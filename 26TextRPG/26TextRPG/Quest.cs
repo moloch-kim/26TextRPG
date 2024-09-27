@@ -1,6 +1,6 @@
 ﻿namespace _26TextRPG
 {
-    internal class Quest
+    public class Quest
     {
         public string Name { get; set; }
         public string Description { get; set; }

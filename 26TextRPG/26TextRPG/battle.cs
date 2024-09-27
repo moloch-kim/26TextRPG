@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Battle
 {
-    Player player = new Player("",0);
+    Player player = new Player("");
 
     public Battle(Player player)
     {

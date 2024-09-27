@@ -9,6 +9,7 @@ namespace _26TextRPG
         {
             MainScene mainScene = new MainScene();
             mainScene.Opening();
+            mainScene.Load();
             mainScene.RunGame();
         }
     }

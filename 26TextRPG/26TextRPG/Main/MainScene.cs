@@ -41,6 +41,7 @@ namespace _26TextRPG.Main
             //currentPlayer.Level = 1; 초기값 설정
             //currentPlayer.Gold = 1500;
             Console.WriteLine($"닉네임 : {nickName}");
+            Save();
             Thread.Sleep(2000);
         }
 
@@ -56,7 +57,6 @@ namespace _26TextRPG.Main
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
-            Load();
         }
 
         public void Logo()
@@ -97,8 +97,6 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
-
-            Load();
             Player player = currentPlayer;
             RestScene restScene = new RestScene();
 

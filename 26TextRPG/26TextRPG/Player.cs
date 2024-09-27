@@ -1,3 +1,5 @@
+using _26TextRPG.Item;
+using _26TextRPG;
 public class Player
 {
     // 초기값 설정(상태 보기 화면에 뜨는)

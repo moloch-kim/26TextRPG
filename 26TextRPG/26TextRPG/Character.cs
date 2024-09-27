@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class Character
 {
 	public string Name { get; private set; }
+	public string Race { get; private set; }
+	public string Job { get; private set; }
     public int Health { get; set; }
     public int MaxHealth { get; private set; }
     public int Mana { get; set; }
     public int MaxMana { get; set; }
+	public int Strength { get; private set; }		// 힘, 기본값 + 아이템값
+	public int TotalAttack { get; private set; }
+	public int TotalDefense { get; private set; }
+	public int Agillity { get; private set; }		// 민첩
     public int Speed { get; private set; }
+	public int Exp { get; private set; }
+	public int Level { get; private set; }
+	public int Gold { get; private set; }
 	public int ActionGauge { get; private set; }
-    public int BaseAttackPower { get; private set; }
-    public int BaseDefensePower { get; private set; }
-
-	public int TotalAttackPower => BaseAttackPower; //+ (EquippedWeapon?.Attack ?? 0); // 무기 공격력 포함
-	public int TotalDefensePower => BaseDefensePower; //+ (EquippedArmor?.Defense ?? 0); // 방어구 방어력 포함
     public bool IsDefending { get; private set; }
 
     public Character(string name, int speed)
@@ -44,7 +49,7 @@ public class Character
 	//기본공격
 	public void Attack(Enemy enemy)
 	{
-		int damage = TotalAttackPower - enemy.DefensePower;
+		int damage = TotalAttack - enemy.DefensePower;
 		if (damage < 0) damage = 0;
 		enemy.Health -= damage;
 		Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {damage}만큼의 피해를 입혔습니다.");
@@ -62,7 +67,7 @@ public class Character
 	{
 
 		Mana -= skill.ManaCost;
-		int damage = (int)(TotalAttackPower * skill.Multiplier) - enemy.DefensePower;
+		int damage = (int)(TotalAttack * skill.Multiplier) - enemy.DefensePower;
 		if (damage < 0) damage = 0;
 		enemy.Health -= damage;
 

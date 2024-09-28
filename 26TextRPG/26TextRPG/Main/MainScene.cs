@@ -1,11 +1,26 @@
 ﻿using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
+
 using static System.Net.Mime.MediaTypeNames;
+
 namespace _26TextRPG.Main
 {
+
     public class MainScene
     {
+        public void Load()
+        {
+            GameData loadedData = SaveLoadSystem.LoadGame();
+            if (loadedData != null)
+            {
+                //불러올변수 = loadedData.저장했던변수;
+                //level = loadedData.level;
+                //exp = loadedData.exp;
+                //gold = loadedData.gold;
+            }
+        }
         public void Opening()
         {
             Logo();
@@ -18,11 +33,7 @@ namespace _26TextRPG.Main
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
-            Logo();
-            message = "저장된 게임 없음 새로운 게임 시작...";
-            TypingEffect(message, 50);
-            Thread.Sleep(1000);
-
+            Load();
         }
 
         public void Logo()
@@ -37,7 +48,7 @@ namespace _26TextRPG.Main
             Console.WriteLine("                      |___/                                                   ");
         }
 
-        public void RunGame()
+        public void MainMenu()
         {
             Console.Clear();
             Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
@@ -59,28 +70,36 @@ namespace _26TextRPG.Main
             Console.WriteLine("=======================================================");
             Console.ResetColor();
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+        }
 
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
+        public void RunGame(Player player)
+        {
+            RestScene restScene = new RestScene();
+            while (true)
             {
-                case ConsoleKey.S:
-                    Console.WriteLine("S");
-                    break;
-                case ConsoleKey.I:
-                    Console.WriteLine("I");
-                    break;
-                case ConsoleKey.P:
-                    Console.WriteLine("P");
-                    break;
-                case ConsoleKey.D:
-                    RunStage();
-                    break;
-                case ConsoleKey.R:
-                    Console.WriteLine("R");
-                    break;
-                case ConsoleKey.Escape:
-                    Environment.Exit(0);
-                    break;
+                MainMenu();
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.S:
+                        Console.WriteLine("S");
+                        break;
+                    case ConsoleKey.I:
+                        Console.WriteLine("I");
+                        break;
+                    case ConsoleKey.P:
+                        Console.WriteLine("P");
+                        break;
+                    case ConsoleKey.D:
+                        RunStage(player);
+                        break;
+                    case ConsoleKey.R:
+                        restScene.Rest();
+                        break;
+                    case ConsoleKey.Escape:
+                        Environment.Exit(0);
+                        break;
+                }
             }
         }
 
@@ -92,11 +111,10 @@ namespace _26TextRPG.Main
                 Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
-
-        public void RunStage()
+        
+        public void RunStage(Player player)
         {
             Stage runStage = new(1);
-
             while (true)
             {
                 Console.WriteLine();
@@ -115,10 +133,10 @@ namespace _26TextRPG.Main
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.A:
-                        runStage.Explore();
+                        runStage.Explore(player);
                         break;
                     case ConsoleKey.Escape:
-                        RunGame();
+                        RunGame(player);
                         break;
                     case ConsoleKey.S:
                         if(runStage.StairFound)

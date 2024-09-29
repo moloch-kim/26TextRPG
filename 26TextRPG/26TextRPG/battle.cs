@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Battle
 {
-    Player player = new Player("",0);
+    Player player = new Player("");
 
     public Battle(Player player)
     {
@@ -96,7 +96,7 @@ public class Battle
 
     private void PlayerTurn(List<Enemy> enemies)
     {
-        player.CharacterActionGauge();
+        player.ResetActionGauge();
         Console.WriteLine("당신의 턴입니다. 할 행동을 선택하십시오.");
         Console.WriteLine("1. 공격");
         Console.WriteLine("2. 스킬");

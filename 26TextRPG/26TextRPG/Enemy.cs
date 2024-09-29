@@ -28,7 +28,6 @@ public class Enemy
 		GoldReward = goldReward;
 	}
 
-	// ChargeEnemyActionGauge -> ChargeActionGauge로 함수명 수정(아래 함수들도 동일하게 Enemy 생략)
     public void ChargeActionGauge()
 		{
 			if (Health > 0) // 적이 살아있을 때만 게이지 충전

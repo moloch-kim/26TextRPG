@@ -114,6 +114,8 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
+                        Shop shop = new Shop(Shoplist.WeaponShop);
+                            shop.BuyItem(player);
                         break;
                     case ConsoleKey.D:
                         RunStage(player);

@@ -28,7 +28,10 @@ namespace _26TextRPG.Item
             };
             Potions = new List<Potion>() // 포션 리스트
             {
-                new(2000, 1 ,"회복 물약", "들이켜서 상처를 치료할수 있습니다.", 20, 40),
+                new(2000, 1 ,"회복 물약", "들이켜서 체력을 회복할수 있습니다.", 20, 40),
+                new(2001, 1 ,"회복 영약", "들이켜서 체력을 크게 회복할수 있습니다.", 60, 120),
+                new(2002, 2 ,"힘의 물약", "들이키면 잠시동안 힘이 강해집니다.", 30 , 50),
+                new(2003, 2 ,"힘의 영약", "들이키면 잠시동안 힘이 매우 강해집니다", 60 , 100)
                 // 아이템 추가
             };
             Weapons = new List<Weapon>()  // 무기 리스트
@@ -57,6 +60,26 @@ namespace _26TextRPG.Item
         public static Item GetItemByName(string name)
         {
             return Allitems.FirstOrDefault(item => item.Name == name);
+        }
+        public static Armor GetRandomArmor()
+        {
+            Random random = new Random();
+
+            int index = random.Next(0, Armors.Count - 1);
+            return Armors[index];
+        }
+        public static Potion GetRandomPotion()
+        {
+            Random random = new Random();
+
+            int index = random.Next(0, Potions.Count - 1);
+            return Potions[index];
+        }
+        public static Weapon GetRandomWeapon()
+        {
+            Random random = new Random();
+            int index = random.Next(0, Weapons.Count -1);
+            return Weapons[index];
         }
     }
 }

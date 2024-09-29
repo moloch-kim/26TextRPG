@@ -1,5 +1,8 @@
 using _26TextRPG.Item;
 using _26TextRPG;
+using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
+using System.ComponentModel;
 public class Player
 {
     // 초기값 설정(상태 보기 화면에 뜨는)
@@ -26,8 +29,11 @@ public class Player
     public Player(string name)
     {
         Name = name;
+        Inventory = new List<Item>();
         // speed = _speed;
     }
+
+    MainScene mainScene = new MainScene();
 
     public void ChargeActionGauge()
 	{
@@ -48,11 +54,27 @@ public class Player
 
     public void Attack(Enemy enemy)
 	{
-		int damage = TotalAttackPower - enemy.DefensePower;
-		if (damage < 0) damage = 0;
-		enemy.Health -= damage;
-		Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {damage}만큼의 피해를 입혔습니다.");
-	}
+        int AttackRoll = Dice.Roll(1, 20);
+        if (AttackRoll == 20)
+        {
+            int damage = TotalAttackPower - enemy.DefensePower;
+            if (damage < 0) damage = 0;
+            enemy.Health -= damage * 2;
+            mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
+            mainScene.TypingEffect($"{Name}이(가) {enemy.Name}에게 {damage}만큼의 피해를 입혔습니다!", 50);
+        }
+        else if (AttackRoll == 1)
+        {
+            mainScene.TypingEffect("어이없는 실수로 공격이 빗나갑니다!!", 50);
+        }
+        else
+        {
+            int damage = TotalAttackPower - enemy.DefensePower;
+            if (damage < 0) damage = 0;
+            enemy.Health -= damage;
+            Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {damage}만큼의 피해를 입혔습니다.");
+        }
+    }
 
     public void Defend()
     {

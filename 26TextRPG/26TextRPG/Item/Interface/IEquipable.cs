@@ -8,8 +8,8 @@ namespace _26TextRPG.Item.Interface
 {
     internal interface IEquipable
     {
-        void Equip(); // 장착 기능 함수
+        void Equip(Player player); // 장착 기능 함수
 
-        void UnEquip(); // 장착 해제 기능 함수
+        void UnEquip(Player player); // 장착 해제 기능 함수
     }
 }

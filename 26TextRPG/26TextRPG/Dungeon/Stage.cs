@@ -43,7 +43,7 @@ namespace _26TextRPG.Dungeon
             Console.Clear();
             if (Progress == 0)
             {
-                mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
+                mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50); 
             }
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
@@ -70,11 +70,14 @@ namespace _26TextRPG.Dungeon
             }
             else
             {
-                mainScene.TypingEffect("더 탐험할게 없습니다.", 50);
+                mainScene.TypingEffect("더 탐험할게 없습니다.", 50); 
+                Console.WriteLine();
                 return;
             }
-            mainScene.TypingEffect($"진행도 : {Progress}/{MaxProgress}", 20); // 진행도 출력
+            mainScene.TypingEffect($"진행도 : {Progress}/{MaxProgress}", 20); 
+            Console.WriteLine(); // 진행도 출력
             FindStair();
+            Trap(player);
             TriggerEvent(player);
             Thread.Sleep(200);
 
@@ -82,12 +85,14 @@ namespace _26TextRPG.Dungeon
             {
                 if (!StairFound)
                 {
-                    mainScene.TypingEffect("무언가 잘못되었습니다. 스테이지를 다시 시작합니다.", 50);
+                    mainScene.TypingEffect("무언가 잘못되었습니다. 스테이지를 다시 시작합니다.", 50); 
+                    Console.WriteLine();
                     //리스타트
                 }
                 else
                 {
-                    mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
+                    mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50); 
+                    Console.WriteLine();
                 }
             }
             
@@ -98,8 +103,8 @@ namespace _26TextRPG.Dungeon
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용
                 mainScene.TypingEffect("계단을 발견했습니다! 다음 스테이지로 이동 가능합니다.", 50);
-                mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
-            }
+                Console.WriteLine();
+            } 
             else
             {
                 return;
@@ -129,12 +134,15 @@ namespace _26TextRPG.Dungeon
                 {
                     case 1:
                         mainScene.TypingEffect("조심스런 발소리만이 복도에 이어질 뿐입니다...", 50);
+                        Console.WriteLine();
                         break;
                     case 2:
                         mainScene.TypingEffect("아무일도 일어나지 않았습니다...", 50);
+                        Console.WriteLine();
                         break;
                     case 3:
                         mainScene.TypingEffect($"{player.Name} : 아무것도 없군...", 50);
+                        Console.WriteLine();
                         break;
                 }
             }
@@ -142,7 +150,7 @@ namespace _26TextRPG.Dungeon
         }
         public void EncounterEnemy(Player player) 
         {
-            Console.WriteLine("어둠속에서 무언가가 움직입니다....!!");
+            mainScene.TypingEffect("어둠속에서 무언가가 움직입니다....!!" , 50);
             Thread.Sleep(800);
             Console.WriteLine();
             int Randomtext = Random.Next(1, 3);
@@ -150,16 +158,18 @@ namespace _26TextRPG.Dungeon
             {
                 case 1:
                     mainScene.TypingEffect("역시 적입니다! 전투 준비!", 50);
+                    Console.WriteLine();
                     break;
                 case 2:
                     mainScene.TypingEffect("적을 만났습니다! 전투에 들어갑니다!", 50);
+                    Console.WriteLine();
                     break;
                 case 3:
                     mainScene.TypingEffect($"{player.Name} : 덤벼라!! 너같은 애송이가 내 길을 막게 두지 않겠다!", 50);
+                    Console.WriteLine();
                     break;
             }
             Thread.Sleep(800);
-            Console.WriteLine();
             Console.WriteLine();
             mainScene.TypingEffect("계속_(아무키나 입력해 진행)", 50);
             Console.ReadLine();
@@ -171,20 +181,23 @@ namespace _26TextRPG.Dungeon
 
         public void FindShop(Player player)
         {
-            Console.WriteLine("상점을 발견했습니다!");
+            mainScene.TypingEffect("상점을 발견했습니다!", 50); Console.WriteLine();
             Thread.Sleep(500);
             int encountertext = Random.Next(1, 3);
 
             switch (encountertext)
             {
                 case 1:
-                    Console.WriteLine("이런곳에 상점이라니 기이하군요.");
+                    mainScene.TypingEffect("이런곳에 상점이라니 기이하군요.", 50); 
+                    Console.WriteLine();
                     break;
                 case 2:
-                    Console.WriteLine("이곳에서 물건을 사거나 휴식할수 있습니다.");
+                    mainScene.TypingEffect("이곳에서 물건을 사거나 휴식할수 있습니다.", 50); 
+                    Console.WriteLine();
                     break;
                 case 3:
-                    Console.WriteLine($"{player.Name} : 이런곳에 상점이라니?");
+                    mainScene.TypingEffect($"{player.Name} : 이런곳에 상점이라니?", 50); 
+                    Console.WriteLine();
                     break;
             }
             ShopFound = true; // '상점' 선택지 활성화에 사용
@@ -192,18 +205,21 @@ namespace _26TextRPG.Dungeon
 
         private void FindItem(Player player)
         {
-            Console.WriteLine("무언가 반짝이는게 보입니다!");
+            mainScene.TypingEffect("무언가 반짝이는게 보입니다!", 50); 
+            Console.WriteLine();
             Thread.Sleep(500);
             int eventChance = Random.Next(1, 101);
             if (eventChance <= 50)
             {
                 int RandomGold = Random.Next(5 + (StageFloor * 2), 500 + (StageFloor * 5));
-                Console.WriteLine("금화를 발견했습니다!");
+                mainScene.TypingEffect("금화를 발견했습니다!", 50); 
+                Console.WriteLine();
                 player.Gold += RandomGold;
             }
             else if (eventChance <= 70)
             {
-                Console.WriteLine("포션을 발견했습니다!");
+                mainScene.TypingEffect("포션을 발견했습니다!", 50); 
+                Console.WriteLine();
                 player.Inventory.Add(ItemRepository.GetRandomPotion()); // 인벤토리에 포션 추가
             }
             else
@@ -211,12 +227,14 @@ namespace _26TextRPG.Dungeon
                 int num = Random.Next(1, 100);
                 if (num <= 50)
                 {
-                    Console.WriteLine("방어구를 발견했습니다!");
+                    mainScene.TypingEffect("방어구를 발견했습니다!", 50); 
+                    Console.WriteLine();
                     player.Inventory.Add(ItemRepository.GetRandomArmor());  // 인벤토리에 방어구 추가
                 }
                 else
                 {
-                    Console.WriteLine("무기를 발견했습니다!");
+                    mainScene.TypingEffect("무기를 발견했습니다!", 50); 
+                    Console.WriteLine();
                     player.Inventory.Add(ItemRepository.GetRandomWeapon()); 
                 }
             }
@@ -225,17 +243,71 @@ namespace _26TextRPG.Dungeon
             switch (encountertext)
             {
                 case 1:
-                    Console.WriteLine("횡재로군요.");
+                    mainScene.TypingEffect("횡재로군요.", 50); Console.WriteLine();
                     break;
                 case 2:
-                    Console.WriteLine("앞으로의 여정에 도움이 될겁니다.");
+                    mainScene.TypingEffect("앞으로의 여정에 도움이 될겁니다.", 50); Console.WriteLine();
                     break;
                 case 3:
-                    Console.WriteLine($"{player.Name} : 횡재로군.");
+                    mainScene.TypingEffect($"{player.Name} : 횡재로군.", 50); Console.WriteLine();
                     break;
             }
         }
 
+        private void Trap(Player player)
+        {
+            int eventChance = Random.Next(1, 101);
+            if (eventChance >= 80)
+            {
+                int Randomtext = Random.Next(1, 3);
+                switch (Randomtext)
+                {
+                    case 1:
+                        mainScene.TypingEffect("함정입니다!! 피하세요!!", 50);
+                        Console.WriteLine();
+                        break;
+                    case 2:
+                        mainScene.TypingEffect("함정을 발견했습니다!! 조치를 취하셔야 합니다!!", 50);
+                        Console.WriteLine();
+                        break;
+                    case 3:
+                        mainScene.TypingEffect($"{player.Name} : 함정이였군!!", 50);
+                        Console.WriteLine();
+                        break;
+                }
+                int EvasionRoll = Dice.Roll(1, 20);
+                int Evasion = EvasionRoll + player.Speed;
+                int TrapDamage = Dice.Roll(StageFloor, 4);
+                if (Evasion > 15)
+                {
+                    mainScene.TypingEffect("함정을 성공적으로 피했습니다!", 50);
+                    Console.WriteLine();
+                }
+                else
+                {
+                    mainScene.TypingEffect("함정에 당하고 말았습니다!", 50);
+                    Console.WriteLine();
+                    player.Health -= TrapDamage;
+                    mainScene.TypingEffect($"{TrapDamage}만큼의 피해를 받았습니다!", 50);
+                    Console.WriteLine();
+                }
+
+                if (EvasionRoll == 20)
+                {
+                    mainScene.TypingEffect("함정의 잔해에 반짝이는것이 보입니다!", 50);
+                    Console.WriteLine();
+                    FindItem(player);
+                }
+                else if (EvasionRoll == 1)
+                {
+                    mainScene.TypingEffect("함정에서 빠져나오려다 상처가 더 생겼습니다!!", 50);
+                    Console.WriteLine();
+                    player.Health -= TrapDamage;
+                }
+
+            }
+
+        }
 
     }
 }

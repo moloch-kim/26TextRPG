@@ -38,11 +38,14 @@ namespace _26TextRPG.Item
                     player.Health += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
-                case 2: //힘 강화 포션
+                case 2: //공격력 강화 포션
+                    player.TotalAttackPower += Effect; 
                     break;
-                case 3: //
+                case 3: //방어력 강화 포션
+                    player.TotalDefensePower += Effect;
                     break;
             }
+            player.Inventory.Remove(this);
             // 인벤토리에서 제거
         }
     }

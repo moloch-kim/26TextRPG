@@ -9,12 +9,12 @@ namespace _26TextRPG
 {
     public class Weapon : Item , IEquipable
     {
-        public new int ID { get; private set; }
-        public new string Name { get; private set; }
-        public new string Description { get; private set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
         public int Offense { get; private set; }
         public int Weight { get; private set; }
-        public new int Value { get; private set; }
+        public int Value { get; private set; }
         public bool IsEquip { get; private set; }
 
         Player playerData = Player.Instance;

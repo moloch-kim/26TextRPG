@@ -9,12 +9,12 @@ namespace _26TextRPG
 {
     internal class Potion : Item, IConsumable
     {
-        public new int ID { get; private set; }
+        public int ID { get; private set; }
         public int PotionType { get; private set; }
-        public new string Name { get; private set; }
-        public new string Description { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
         public int Effect { get; private set; }
-        public new int Value { get; private set; }
+        public int Value { get; private set; }
 
         Player playerData = Player.Instance;
 
@@ -45,6 +45,14 @@ namespace _26TextRPG
                     break;
                 case 3: //방어력 강화 포션
                     playerData.TotalDefensePower += Effect;
+                    break;
+                case 4: //속도 강화 포션
+                    playerData.Speed += Effect;
+                    break;
+                case 5: //전체 능력치 강화 포션
+                    playerData.TotalAttackPower += Effect;
+                    playerData.TotalDefensePower += Effect;
+                    playerData.Speed += Effect;
                     break;
             }
             playerData.Inventory.Remove(this);

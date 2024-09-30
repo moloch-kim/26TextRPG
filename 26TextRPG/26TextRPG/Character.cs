@@ -59,12 +59,17 @@ public class Character
 
 	public void ChargeActionGauge()
 	{
-		if (Health > 0) // 적이 살아있을 때만 게이지 충전
+		if ( IsAlive() ) // 적이 살아있을 때만 게이지 충전
 		{
 			ActionGauge += Speed;
 			if (ActionGauge >= 100)
 				ActionGauge = 100;
 		}
+	}
+
+	public bool IsAlive()
+	{
+		return Health > 0;
 	}
 
 }

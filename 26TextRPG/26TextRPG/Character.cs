@@ -36,9 +36,10 @@ public class Character
 	public void Attack(Character character)
 	{
 		int AttackRoll = Dice.Roll(1, 20);
-		if (AttackRoll == 20)
+		int DamageRoll = Dice.Roll(2, 6);
+        if (AttackRoll == 20)
 		{
-			int damage = AttackPower - character.DefensePower;
+			int damage = (AttackPower + DamageRoll) - character.DefensePower;
 			if (damage < 0) damage = 0;
 			character.Health -= damage * 2;
 			mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
@@ -50,7 +51,7 @@ public class Character
 		}
 		else
 		{
-			int damage = AttackPower - character.DefensePower;
+			int damage = (AttackPower + DamageRoll) - character.DefensePower;
 			if (damage < 0) damage = 0;
 			character.Health -= damage;
 			Console.WriteLine($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다.");

@@ -111,13 +111,14 @@ namespace _26TextRPG
             bool isIn = true;
             while (isIn)
             {
-                Console.Clear();
                 Player playerData = Player.Instance;
                 if (playerData.Inventory.Count == 0)
                 {
                     Console.WriteLine("인벤토리가 비어 있습니다.");
-                    return;
+                    Thread.Sleep(1000);
+                    break;
                 }
+                Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("---------------------------------------------");
                 Console.WriteLine("인벤토리 아이템 목록:");

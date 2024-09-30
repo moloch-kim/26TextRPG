@@ -130,7 +130,7 @@ namespace _26TextRPG.Dungeon
             else
             {
                 // 아무일도 없음 - 랜덤 택스트 출력
-                int Randomtext = Random.Next(1, 3);
+                int Randomtext = Random.Next(1, 4);
                 switch (Randomtext)
                 {
                     case 1:
@@ -151,10 +151,12 @@ namespace _26TextRPG.Dungeon
         }
         public void EncounterEnemy() 
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             mainScene.TypingEffect("어둠속에서 무언가가 움직입니다....!!" , 50);
             Thread.Sleep(800);
             Console.WriteLine();
-            int Randomtext = Random.Next(1, 3);
+            int Randomtext = Random.Next(1, 4);
+            Console.ForegroundColor = ConsoleColor.Red;
             switch (Randomtext)
             {
                 case 1:
@@ -170,6 +172,7 @@ namespace _26TextRPG.Dungeon
                     Console.WriteLine();
                     break;
             }
+            Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine("계속_(아무키나 입력해 진행)");
             Console.ReadLine();

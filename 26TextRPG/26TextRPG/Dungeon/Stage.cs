@@ -103,7 +103,6 @@ namespace _26TextRPG.Dungeon
         }
         public void FindStair() 
         {
-            if 
             if (Progress >= StairPosition && !StairFound)
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용
@@ -266,6 +265,7 @@ namespace _26TextRPG.Dungeon
             int eventChance = Random.Next(1, 101);
             if (eventChance >= 80)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 int Randomtext = Random.Next(1, 3);
                 switch (Randomtext)
                 {
@@ -282,6 +282,7 @@ namespace _26TextRPG.Dungeon
                         Console.WriteLine();
                         break;
                 }
+                Console.ResetColor();
                 int EvasionRoll = Dice.Roll(1, 20);
                 int Evasion = EvasionRoll + currentPlayer.Speed;
                 int TrapDamage = Dice.Roll(StageFloor, 4);
@@ -301,8 +302,7 @@ namespace _26TextRPG.Dungeon
 
                 if (EvasionRoll == 20)
                 {
-                    mainScene.TypingEffect("함정의 잔해에 반짝이는것이 보입니다!", 50);
-                    Console.WriteLine();
+                    mainScene.TypingEffect("함정의 잔해에..", 50);
                     FindItem();
                 }
                 else if (EvasionRoll == 1)

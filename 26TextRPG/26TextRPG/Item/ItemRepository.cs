@@ -45,14 +45,14 @@ namespace _26TextRPG.Item
                 
                 // 아이템 추가
             };
-            Gears = new List<IEquipable>(); // 장비 리스트 = 무기 + 방어구
-            Gears.AddRange(Armors);
-            Gears.AddRange(Weapons);
+            //Gears = new List<IEquipable>(); // 장비 리스트 = 무기 + 방어구
+            //Gears.AddRange(Armors);
+            //Gears.AddRange(Weapons);
 
             Allitems = new List<Item>();
-            Allitems.AddRange(Armors);
-            Allitems.AddRange(Potions);
             Allitems.AddRange(Weapons);
+            Allitems.AddRange(Potions);
+            Allitems.AddRange(Armors);
         }
 
         public static Item GetItemByID(int id)

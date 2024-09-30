@@ -1,88 +1,71 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
 
 public class Character
 {
-	public string Name { get; private set; }
-	public string Race { get; private set; }
-	public string Job { get; private set; }
+	public string Name { get; set; }
     public int Health { get; set; }
-    public int MaxHealth { get; private set; }
-    public int Mana { get; set; }
-    public int MaxMana { get; set; }
-	public int Strength { get; private set; }		// 힘, 기본값 + 아이템값
-	public int TotalAttack { get; private set; }
-	public int TotalDefense { get; private set; }
-	public int Agillity { get; private set; }		// 민첩
-    public int Speed { get; private set; }
-	public int Exp { get; private set; }
-	public int Level { get; private set; }
-	public int Gold { get; private set; }
-	public int ActionGauge { get; private set; }
-    public bool IsDefending { get; private set; }
+    public int MaxHealth { get; set; }
+	public int AttackPower { get; set; }
+	public int DefensePower { get; set; }
+	public int Speed { get; set; }		
+	public int ActionGauge { get; set; } = 0;
 
-    public Character(string name, int speed)
-	{
-		Name = name;
-		Speed = speed;
-		ActionGauge = 0;
-	}
+    // public Character(string name, int speed)
+	// {
+	// 	Name = name;
+	// 	Speed = speed;
+	// 	ActionGauge = 0;
+	// }
 
-	public void ChargeCharacterActionGauge()
-	{
-		ActionGauge += Speed;
-		if (ActionGauge >= 100)
-			ActionGauge = 100;
-	}
+	MainScene mainScene = new MainScene();
 
-	public bool CharacterCanAct()
+	public bool CanAct()
 	{
 		return ActionGauge >= 100;
-	}
+	}	
 
-	public void ResetCharacterActionGauge()
+	public void ResetActionGauge()
 	{
 		ActionGauge = 0;
 	}
 
-	//기본공격
-	public void Attack(Enemy enemy)
+	public void Attack(Character character)
 	{
-		int damage = TotalAttack - enemy.DefensePower;
-		if (damage < 0) damage = 0;
-		enemy.Health -= damage;
-		Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {damage}만큼의 피해를 입혔습니다.");
+		int AttackRoll = Dice.Roll(1, 20);
+		if (AttackRoll == 20)
+		{
+			int damage = AttackPower - character.DefensePower;
+			if (damage < 0) damage = 0;
+			character.Health -= damage * 2;
+			mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
+			mainScene.TypingEffect($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다!", 50);
+		}
+		else if (AttackRoll == 1)
+		{
+			mainScene.TypingEffect("어이없는 실수로 공격이 빗나갑니다!!", 50);
+		}
+		else
+		{
+			int damage = AttackPower - character.DefensePower;
+			if (damage < 0) damage = 0;
+			character.Health -= damage;
+			Console.WriteLine($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다.");
+		}
 	}
 
-	//스킬 리스트
-	public List<Skill> SkillList { get; } = new List<Skill>();
-
-	public void LearnSkill(Skill skill)
+	public void ChargeActionGauge()
 	{
-		SkillList.Add(skill);
+		if (Health > 0) // 적이 살아있을 때만 게이지 충전
+		{
+			ActionGauge += Speed;
+			if (ActionGauge >= 100)
+				ActionGauge = 100;
+		}
 	}
 
-	public void UseSkill(Skill skill, Enemy enemy)
-	{
-
-		Mana -= skill.ManaCost;
-		int damage = (int)(TotalAttack * skill.Multiplier) - enemy.DefensePower;
-		if (damage < 0) damage = 0;
-		enemy.Health -= damage;
-
-		Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {skill.Name}을 사용해 {damage}만큼의 피해를 입혔습니다.");
-	}
-
-    public void Defend()
-    {
-        IsDefending = true;
-        Console.WriteLine($"{Name}이(가) 방어 태세를 취했습니다.");
-    }
-
-    public void ResetDefense()
-    {
-        IsDefending = false;
-    }
 }
 

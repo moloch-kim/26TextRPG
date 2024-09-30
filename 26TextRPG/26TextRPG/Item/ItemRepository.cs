@@ -111,6 +111,7 @@ namespace _26TextRPG
             bool isIn = true;
             while (isIn)
             {
+                Console.Clear();
                 Player playerData = Player.Instance;
                 if (playerData.Inventory.Count == 0)
                 {

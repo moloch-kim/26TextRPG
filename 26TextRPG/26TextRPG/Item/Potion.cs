@@ -16,8 +16,6 @@ namespace _26TextRPG
         public int Effect { get; private set; }
         public int Value { get; private set; }
 
-        Player playerData = Player.Instance;
-
         public Potion(int iD, int potionType, string name, string description, int effect, int value)
         {
             ID = iD;
@@ -33,6 +31,7 @@ namespace _26TextRPG
         }
         public void Consume() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Player playerData = Player.Instance;
             Console.WriteLine($"당신은 {Name}을(를) 들이킵니다.");
             switch (PotionType) // 포션 타입에 따라 다른 효과
             {

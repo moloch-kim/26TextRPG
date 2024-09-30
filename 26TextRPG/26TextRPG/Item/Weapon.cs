@@ -17,7 +17,7 @@ namespace _26TextRPG
         public int Value { get; private set; }
         public bool IsEquip { get; private set; }
 
-        Player playerData = Player.Instance;
+        
         public Weapon(int id, string name, string description, int offense,int weight, int value) // 생성자
         {
             ID = id;
@@ -41,14 +41,18 @@ namespace _26TextRPG
 
         public void Equip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착했습니다.");
+            playerData.EquipedWeapon = this;
             playerData.TotalAttackPower += Offense;
             playerData.Speed -= Weight;
             //장착 메소드
         }
         public void UnEquip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
+            playerData.EquipedWeapon = null;
             playerData.TotalAttackPower -= Offense;
             playerData.Speed += Weight;
             //장착해제 메소드

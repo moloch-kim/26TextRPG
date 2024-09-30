@@ -19,8 +19,8 @@ public class Player : Character
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; } = new List<Item>();
-    public Armor EquipedArmor { get; set; }
-    public Weapon EquipedWeapon { get; set; }
+    public Armor EquipedArmor { get; set; } = null;
+    public Weapon EquipedWeapon { get; set; } = null;
     public Quest Quest { get; set; }
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
@@ -34,18 +34,12 @@ public class Player : Character
         Mana = maxMana;
         MaxMana = maxMana;
         Gold = gold;
-<<<<<<< HEAD
-        // 유민) 변수 선언부분에서 이미 구현된 부분이라서 주석처리했습니다. 해당 코드 작성하신 분 이거 확인하시면 주석 제거해주세요!
+        // 유민) 변수 선언부분에서 초기화처리도 같이 하도록 수정했습니다. 
         // ExpToNextLevel = 100;
         // Inventory = new List<Item>();
+        // EquipedArmor = null;
+        // EquipedWeapon = null;
         // SkillList = new List<Skill>();
-=======
-        ExpToNextLevel = 100;
-        Inventory = new List<Item>();
-        EquipedArmor = null;
-        EquipedWeapon = null;
-        SkillList = new List<Skill>();
->>>>>>> Dev
     }
 
     public static Player Instance
@@ -71,16 +65,13 @@ public class Player : Character
 	{
         int damage = 0; ;
 		Mana -= skill.ManaCost;
-<<<<<<< HEAD
-		int damage = (int)(AttackPower * skill.Multiplier) - enemy.DefensePower;
-=======
         switch (skill.Reference)
         {
             case 1:
-                damage = (int)(TotalAttackPower * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(AttackPower * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 2:
-                damage = (int)(TotalDefensePower * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(DefensePower * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 3:
                 damage = (int)(MaxHealth * skill.Multiplier) - enemy.DefensePower;
@@ -93,7 +84,6 @@ public class Player : Character
                 break;
         }
 		
->>>>>>> Dev
 		if (damage < 0) damage = 0;
 		enemy.Health -= damage;
 

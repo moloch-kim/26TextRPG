@@ -33,18 +33,61 @@ namespace _26TextRPG.Main
                 CreatePlayer(); // 닉네임 생성
             }
         }
-        public void CreatePlayer()// 닉네임 생성
+
+        public void CreatePlayer() // 닉네임 생성
         {
             Console.WriteLine("게임에 처음 접속하셨습니다.");
             Console.WriteLine("원하는 닉네임을 입력해주세요.");
             string nickName = Console.ReadLine();
-            currentPlayer = new Player(nickName);
-            //currentPlayer.Level = 1; 초기값 설정
-            //currentPlayer.Gold = 1500;
-            Console.WriteLine($"닉네임 : {nickName}");
-            Save();
-            Thread.Sleep(2000);
+
+            Console.WriteLine($"닉네임: {nickName}");
+
+            Console.WriteLine("직업을 선택하세요: ");
+            Console.WriteLine("1. 전사");
+            Console.WriteLine("2. 마법사");
+            Console.WriteLine("3. 궁수");
+            string jobChoice = Console.ReadLine();
+
+            string job = "전사";
+            int attackPower = 15;
+            int defensePower = 5;
+            int maxHealth = 120;
+            int speed = 10;
+            int maxMana = 30;
+
+            switch (jobChoice)
+            {
+                case "1":
+                    job = "전사";
+                    break;
+                case "2":
+                    job = "마법사";
+                    attackPower = 10;
+                    maxHealth = 80;
+                    maxMana = 50;
+                    break;
+                case "3":
+                    job = "궁수";
+                    attackPower = 12;
+                    maxHealth = 100;
+                    speed = 13;
+                    break;
+                default:
+                    Console.WriteLine("잘못된 선택입니다. 기본 직업인 전사로 설정합니다.");
+                    break;
+            }
+
+            
+            currentPlayer = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana);
+
+            Console.WriteLine($"{currentPlayer.Name} 캐릭터가 생성되었습니다!");
+            Console.WriteLine($"직업: {currentPlayer.Job}, 체력: {currentPlayer.MaxHealth}, 공격력: {currentPlayer.AttackPower}");
+
+            Save(); 
+
+            Thread.Sleep(2000); 
         }
+
 
         public void Opening()
         {

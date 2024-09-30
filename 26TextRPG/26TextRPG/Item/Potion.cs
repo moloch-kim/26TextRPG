@@ -38,6 +38,7 @@ namespace _26TextRPG
             {
                 case 1: //체력 회복 포션
                     playerData.Health += Effect;
+                    if(playerData.Health > playerData.MaxHealth) { playerData.Health = playerData.MaxHealth; }
                     Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
                 case 2: //공격력 강화 포션

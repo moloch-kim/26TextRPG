@@ -18,7 +18,7 @@ namespace _26TextRPG.Main
             Console.Clear();
             Logo();
             Player.LoadPlayer(playerData);
-            TypingEffect("로딩중입니다...", 50);
+            TypingEffect("기억을 찾는 중입니다...", 50);
         }
 
         public void Save()// 저장
@@ -33,12 +33,12 @@ namespace _26TextRPG.Main
             {
                 playerData = loadedPlayer;
                 Player.LoadPlayer(playerData);//싱글톤화시킨 Player에 불러온값 넣어주기
-                Console.WriteLine($"{playerData.Name}의 데이터를 성공적으로 불러왔습니다.");
+                Console.WriteLine($"{playerData.Name}의 기억을 성공적으로 불러왔습니다.");
                 Thread.Sleep( 2000 );
             }
             else
             {
-                Console.WriteLine("저장된 파일이 없습니다. 새로운 플레이어를 생성합니다.");
+                Console.WriteLine("저장된 기억이 없습니다. 새로운 기억을 생성합니다.");
                 Thread.Sleep(1000);
                 CreatePlayer(); // 닉네임 생성
             }
@@ -47,12 +47,12 @@ namespace _26TextRPG.Main
         public void Opening()
         {
             Logo();
-            string message = "게임 내 기능에 알맞은 스토리 내용 등 초반이야기";
+            string message = "눈을 떠보니 아무것도 기억나질 않는다.. ";
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
             Logo();
-            message = "저장된 게임을 불러오는 중...";
+            message = "저장된 기억을 떠올리는중...";
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
@@ -95,7 +95,7 @@ namespace _26TextRPG.Main
             Console.WriteLine("=======================================================");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("                                         게임초기화 : K");
+            Console.WriteLine("                                         기억초기화 : K");
             Console.ResetColor();
         }
 
@@ -116,6 +116,7 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.I:
                         Console.WriteLine("I");
+                        ItemRepository.Inventory();
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
@@ -189,7 +190,7 @@ namespace _26TextRPG.Main
         public void ResetDataScene()
         {
             Console.Clear();
-            Console.WriteLine("데이터를 초기화 하시겠습니까 ?");
+            Console.WriteLine("기억을 초기화 하시겠습니까 ?");
             Console.WriteLine("K : 초기화      ESC : 메인으로");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
@@ -207,22 +208,23 @@ namespace _26TextRPG.Main
             string filePath = "playerData.json";
 
                 File.Delete(filePath);
-                Console.WriteLine("저장된 데이터를 삭제했습니다. 게임을 종료하겠습니다.");
+                Console.WriteLine("저장된 기억을 삭제했습니다. 게임을 종료하겠습니다.");
                 Environment.Exit(0);
         }
 
         public void CreatePlayer()// 닉네임 생성
         {
             Console.Clear();
-            Console.WriteLine("게임에 처음 접속하셨습니다.");
-            Console.WriteLine("원하는 닉네임을 입력해주세요.");
-            Console.Write("내 닉네임 : ");
-            string nickName = Console.ReadLine();
-            //currentPlayer.Level = 1; 초기값 설정
-            //currentPlayer.Gold = 1500;
-            Console.WriteLine($"닉네임 : {nickName}");
+            TypingEffect("아무것도 기억나지 않는다...", 30);
             Console.WriteLine();
-            Console.WriteLine("직업을 선택하세요: ");
+            TypingEffect("내 이름을 떠올려보자", 30);
+            Console.WriteLine();
+            Console.Write("내 이름은 : ");
+            string nickName = Console.ReadLine();
+            Console.WriteLine($"이름 : {nickName}");
+            Console.WriteLine();
+            TypingEffect("이름은 기억을 해냈다. 하지만 나는 뭘 하던 사람이지..?", 30);
+            Console.WriteLine();
             Console.WriteLine("1. 전사");
             Console.WriteLine("2. 마법사");
             Console.WriteLine("3. 궁수");
@@ -242,6 +244,9 @@ namespace _26TextRPG.Main
             {
                 case "1":
                     job = "전사";
+                    attackPower = 15;
+                    maxHealth = 150;
+                    speed = 10;
                     break;
                 case "2":
                     job = "마법사";
@@ -256,13 +261,13 @@ namespace _26TextRPG.Main
                     speed = 13;
                     break;
                 default:
-                    Console.WriteLine("잘못된 선택입니다. 기본 직업인 전사로 설정합니다.");
+                    Console.WriteLine("실수로 아무말이나 해버렸다... 첫번째로 기억났던 전사를 하자");
                     break;
             }
 
             playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana, gold);
 
-            Console.WriteLine($"{playerData.Name} 캐릭터가 생성되었습니다!");
+            Console.WriteLine($"{playerData.Name} 님 ! 대부분의 기억이 살아났습니다 !");
             Console.WriteLine($"직업: {playerData.Job}, 체력: {playerData.MaxHealth}, 공격력: {playerData.AttackPower}");
 
             Thread.Sleep(2000);

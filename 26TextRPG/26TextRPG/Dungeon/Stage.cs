@@ -48,7 +48,9 @@ namespace _26TextRPG.Dungeon
             }
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
-            mainScene.TypingEffect($"[ 던전 {StageFloor}층 ]", 50);
+            Console.WriteLine($"[ 던전 {StageFloor}층 ]");
+            Console.WriteLine($"진행도 : {Progress}/{MaxProgress}");
+            Console.WriteLine(); // 진행도 출력
             Console.WriteLine();
             if (!IsCompleted)
             {
@@ -75,8 +77,6 @@ namespace _26TextRPG.Dungeon
                 Console.WriteLine();
                 return;
             }
-            mainScene.TypingEffect($"진행도 : {Progress}/{MaxProgress}", 20); 
-            Console.WriteLine(); // 진행도 출력
             FindStair();
             Trap();
             TriggerEvent();
@@ -170,9 +170,8 @@ namespace _26TextRPG.Dungeon
                     Console.WriteLine();
                     break;
             }
-            Thread.Sleep(800);
             Console.WriteLine();
-            mainScene.TypingEffect("계속_(아무키나 입력해 진행)", 50);
+            Console.WriteLine("계속_(아무키나 입력해 진행)");
             Console.ReadLine();
 
             Battle battle = new (currentPlayer);

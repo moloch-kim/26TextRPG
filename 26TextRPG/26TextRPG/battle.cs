@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Battle
 {
-    Player player = new Player("");
+    Player player = Player.Instance;
 
     public Battle(Player player)
     {

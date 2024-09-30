@@ -43,6 +43,7 @@ namespace _26TextRPG.Main
             else
             {
                 Console.WriteLine("저장된 파일이 없습니다. 새로운 플레이어를 생성합니다.");
+                Thread.Sleep(1000);
                 CreatePlayer(); // 닉네임 생성
             }
         }
@@ -221,14 +222,15 @@ namespace _26TextRPG.Main
             //currentPlayer.Level = 1; 초기값 설정
             //currentPlayer.Gold = 1500;
             Console.WriteLine($"닉네임 : {nickName}");
-            Thread.Sleep(2000);
+            Console.WriteLine();
             Console.WriteLine("직업을 선택하세요: ");
             Console.WriteLine("1. 전사");
             Console.WriteLine("2. 마법사");
             Console.WriteLine("3. 궁수");
+            Console.WriteLine();
             Console.Write("내 직업은 : ");
             string jobChoice = Console.ReadLine();
-
+            Console.WriteLine();
             string job = "전사";
             int attackPower = 15;
             int defensePower = 5;

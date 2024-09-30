@@ -1,11 +1,50 @@
 ﻿using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
+
 using static System.Net.Mime.MediaTypeNames;
+
 namespace _26TextRPG.Main
 {
+
     public class MainScene
     {
+        private Player currentPlayer;// 진행상황 저장용
+        public void Save()// 저장
+        {
+            SaveLoadSystem.SaveGame(currentPlayer);
+        }
+        public void Load()//불러오기
+        {
+
+            Player loadedPlayer = SaveLoadSystem.LoadGame();
+
+            if (loadedPlayer != null)
+            {
+                currentPlayer = loadedPlayer;
+                Console.WriteLine($"{currentPlayer.Name}의 데이터를 성공적으로 불러왔습니다.");
+                Thread.Sleep( 2000 );
+            }
+            else
+            {
+                Console.WriteLine("저장된 파일이 없습니다. 새로운 플레이어를 생성합니다.");
+                CreatePlayer(); // 닉네임 생성
+            }
+        }
+        public void CreatePlayer()// 닉네임 생성
+        {
+            Console.WriteLine("게임에 처음 접속하셨습니다.");
+            Console.WriteLine("원하는 닉네임을 입력해주세요.");
+            string nickName = Console.ReadLine();
+            currentPlayer = new Player(nickName);
+            //currentPlayer.Level = 1; 초기값 설정
+            //currentPlayer.Gold = 1500;
+            Console.WriteLine($"닉네임 : {nickName}");
+            Save();
+            Thread.Sleep(2000);
+        }
+
         public void Opening()
         {
             Logo();
@@ -18,11 +57,6 @@ namespace _26TextRPG.Main
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
-            Logo();
-            message = "저장된 게임 없음 새로운 게임 시작...";
-            TypingEffect(message, 50);
-            Thread.Sleep(1000);
-
         }
 
         public void Logo()
@@ -37,7 +71,7 @@ namespace _26TextRPG.Main
             Console.WriteLine("                      |___/                                                   ");
         }
 
-        public void RunGame()
+        public void MainMenu()
         {
             Console.Clear();
             Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
@@ -59,28 +93,40 @@ namespace _26TextRPG.Main
             Console.WriteLine("=======================================================");
             Console.ResetColor();
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+        }
 
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
+        public void RunGame()
+        {
+            Player player = currentPlayer;
+            RestScene restScene = new RestScene();
+
+            while (true)
             {
-                case ConsoleKey.S:
-                    Console.WriteLine("S");
-                    break;
-                case ConsoleKey.I:
-                    Console.WriteLine("I");
-                    break;
-                case ConsoleKey.P:
-                    Console.WriteLine("P");
-                    break;
-                case ConsoleKey.D:
-                    RunStage();
-                    break;
-                case ConsoleKey.R:
-                    Console.WriteLine("R");
-                    break;
-                case ConsoleKey.Escape:
-                    Environment.Exit(0);
-                    break;
+                MainMenu();
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.S:
+                        Console.WriteLine("S");
+                        break;
+                    case ConsoleKey.I:
+                        Console.WriteLine("I");
+                        break;
+                    case ConsoleKey.P:
+                        Console.WriteLine("P");
+                        Shop shop = new Shop(Shoplist.WeaponShop);
+                            shop.BuyItem(player);
+                        break;
+                    case ConsoleKey.D:
+                        RunStage(player);
+                        break;
+                    case ConsoleKey.R:
+                        restScene.Rest();
+                        break;
+                    case ConsoleKey.Escape:
+                        Environment.Exit(0);
+                        break;
+                }
             }
         }
 
@@ -92,11 +138,10 @@ namespace _26TextRPG.Main
                 Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
-
-        public void RunStage()
+        
+        public void RunStage(Player player)
         {
             Stage runStage = new(1);
-
             while (true)
             {
                 Console.WriteLine();
@@ -115,7 +160,7 @@ namespace _26TextRPG.Main
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.A:
-                        runStage.Explore();
+                        runStage.Explore(player);
                         break;
                     case ConsoleKey.Escape:
                         RunGame();

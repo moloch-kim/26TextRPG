@@ -28,14 +28,20 @@ namespace _26TextRPG.Item
             };
             Potions = new List<Potion>() // 포션 리스트
             {
-                new(2000, 1 ,"회복 물약", "들이켜서 상처를 치료할수 있습니다.", 20, 40),
+                new(2000, 1 ,"회복 물약", "들이켜서 체력을 회복할수 있습니다.", 20, 40),
+                new(2001, 1 ,"회복 영약", "들이켜서 체력을 크게 회복할수 있습니다.", 60, 120),
+                new(2002, 2 ,"힘의 물약", "들이키면 잠시동안 공격력이 증가합니다.", 30 , 50),
+                new(2003, 2 ,"힘의 영약", "들이키면 잠시동안 공격력이 매우 증가합니다", 60 , 100),
+                new(2004, 3 ,"용기의 물약", "들이키면 잠시동안 방어력이 증가합니다.", 30 , 50),
+                new(2005, 3 ,"용기의 물약", "들이키면 잠시동안 방어력이 매우 증가합니다.", 60, 100),
                 // 아이템 추가
             };
             Weapons = new List<Weapon>()  // 무기 리스트
             {
-                new(3000, 2, "롱소드", "다재다능해 믿음직한 롱소드 입니다." , 5 , 5, 40),
-                new(3001, 1, "메이스", "강력한 타격으로 적을 제압합니다.", 5 , 5, 40),
-                new(3002, 1, "배틀엑스", "강력한 전투도끼 입니다.", 8, 2, 60),
+                new Weapon(3000, "롱소드", "다재다능해 믿음직한 롱소드 입니다." , 5 , 5, 40),
+                new Weapon(3001, "메이스", "강력한 타격으로 적을 제압합니다.", 5 , 5, 40),
+                new Weapon(3002, "배틀엑스", "강력한 전투도끼 입니다.", 8, 2, 60),
+                
                 
                 // 아이템 추가
             };
@@ -57,6 +63,24 @@ namespace _26TextRPG.Item
         public static Item GetItemByName(string name)
         {
             return Allitems.FirstOrDefault(item => item.Name == name);
+        }
+        public static Armor GetRandomArmor()
+        {
+            Random random = new Random();
+            int index = random.Next(0, Armors.Count - 1);
+            return Armors[index];
+        }
+        public static Potion GetRandomPotion()
+        {
+            Random random = new Random();
+            int index = random.Next(0, Potions.Count - 1);
+            return Potions[index];
+        }
+        public static Weapon GetRandomWeapon()
+        {
+            Random random = new Random();
+            int index = random.Next(0, Weapons.Count -1);
+            return Weapons[index];
         }
     }
 }

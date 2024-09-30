@@ -8,6 +8,6 @@ namespace _26TextRPG.Item.Interface
 {
     internal interface IConsumable
     {
-        void Consume();
+        void Consume(Player player);
     }
 }

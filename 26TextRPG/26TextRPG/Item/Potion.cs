@@ -25,23 +25,27 @@ namespace _26TextRPG.Item
             Effect = effect;
             Value = value;
         }
-        public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UseItem(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
         {
-            Consume();
+            Consume(player);
         }
-        public void Consume() //괄호에 캐릭터 클래스 매개변수 삽입
+        public void Consume(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"당신은 {Name}을(를) 들이킵니다.");
             switch (PotionType) // 포션 타입에 따라 다른 효과
             {
                 case 1: //체력 회복 포션
-
+                    player.Health += Effect;
+                    Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
-                case 2: //
+                case 2: //공격력 강화 포션
+                    player.TotalAttackPower += Effect; 
                     break;
-                case 3: //
+                case 3: //방어력 강화 포션
+                    player.TotalDefensePower += Effect;
                     break;
             }
+            player.Inventory.Remove(this);
             // 인벤토리에서 제거
         }
     }

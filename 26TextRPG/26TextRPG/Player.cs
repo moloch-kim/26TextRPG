@@ -110,7 +110,7 @@ public class Player
 	{
 
 		Mana -= skill.ManaCost;
-        switch (skill.reference)
+        switch (skill.Reference)
         {
             case 1:
                 int damage = (int)(TotalAttackPower * skill.Multiplier) - enemy.DefensePower;

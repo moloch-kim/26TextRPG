@@ -18,6 +18,7 @@ namespace _26TextRPG
 		static SkillRepository()
 		{
 			//Skill(string name, int manaCost,int reference, float multiplier, bool isArea)
+			//Reference 1:공격력, 2:방어력, 3:최대체력, 4:최대마나 5:속도
 			Warrior = new List<Skill>() // 전사 스킬 리스트
             {
 				new("배쉬",3,1,1.5,false),

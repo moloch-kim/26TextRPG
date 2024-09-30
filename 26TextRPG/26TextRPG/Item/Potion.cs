@@ -16,8 +16,6 @@ namespace _26TextRPG
         public int Effect { get; private set; }
         public int Value { get; private set; }
 
-        Player playerData = Player.Instance;
-
         public Potion(int iD, int potionType, string name, string description, int effect, int value)
         {
             ID = iD;
@@ -33,6 +31,7 @@ namespace _26TextRPG
         }
         public void Consume() //괄호에 캐릭터 클래스 매개변수 삽입
         {
+            Player playerData = Player.Instance;
             Console.WriteLine($"당신은 {Name}을(를) 들이킵니다.");
             switch (PotionType) // 포션 타입에 따라 다른 효과
             {
@@ -42,17 +41,17 @@ namespace _26TextRPG
                     Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
                 case 2: //공격력 강화 포션
-                    playerData.TotalAttackPower += Effect; 
+                    playerData.AttackPower += Effect; 
                     break;
                 case 3: //방어력 강화 포션
-                    playerData.TotalDefensePower += Effect;
+                    playerData.DefensePower += Effect;
                     break;
                 case 4: //속도 강화 포션
                     playerData.Speed += Effect;
                     break;
                 case 5: //전체 능력치 강화 포션
-                    playerData.TotalAttackPower += Effect;
-                    playerData.TotalDefensePower += Effect;
+                    playerData.AttackPower += Effect;
+                    playerData.DefensePower += Effect;
                     playerData.Speed += Effect;
                     break;
             }

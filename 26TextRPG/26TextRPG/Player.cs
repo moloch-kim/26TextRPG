@@ -7,15 +7,15 @@ public class Player
     private static Player instance;
     // 초기값 설정(상태 보기 화면에 뜨는)
     public string Name { get; set; }
-    public int Level { get; set; } = 1;
-    public string Job { get; set; } = "전사";
-    public int AttackPower { get; set; } = 10;
+    public int Level { get; set; }
+    public string Job { get; set; } 
+    public int AttackPower { get; set; }
     public int TotalAttackPower { get; set; }
-    public int DefensePower { get; set; } = 5;
+    public int DefensePower { get; set; }
     public int TotalDefensePower { get; set; }
-    public int Health { get; set; } = 100;
+    public int Health { get; set; }
     public int MaxHealth { get; set; }
-    public int Gold { get; set; } = 1500;
+    public int Gold { get; set; }
     public int Speed { get; set; }
     public int Mana { get; set; }
     public int Exp { get; set; }

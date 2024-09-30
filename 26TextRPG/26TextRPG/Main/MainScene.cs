@@ -11,6 +11,19 @@ namespace _26TextRPG.Main
     public class MainScene
     {
         private Player currentPlayer;// 진행상황 저장용
+
+        //저장, 불러오기, 싱글톤 업데이트
+        public void Loading()
+        {
+            Save();
+            Player loadedPlayer = SaveLoadSystem.LoadGame();
+            currentPlayer = loadedPlayer;
+            Player.LoadPlayer(currentPlayer);
+            Console.Clear();
+            Logo();
+            TypingEffect("로딩중입니다...", 50);
+        }
+
         public void Save()// 저장
         {
             SaveLoadSystem.SaveGame(currentPlayer);
@@ -35,14 +48,15 @@ namespace _26TextRPG.Main
         }
         public void CreatePlayer()// 닉네임 생성
         {
+            Console.Clear();
             Console.WriteLine("게임에 처음 접속하셨습니다.");
             Console.WriteLine("원하는 닉네임을 입력해주세요.");
+            Console.Write("내 닉네임 : ");
             string nickName = Console.ReadLine();
             currentPlayer = new Player(nickName);
             //currentPlayer.Level = 1; 초기값 설정
             //currentPlayer.Gold = 1500;
             Console.WriteLine($"닉네임 : {nickName}");
-            Save();
             Thread.Sleep(2000);
         }
 
@@ -54,7 +68,7 @@ namespace _26TextRPG.Main
             Thread.Sleep(1000);
             Console.Clear();
             Logo();
-            message = "혹은 저장된 게임을 불러오는 중...";
+            message = "저장된 게임을 불러오는 중...";
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
@@ -76,6 +90,9 @@ namespace _26TextRPG.Main
         {
             Console.Clear();
             Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"이름 : {currentPlayer.Name}    직업: {currentPlayer.Job}    골드 : {currentPlayer.Gold}");
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=======================================================");
@@ -85,24 +102,27 @@ namespace _26TextRPG.Main
             Console.Write("능력치 : S    인벤토리 : I    상점 : P");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("      ||");
-            Console.Write("||         ");
+            Console.Write("||       ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("던전 : D    휴식 : R    종료 : ESC");
+            Console.Write("던전 : D      휴식 : R        종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("        ||");
+            Console.WriteLine("    ||");
             Console.WriteLine("||                                                   ||");
             Console.WriteLine("=======================================================");
-            Console.ResetColor();
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("                                         게임초기화 : K");
+            Console.ResetColor();
         }
 
         public void RunGame()
         {
 
             RestScene restScene = new RestScene();
-            Shop shop = new Shop(Shoplist.Startshop);
+
             while (true)
             {
+                Loading();
                 MainMenu();
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
@@ -115,13 +135,16 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
-                            shop.BuyItem();
+                        Shop shop = new Shop(Shoplist.WeaponShop);
                         break;
                     case ConsoleKey.D:
                         RunStage();
                         break;
                     case ConsoleKey.R:
                         restScene.Rest();
+                        break;
+                    case ConsoleKey.K:
+                        ResetDataScene();
                         break;
                     case ConsoleKey.Escape:
                         Environment.Exit(0);
@@ -176,6 +199,30 @@ namespace _26TextRPG.Main
             }
         }
 
+        public void ResetDataScene()
+        {
+            Console.Clear();
+            Console.WriteLine("데이터를 초기화 하시겠습니까 ?");
+            Console.WriteLine("K : 초기화      ESC : 메인으로");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.K:
+                    ResetData();
+                    break;
+                case ConsoleKey.Escape:
+                    RunGame();
+                    break;
+            }
+        }
+        public void ResetData()
+        {
+            string filePath = "playerData.json";
+
+                File.Delete(filePath);
+                Console.WriteLine("저장된 데이터를 삭제했습니다. 게임을 종료하겠습니다.");
+                Environment.Exit(0);
+        }
 
 
     }

@@ -8,11 +8,6 @@ public class Enemy : Character
 	public int ExperienceReward { get; }
 	public int GoldReward { get; }
 
-	public bool IsAlive()
-	{
-		return Health > 0;
-	}
-
 	public Enemy(string name, int id, int health, int attackPower, int defensePower, int speed, int experienceReward, int goldReward)
 	{
 		Name = name;

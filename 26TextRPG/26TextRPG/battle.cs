@@ -70,8 +70,9 @@ public class Battle
                 break;
             }
 
-            Console.WriteLine("아무키나 누르세요...");
-            Console.ReadKey();
+            //Console.WriteLine("아무키나 누르세요...");
+            //Console.ReadKey();
+            Thread.Sleep(20);
         }
 
         ReturnToStage();
@@ -132,6 +133,9 @@ public class Battle
                 Console.WriteLine("잘못된 입력입니다. 다시 선택하세요.");
             }
         }
+
+        Console.WriteLine("아무키나 누르세요...");
+        Console.ReadKey();
     }
 
     private void AttackChoice(List<Enemy> enemies)
@@ -203,5 +207,8 @@ public class Battle
         Console.WriteLine($"적 {enemy.Name}의 턴입니다....");
         enemy.Attack(player); //enemy클래스에 Attack(player) 메소드 필요
         enemy.ResetActionGauge();
+
+        Console.WriteLine("아무키나 누르세요...");
+        Console.ReadKey();
     }
 }

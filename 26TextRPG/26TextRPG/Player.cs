@@ -19,6 +19,7 @@ public class Player
     public int Gold { get; set; }
     public int Speed { get; set; }
     public int Mana { get; set; }
+    public int MaxMana { get; set; }
     public int Exp { get; set; }
     public int ExpToNextLevel { get; set; }
     public int StatPoint;
@@ -27,21 +28,27 @@ public class Player
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; set; }
     public Quest Quest { get; set; }
-    public Player(string name)
+    public Player(string name, string job, int attackPower, int defensePower, int maxHealth, int speed, int maxMana)
     {
         Name = name;
+        Job = job;
+        AttackPower = attackPower;
+        DefensePower = defensePower;
+        MaxHealth = maxHealth;
+        Health = maxHealth;
+        Speed = speed;
+        Mana = maxMana;
+        MaxMana = maxMana;
+        Gold = 1500;
+        ExpToNextLevel = 100;
         Inventory = new List<Item>();
-        // speed = _speed;
+        SkillList = new List<Skill>();
     }
 
     public static Player Instance
     {
         get
         {
-            if (instance == null)
-            {
-                instance = new Player("Default Name"); // ±âº»°ª
-            }
             return instance;
         }
     }

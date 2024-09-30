@@ -21,7 +21,7 @@ namespace _26TextRPG
 			//Reference 1:공격력, 2:방어력, 3:최대체력, 4:최대마나 5:속도
 			Warrior = new List<Skill>() // 전사 스킬 리스트
             {
-				new Skill("배쉬", 3, 1, 1.5, false, 250),
+				new Skill("배쉬", 3, 1, 1.5f, false, 250),
 				new Skill("슬래쉬", 5, 1, 2.0f, false, 500),
 				new Skill("방패 밀치기", 4, 2, 1.5f, false, 1000),
 				new Skill("원드밀", 8, 1, 1.5f, true, 2000),
@@ -52,7 +52,7 @@ namespace _26TextRPG
 			AllSkills.AddRange(Wizard);
 		}
 
-		public static Item GetSkillByName(string name)
+		public static Skill GetSkillByName(string name)
 		{
 			return AllSkills.FirstOrDefault(skill => skill.Name == name);
 		}

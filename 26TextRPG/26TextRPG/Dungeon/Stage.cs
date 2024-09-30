@@ -77,7 +77,10 @@ namespace _26TextRPG.Dungeon
                 Console.WriteLine();
                 return;
             }
-            FindStair();
+            if (StairFound)
+            {
+                FindStair();
+            }
             Trap();
             TriggerEvent();
             Thread.Sleep(200);
@@ -100,6 +103,7 @@ namespace _26TextRPG.Dungeon
         }
         public void FindStair() 
         {
+            if 
             if (Progress >= StairPosition && !StairFound)
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용

@@ -5,6 +5,7 @@ using _26TextRPG.Main;
 using System.ComponentModel;
 public class Player
 {
+    private static Player instance;
     // 초기값 설정(상태 보기 화면에 뜨는)
     public string Name { get; set; }
     public int Level { get; set; } = 1;
@@ -31,6 +32,23 @@ public class Player
         Name = name;
         Inventory = new List<Item>();
         // speed = _speed;
+    }
+
+    public static Player Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new Player("Default Name"); // 기본값
+            }
+            return instance;
+        }
+    }
+
+    public static void LoadPlayer(Player loadedPlayer)
+    {
+        instance = loadedPlayer;
     }
 
     MainScene mainScene = new MainScene();

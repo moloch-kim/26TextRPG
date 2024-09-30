@@ -11,6 +11,7 @@ namespace _26TextRPG.Dungeon
 {
     public class Stage
     {
+        Player currentPlayer = Player.Instance; // 플레이어 싱글톤에 접근
         //public 변수 
         public int StageFloor { get; set; }
         public int Progress { get; set; }
@@ -23,8 +24,8 @@ namespace _26TextRPG.Dungeon
         private Random Random;
         private int StairPosition;
 
+        
         MainScene mainScene = new MainScene();
-
         public Stage(int stagefloor) //생성자 Stage
         {
             StageFloor = stagefloor;

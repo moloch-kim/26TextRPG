@@ -31,7 +31,7 @@ namespace _26TextRPG.Main
             }
             else
             {
-                Console.WriteLine("불러올 파일이 없습니다.");
+                Console.WriteLine("불러올 기억이 없습니다.");
                 Thread.Sleep(1500);
                 return null;
                 mainScene.CreatePlayer();

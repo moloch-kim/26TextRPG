@@ -23,6 +23,7 @@ namespace _26TextRPG.Main
             if (loadedPlayer != null)
             {
                 currentPlayer = loadedPlayer;
+                Player.LoadPlayer(currentPlayer);//싱글톤화시킨 Player에 불러온값 넣어주기
                 Console.WriteLine($"{currentPlayer.Name}의 데이터를 성공적으로 불러왔습니다.");
                 Thread.Sleep( 2000 );
             }

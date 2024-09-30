@@ -12,8 +12,6 @@ namespace _26TextRPG.Main
         {
             string json = JsonConvert.SerializeObject(player, Formatting.Indented);
             File.WriteAllText(filePath, json);
-            Console.WriteLine("진행상황을 저장중입니다...");
-            Thread.Sleep(3000);
         }
         public static Player LoadGame()
         {
@@ -21,8 +19,6 @@ namespace _26TextRPG.Main
             {
                 string json = File.ReadAllText(filePath);
                 Player player = JsonConvert.DeserializeObject<Player>(json);
-                Console.WriteLine("진행상황을 불러오는 중입니다...");
-                Thread.Sleep(3000);
                 return player;
             }
             else

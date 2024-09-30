@@ -27,7 +27,7 @@ public class Player
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; } = new List<Item>();
     public Quest Quest { get; set; }
-    public Player(string name, string job, int attackPower, int defensePower, int maxHealth, int speed, int maxMana)
+    public Player(string name, string job, int attackPower, int defensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
         Job = job;
@@ -38,7 +38,7 @@ public class Player
         Speed = speed;
         Mana = maxMana;
         MaxMana = maxMana;
-        Gold = 1500;
+        Gold = gold;
         ExpToNextLevel = 100;
         Inventory = new List<Item>();
         SkillList = new List<Skill>();

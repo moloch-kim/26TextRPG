@@ -15,7 +15,6 @@ namespace _26TextRPG.Dungeon
     }
     public class Shop
     {
-        Player playerData = Player.Instance;
         public List<Item> ItemsForSale { get; set; }
         public Shop(Shoplist shoplist)
         {
@@ -91,6 +90,7 @@ namespace _26TextRPG.Dungeon
         }
         public void BuyItem() // 아이템 구매 메소드
         {
+            Player playerData = Player.Instance;
             Console.Clear();
             TypingEffect("상점에 입장했습니다!", 40);
             bool InShop = true;

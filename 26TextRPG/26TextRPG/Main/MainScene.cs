@@ -17,6 +17,7 @@ namespace _26TextRPG.Main
             Save();
             Console.Clear();
             Logo();
+            Player.LoadPlayer(playerData);
             TypingEffect("로딩중입니다...", 50);
         }
 
@@ -26,7 +27,6 @@ namespace _26TextRPG.Main
         }
         public void Load()//불러오기
         {
-
             Player loadedPlayer = SaveLoadSystem.LoadGame();
 
             if (loadedPlayer != null)
@@ -236,6 +236,7 @@ namespace _26TextRPG.Main
             int maxHealth = 120;
             int speed = 10;
             int maxMana = 30;
+            int gold = 1500;
 
             switch (jobChoice)
             {
@@ -259,7 +260,7 @@ namespace _26TextRPG.Main
                     break;
             }
 
-            playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana);
+            playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana, gold);
 
             Console.WriteLine($"{playerData.Name} 캐릭터가 생성되었습니다!");
             Console.WriteLine($"직업: {playerData.Job}, 체력: {playerData.MaxHealth}, 공격력: {playerData.AttackPower}");

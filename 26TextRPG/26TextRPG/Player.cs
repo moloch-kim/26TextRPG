@@ -1,4 +1,3 @@
-using _26TextRPG.Item;
 using _26TextRPG;
 using _26TextRPG.Dungeon;
 using _26TextRPG.Main;
@@ -25,7 +24,7 @@ public class Player
     public int ActionGauge { get; set; }
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
-    public List<Item> Inventory { get; set; }
+    public List<Item> Inventory { get; } = new List<Item>();
     public Quest Quest { get; set; }
     public Player(string name)
     {

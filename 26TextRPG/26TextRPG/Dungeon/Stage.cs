@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using _26TextRPG.Item;
+using _26TextRPG;
 using _26TextRPG.Main;
 
 namespace _26TextRPG.Dungeon

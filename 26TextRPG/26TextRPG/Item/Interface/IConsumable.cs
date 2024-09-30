@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _26TextRPG.Item.Interface
+namespace _26TextRPG
 {
     internal interface IConsumable
     {
-        void Consume(Player player);
+        void Consume();
     }
 }

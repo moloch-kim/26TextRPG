@@ -1,11 +1,11 @@
-﻿using _26TextRPG.Item.Interface;
+﻿using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _26TextRPG.Item
+namespace _26TextRPG
 {
     internal class Potion : Item, IConsumable
     {
@@ -16,6 +16,8 @@ namespace _26TextRPG.Item
         public int Effect { get; private set; }
         public new int Value { get; private set; }
 
+        Player playerData = Player.Instance;
+
         public Potion(int iD, int potionType, string name, string description, int effect, int value)
         {
             ID = iD;
@@ -25,27 +27,27 @@ namespace _26TextRPG.Item
             Effect = effect;
             Value = value;
         }
-        public void UseItem(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입
         {
-            Consume(player);
+            Consume();
         }
-        public void Consume(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void Consume() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"당신은 {Name}을(를) 들이킵니다.");
             switch (PotionType) // 포션 타입에 따라 다른 효과
             {
                 case 1: //체력 회복 포션
-                    player.Health += Effect;
+                    playerData.Health += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
                 case 2: //공격력 강화 포션
-                    player.TotalAttackPower += Effect; 
+                    playerData.TotalAttackPower += Effect; 
                     break;
                 case 3: //방어력 강화 포션
-                    player.TotalDefensePower += Effect;
+                    playerData.TotalDefensePower += Effect;
                     break;
             }
-            player.Inventory.Remove(this);
+            playerData.Inventory.Remove(this);
             // 인벤토리에서 제거
         }
     }

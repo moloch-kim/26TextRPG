@@ -1,4 +1,4 @@
-﻿using _26TextRPG.Item;
+﻿using _26TextRPG;
 using _26TextRPG.Main;
 using System;
 using System.Collections.Generic;
@@ -15,16 +15,17 @@ namespace _26TextRPG.Dungeon
     }
     public class Shop
     {
-        public List<_26TextRPG.Item.Item> ItemsForSale { get; set; }
+        Player playerData = Player.Instance;
+        public List<Item> ItemsForSale { get; set; }
         MainScene mainScene = new MainScene();
         public Shop(Shoplist shoplist)
         {
-            ItemsForSale = new List<Item.Item>();
+            ItemsForSale = new List<Item>();
             Random random = new Random();
             switch ((int)shoplist)
             {
                 case 0:
-                    ItemsForSale = new List<Item.Item>
+                    ItemsForSale = new List<Item>
                 {
                     ItemRepository.GetItemByID(1000),
                     ItemRepository.GetItemByID(1001),
@@ -87,12 +88,12 @@ namespace _26TextRPG.Dungeon
                 }
 
                 // 각 프로퍼티가 null인지 확인
-                string name = item.Name ?? "이름 없음";
-                string description = item.Description ?? "설명 없음";
-                string itemType = item.GetType().Name ?? "타입 없음";
-                int value = item.Value;
+                //string name = item.Name ?? "이름 없음";
+                //string description = item.Description ?? "설명 없음";
+                //string itemType = item.GetType().Name ?? "타입 없음";
+                //int value = item.Value;
 
-                Console.WriteLine($"{i + 1}. {name}({value}Gold): {description} - {itemType}");
+                Console.WriteLine($"{i + 1}. {ItemsForSale[i].Name}({ItemsForSale[i].Value}Gold): {ItemsForSale[i].Description} - {ItemsForSale[i].GetType().Name}");
             }
             //for (int i = 0; i < ItemsForSale.Count; i++)
             //{
@@ -104,11 +105,11 @@ namespace _26TextRPG.Dungeon
             Console.WriteLine("--------------------------------------------------------------------");
             Console.WriteLine();
         }
-        public void BuyItem(Player player) // 아이템 구매 메소드
+        public void BuyItem() // 아이템 구매 메소드
         {
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------------------");
-            Console.WriteLine($"현재 골드: {player.Gold}골드");
+            Console.WriteLine($"현재 골드: {playerData.Gold}골드");
             DisplayItems();
             mainScene.TypingEffect("구매할 아이템의 번호를 입력하세요 (취소하려면 0 입력):" , 40);
             Console.WriteLine();
@@ -125,15 +126,16 @@ namespace _26TextRPG.Dungeon
 
                 if (choice > 0 && choice <= ItemsForSale.Count)
                 {
-                    Item.Item selectedItem = ItemsForSale[choice - 1];
+                    Item selectedItem = ItemsForSale[choice - 1];
 
-                    if (player.Gold >= selectedItem.Value)
+                    if (playerData.Gold >= selectedItem.Value)
                     {
-                        player.Gold -= selectedItem.Value;
-                        player.Inventory.Add(selectedItem);
+                        playerData.Gold -= selectedItem.Value;
+                        playerData.Inventory.Add(selectedItem);
+                        ItemsForSale.RemoveAt(choice - 1);
                         mainScene.TypingEffect($"{selectedItem.Name}을(를) 구매하여 인벤토리에 추가했습니다." , 40);
                         Console.WriteLine();
-                        mainScene.TypingEffect($"남은 골드: {player.Gold}골드", 40);
+                        mainScene.TypingEffect($"남은 골드: {playerData.Gold}골드", 40);
                     }
                     else
                     {

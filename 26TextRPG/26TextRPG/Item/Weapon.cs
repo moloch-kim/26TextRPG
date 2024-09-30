@@ -1,11 +1,11 @@
-﻿using _26TextRPG.Item.Interface;
+﻿using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _26TextRPG.Item
+namespace _26TextRPG
 {
     public class Weapon : Item , IEquipable
     {
@@ -16,6 +16,8 @@ namespace _26TextRPG.Item
         public int Weight { get; private set; }
         public new int Value { get; private set; }
         public bool IsEquip { get; private set; }
+
+        Player playerData = Player.Instance;
         public Weapon(int id, string name, string description, int offense,int weight, int value) // 생성자
         {
             ID = id;
@@ -25,30 +27,30 @@ namespace _26TextRPG.Item
             Weight = weight;
             Value = value;
         }
-        public void UseItem(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             if (IsEquip)
             {
-                UnEquip(player);
+                UnEquip();
             }
             else
             {
-                Equip(player);
+                Equip();
             }
         }
 
-        public void Equip(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void Equip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"{Name}을(를) 장착했습니다.");
-            player.TotalAttackPower += Offense;
-            player.Speed -= Weight;
+            playerData.TotalAttackPower += Offense;
+            playerData.Speed -= Weight;
             //장착 메소드
         }
-        public void UnEquip(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UnEquip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
-            player.TotalAttackPower -= Offense;
-            player.Speed += Weight;
+            playerData.TotalAttackPower -= Offense;
+            playerData.Speed += Weight;
             //장착해제 메소드
         }
     }

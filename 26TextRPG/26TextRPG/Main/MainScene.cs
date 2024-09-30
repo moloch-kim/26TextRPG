@@ -100,7 +100,7 @@ namespace _26TextRPG.Main
         {
             Player player = currentPlayer;
             RestScene restScene = new RestScene();
-
+            Shop shop = new Shop(Shoplist.Startshop);
             while (true)
             {
                 MainMenu();
@@ -115,8 +115,12 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
+<<<<<<< Updated upstream
                         Shop shop = new Shop(Shoplist.Startshop);
                             shop.BuyItem(player);
+=======
+                            shop.BuyItem();
+>>>>>>> Stashed changes
                         break;
                     case ConsoleKey.D:
                         RunStage(player);

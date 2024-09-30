@@ -5,14 +5,14 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _26TextRPG.Item
+namespace _26TextRPG
 {
-    public class Item
+    public interface Item
     {
-        public int ID;
-        public string? Name;
-        public string? Description;
-        public int Value;
+        int ID { get; }
+        string Name { get; }
+        string Description { get; }
+        int Value { get; }
 
         public void UseItem()
         {

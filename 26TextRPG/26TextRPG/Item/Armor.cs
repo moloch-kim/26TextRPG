@@ -1,6 +1,6 @@
-﻿using _26TextRPG.Item.Interface;
+﻿using _26TextRPG;
 
-namespace _26TextRPG.Item
+namespace _26TextRPG
 {
     public class Armor : Item, IEquipable
     {
@@ -12,6 +12,7 @@ namespace _26TextRPG.Item
         public new int Value { get; private set; }
         public bool IsEquip {  get; private set; }
 
+        Player playerData = Player.Instance;
         public Armor(int id, string name, string description, int defense,int weight, int value) // 생성자
         {
             ID = id;
@@ -22,31 +23,31 @@ namespace _26TextRPG.Item
             Value = value;
         }
 
-        public void UseItem(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             if (IsEquip)
             {
-                UnEquip(player);
+                UnEquip();
             }
             else
             {
-                Equip(player);
+                Equip();
             }
         }
 
-        public void Equip(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void Equip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"{Name}을(를) 장착했습니다.");
-            player.TotalDefensePower += Defense;
-            player.Speed -= Weight;
+            playerData.TotalDefensePower += Defense;
+            playerData.Speed -= Weight;
             IsEquip = true;
             //장착 메소드
         }
-        public void UnEquip(Player player) //괄호에 캐릭터 클래스 매개변수 삽입
+        public void UnEquip() //괄호에 캐릭터 클래스 매개변수 삽입
         {
             Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
-            player.TotalDefensePower -= Defense;
-            player.Speed += Weight;
+            playerData.TotalDefensePower -= Defense;
+            playerData.Speed += Weight;
             IsEquip = false;
             //장착해제 메소드
         }

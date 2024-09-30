@@ -1,11 +1,11 @@
-﻿using _26TextRPG.Item.Interface;
+﻿using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _26TextRPG.Item
+namespace _26TextRPG
 {
     internal class ItemRepository
     {
@@ -38,9 +38,9 @@ namespace _26TextRPG.Item
             };
             Weapons = new List<Weapon>()  // 무기 리스트
             {
-                new Weapon(3000, "롱소드", "다재다능해 믿음직한 롱소드 입니다." , 5 , 5, 40),
-                new Weapon(3001, "메이스", "강력한 타격으로 적을 제압합니다.", 5 , 5, 40),
-                new Weapon(3002, "배틀엑스", "강력한 전투도끼 입니다.", 8, 2, 60),
+                new(3000, "롱소드", "다재다능해 믿음직한 롱소드 입니다." , 5 , 5, 40),
+                new(3001, "메이스", "강력한 타격으로 적을 제압합니다.", 5 , 5, 40),
+                new(3002, "배틀엑스", "강력한 전투도끼 입니다.", 8, 2, 60),
                 
                 
                 // 아이템 추가

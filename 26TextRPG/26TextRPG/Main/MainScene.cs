@@ -116,6 +116,7 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.I:
                         Console.WriteLine("I");
+                        ItemRepository.Inventory();
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
@@ -242,6 +243,9 @@ namespace _26TextRPG.Main
             {
                 case "1":
                     job = "전사";
+                    attackPower = 15;
+                    maxHealth = 150;
+                    speed = 10;
                     break;
                 case "2":
                     job = "마법사";

@@ -26,6 +26,8 @@ public class Player
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; } = new List<Item>();
+    public Armor EquipedArmor { get; set; }
+    public Weapon EquipedWeapon { get; set; }
     public Quest Quest { get; set; }
     public Player(string name, string job, int attackPower, int defensePower, int maxHealth, int speed, int maxMana, int gold)
     {
@@ -41,6 +43,8 @@ public class Player
         Gold = gold;
         ExpToNextLevel = 100;
         Inventory = new List<Item>();
+        EquipedArmor = null;
+        EquipedWeapon = null;
         SkillList = new List<Skill>();
     }
 

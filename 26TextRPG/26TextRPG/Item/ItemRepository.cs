@@ -1,7 +1,9 @@
 ﻿using _26TextRPG;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -103,5 +105,50 @@ namespace _26TextRPG
             int index = random.Next(0, Weapons.Count -1);
             return Weapons[index];
         }
+
+        public static void Inventory()
+        {
+            Player playerData = Player.Instance;
+            if (playerData.Inventory.Count == 0)
+            {
+                Console.WriteLine("인벤토리가 비어 있습니다.");
+                return;
+            }
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("인벤토리 아이템 목록:");
+            for (int i = 0; i < playerData.Inventory.Count; i++)
+            {
+                Item item = playerData.Inventory[i];
+                string itemType = item is Weapon ? "무기" : item is Armor ? "방어구" : "아이템";
+
+                // 아이템이 장착된 상태인지 확인
+                bool isEquipped = false;
+                if (item == playerData.EquipedWeapon || item == playerData.EquipedArmor)
+                {
+                    isEquipped = true;
+                }
+                // 장착된 아이템 앞에 [E] 추가
+                string equippedIndicator = isEquipped ? "[E] " : "";
+
+
+                Console.WriteLine($"{i + 1}. {equippedIndicator}[{itemType}] {item.Name}");
+            }
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("사용하거나 장착할 아이템의 번호를 입력하세요:");
+            int choice = int.Parse(Console.ReadLine());
+
+            if (choice > 0 && choice <= playerData.Inventory.Count)
+            {
+                Item item = playerData.Inventory[choice - 1];
+
+                item.UseItem();
+            }
+
+
+
+        }
+
     }
 }

@@ -10,34 +10,30 @@ namespace _26TextRPG.Main
 
     public class MainScene
     {
-        private Player currentPlayer;// 진행상황 저장용
-
+        Player playerData = Player.Instance;
         //저장, 불러오기, 싱글톤 업데이트
         public void Loading()
         {
             Save();
-            Player loadedPlayer = SaveLoadSystem.LoadGame();
-            currentPlayer = loadedPlayer;
-            Player.LoadPlayer(currentPlayer);
             Console.Clear();
             Logo();
+            Player.LoadPlayer(playerData);
             TypingEffect("로딩중입니다...", 50);
         }
 
         public void Save()// 저장
         {
-            SaveLoadSystem.SaveGame(currentPlayer);
+            SaveLoadSystem.SaveGame(playerData);
         }
         public void Load()//불러오기
         {
-
             Player loadedPlayer = SaveLoadSystem.LoadGame();
 
             if (loadedPlayer != null)
             {
-                currentPlayer = loadedPlayer;
-                Player.LoadPlayer(currentPlayer);//싱글톤화시킨 Player에 불러온값 넣어주기
-                Console.WriteLine($"{currentPlayer.Name}의 데이터를 성공적으로 불러왔습니다.");
+                playerData = loadedPlayer;
+                Player.LoadPlayer(playerData);//싱글톤화시킨 Player에 불러온값 넣어주기
+                Console.WriteLine($"{playerData.Name}의 데이터를 성공적으로 불러왔습니다.");
                 Thread.Sleep( 2000 );
             }
             else
@@ -80,7 +76,7 @@ namespace _26TextRPG.Main
             Console.WriteLine("26TextRpg에 오신것을 환영합니다.");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"이름 : {currentPlayer.Name}    직업: {currentPlayer.Job}    골드 : {currentPlayer.Gold}");
+            Console.WriteLine($"이름 : {playerData.Name}    직업: {playerData.Job}    골드 : {playerData.Gold}");
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=======================================================");
@@ -105,7 +101,7 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
-
+            Shop shop = new Shop(Shoplist.Startshop);
             RestScene restScene = new RestScene();
 
             while (true)
@@ -123,7 +119,7 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
-                        Shop shop = new Shop(Shoplist.WeaponShop);
+                        shop.BuyItem();
                         break;
                     case ConsoleKey.D:
                         RunStage();
@@ -135,6 +131,9 @@ namespace _26TextRPG.Main
                         ResetDataScene();
                         break;
                     case ConsoleKey.Escape:
+                        Save();
+                        Console.WriteLine("게임을 종료하겠습니다.");
+                        Thread.Sleep(1000);
                         Environment.Exit(0);
                         break;
                 }
@@ -237,6 +236,7 @@ namespace _26TextRPG.Main
             int maxHealth = 120;
             int speed = 10;
             int maxMana = 30;
+            int gold = 1500;
 
             switch (jobChoice)
             {
@@ -260,10 +260,10 @@ namespace _26TextRPG.Main
                     break;
             }
 
-            currentPlayer = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana);
+            playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana, gold);
 
-            Console.WriteLine($"{currentPlayer.Name} 캐릭터가 생성되었습니다!");
-            Console.WriteLine($"직업: {currentPlayer.Job}, 체력: {currentPlayer.MaxHealth}, 공격력: {currentPlayer.AttackPower}");
+            Console.WriteLine($"{playerData.Name} 캐릭터가 생성되었습니다!");
+            Console.WriteLine($"직업: {playerData.Job}, 체력: {playerData.MaxHealth}, 공격력: {playerData.AttackPower}");
 
             Thread.Sleep(2000);
         }

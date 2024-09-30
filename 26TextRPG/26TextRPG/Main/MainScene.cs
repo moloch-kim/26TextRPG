@@ -100,7 +100,7 @@ namespace _26TextRPG.Main
         {
 
             RestScene restScene = new RestScene();
-
+            Shop shop = new Shop(Shoplist.Startshop);
             while (true)
             {
                 MainMenu();
@@ -115,7 +115,6 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
-                        Shop shop = new Shop(Shoplist.WeaponShop);
                             shop.BuyItem();
                         break;
                     case ConsoleKey.D:

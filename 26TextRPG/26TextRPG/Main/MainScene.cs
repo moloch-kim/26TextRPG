@@ -18,7 +18,6 @@ namespace _26TextRPG.Main
             Console.Clear();
             Logo();
             Player.LoadPlayer(playerData);
-            TypingEffect("기억을 찾는 중입니다...", 50);
         }
 
         public void Save()// 저장
@@ -116,7 +115,6 @@ namespace _26TextRPG.Main
                         Console.WriteLine("S");
                         break;
                     case ConsoleKey.I:
-                        Console.WriteLine("I");
                         ItemRepository.Inventory();
                         break;
                     case ConsoleKey.P:
@@ -124,7 +122,8 @@ namespace _26TextRPG.Main
                         shop.BuyItem();
                         break;
                     case ConsoleKey.D:
-                        if (playerData.Inventory == null)
+                        Player player = Player.Instance;
+                        if (player.Inventory.Count <= 0)
                         {
                             Console.WriteLine("당신은 아무 장비도 없습니다! 진행하시겠습니까?");
                             Console.WriteLine("[예 : Yes ]");
@@ -188,7 +187,10 @@ namespace _26TextRPG.Main
                 {
                     Console.WriteLine("다음층으로 : S");
                 }
-
+                if (runStage.ShopFound)
+                {
+                    Console.WriteLine("상점으로 : P");
+                }
                 Console.WriteLine("나가기 : ESC");
                 Console.ResetColor();
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -205,6 +207,16 @@ namespace _26TextRPG.Main
                         {
                             ++runStage.StageFloor;
                             runStage.StairFound = false;
+                        }
+                        break;
+                    case ConsoleKey.P:
+                        if (runStage.ShopFound)
+                        {
+                            Random random = new Random();
+                            int randomShop = random.Next(1, 5);
+                            Shop shop = new Shop((Shoplist)randomShop);
+                            runStage.ShopFound = false;
+                            shop.BuyItem();
                         }
                         break;
                 }

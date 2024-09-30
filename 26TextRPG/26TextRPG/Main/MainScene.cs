@@ -98,9 +98,9 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
-            Player player = currentPlayer;
+
             RestScene restScene = new RestScene();
-            Shop shop = new Shop(Shoplist.Startshop);
+
             while (true)
             {
                 MainMenu();
@@ -115,10 +115,11 @@ namespace _26TextRPG.Main
                         break;
                     case ConsoleKey.P:
                         Console.WriteLine("P");
+                        Shop shop = new Shop(Shoplist.WeaponShop);
                             shop.BuyItem();
                         break;
                     case ConsoleKey.D:
-                        RunStage(player);
+                        RunStage();
                         break;
                     case ConsoleKey.R:
                         restScene.Rest();
@@ -139,7 +140,7 @@ namespace _26TextRPG.Main
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
         
-        public void RunStage(Player player)
+        public void RunStage()
         {
             Stage runStage = new(1);
             while (true)
@@ -160,7 +161,7 @@ namespace _26TextRPG.Main
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.A:
-                        runStage.Explore(player);
+                        runStage.Explore();
                         break;
                     case ConsoleKey.Escape:
                         RunGame();

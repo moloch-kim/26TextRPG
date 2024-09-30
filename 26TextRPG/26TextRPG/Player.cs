@@ -112,24 +112,24 @@ public class Player
 
     public void UseSkill(Skill skill, Enemy enemy)
 	{
-
+        int damage = 0; ;
 		Mana -= skill.ManaCost;
         switch (skill.Reference)
         {
             case 1:
-                int damage = (int)(TotalAttackPower * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(TotalAttackPower * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 2:
-                int damage = (int)(TotalDefensePower * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(TotalDefensePower * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 3:
-                int damage = (int)(MaxHealth * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(MaxHealth * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 4:
-                int damage = (int)(MaxMana * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(MaxMana * skill.Multiplier) - enemy.DefensePower;
                 break;
             case 5:
-                int damage = (int)(Speed * skill.Multiplier) - enemy.DefensePower;
+                damage = (int)(Speed * skill.Multiplier) - enemy.DefensePower;
                 break;
         }
 		

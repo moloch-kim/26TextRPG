@@ -101,11 +101,16 @@ namespace _26TextRPG.Dungeon
                 Console.WriteLine("--------------------------------------------------------------------");
                 Console.WriteLine($"현재 골드: {playerData.Gold}골드");
                 DisplayItems();
-                Console.WriteLine("나가기 : P"); 
+                Console.WriteLine("판매하기 : S");
+                Console.WriteLine("나가기 : P "); 
                 TypingEffect("구매할 아이템의 번호를 입력하세요 (취소하려면 0 입력):", 40);
                 Console.WriteLine(); Thread.Sleep(100);
                 string input = Console.ReadLine();
-                if (input == "p" || input == "P")
+                if (input == "s" || input == "S")
+                {
+                    SellItem();
+                }
+                else if (input == "p" || input == "P")
                 {
                     InShop = false;
                     TypingEffect("상점에서 나갔습니다.", 40);
@@ -153,6 +158,80 @@ namespace _26TextRPG.Dungeon
                 Console.Clear();
             }
         }
+
+        public void SellItem()
+        {
+            Player playerData = Player.Instance;
+            if (playerData.Inventory.Count == 0)
+            {
+                Console.WriteLine("인벤토리가 비어 있습니다.");
+                return;
+            }
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("인벤토리 아이템 목록:");
+            for (int i = 0; i < playerData.Inventory.Count; i++)
+            {
+                Item item = playerData.Inventory[i];
+                string itemType = item is Weapon ? "무기" : item is Armor ? "방어구" : "아이템";
+
+                // 아이템이 장착된 상태인지 확인
+                bool isEquipped = false;
+                if (item == playerData.EquipedWeapon || item == playerData.EquipedArmor)
+                {
+                    isEquipped = true;
+                }
+                // 장착된 아이템 앞에 [E] 추가
+                string equippedIndicator = isEquipped ? "[E] " : "";
+
+
+                Console.WriteLine($"{i + 1}. {equippedIndicator}[{itemType}] {item.Name} : " + item.Value / 5);
+            }
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("판매할 아이템을 선택하세요 (취소하려면 0 입력)");
+            string input = Console.ReadLine();
+
+            if(int.TryParse(input, out int choice))
+            {
+                if (choice == 0)
+                {
+                    TypingEffect("판매를 취소했습니다.", 40);
+                    Console.WriteLine(); Thread.Sleep(100);
+                    return;
+                }
+
+                if (choice > 0 && choice <= playerData.Inventory.Count)
+                {
+                    Item selectedItem = playerData.Inventory[choice - 1];
+                    if (selectedItem == playerData.EquipedWeapon || selectedItem == playerData.EquipedArmor)
+                    {
+                        TypingEffect("장착중인 아이템은 판매할수 없습니다.", 40);
+                        Console.WriteLine(); Thread.Sleep(100);
+                    }
+                    else
+                    {
+                        playerData.Gold += selectedItem.Value / 5;
+                        playerData.Inventory.Remove(selectedItem);
+                        TypingEffect($"{selectedItem.Name}을(를) 판매하여 {selectedItem.Value / 5}만큼의 Gold를 획득했습니다.", 40);
+                        Console.WriteLine();
+                        TypingEffect($"남은 골드: {playerData.Gold}골드", 40); Console.WriteLine(); Thread.Sleep(100);
+                    }
+                }
+                else
+                {
+                    TypingEffect("잘못된 선택입니다.", 40);
+                    Console.WriteLine(); Thread.Sleep(100);
+                }
+            }
+            else
+            {
+                TypingEffect("숫자를 입력해주세요.", 40);
+                Console.WriteLine(); Thread.Sleep(100);
+            }
+            Console.Clear();
+        }
+
         private void TypingEffect(string text, int delay) // (타이핑을 직접 치는것 같은 효과) srting 문자열과 int 딜레이 값을 넣어주면
         {
             foreach (char c in text)// text에 들어있는 문자열을 foreach를 이용해 순서대로 c에 문자로 담아줌

@@ -31,6 +31,10 @@ public class Player : Character
         MaxHealth = maxHealth;
         Health = maxHealth;
         Speed = speed;
+        if (Speed <= 10)
+        {
+            Speed = 10;
+        }
         Mana = maxMana;
         MaxMana = maxMana;
         Gold = gold;

@@ -101,6 +101,7 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
+            Player playerData = Player.Instance;
             Shop shop = new Shop(Shoplist.Startshop);
             RestScene restScene = new RestScene();
 
@@ -123,8 +124,31 @@ namespace _26TextRPG.Main
                         shop.BuyItem();
                         break;
                     case ConsoleKey.D:
-                        RunStage();
-                        break;
+                        if (playerData.Inventory == null)
+                        {
+                            Console.WriteLine("당신은 아무 장비도 없습니다! 진행하시겠습니까?");
+                            Console.WriteLine("[예 : Yes ]");
+                            string input = Console.ReadLine();
+                            if (input == "Yes")
+                            {
+                                RunStage();
+                                break;
+                            }
+                            else if (input == "yes")
+                            {
+                                Console.WriteLine("정확히 Yes라고 입력해주세요.");
+                                break;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            RunStage();
+                            break;
+                        }
                     case ConsoleKey.R:
                         restScene.Rest();
                         break;

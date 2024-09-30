@@ -41,17 +41,17 @@ namespace _26TextRPG
                     Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
                     break;
                 case 2: //공격력 강화 포션
-                    playerData.TotalAttackPower += Effect; 
+                    playerData.AttackPower += Effect; 
                     break;
                 case 3: //방어력 강화 포션
-                    playerData.TotalDefensePower += Effect;
+                    playerData.DefensePower += Effect;
                     break;
                 case 4: //속도 강화 포션
                     playerData.Speed += Effect;
                     break;
                 case 5: //전체 능력치 강화 포션
-                    playerData.TotalAttackPower += Effect;
-                    playerData.TotalDefensePower += Effect;
+                    playerData.AttackPower += Effect;
+                    playerData.DefensePower += Effect;
                     playerData.Speed += Effect;
                     break;
             }

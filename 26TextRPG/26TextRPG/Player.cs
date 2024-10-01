@@ -40,8 +40,8 @@ public class Player : Character
         Mana = maxMana;
         MaxMana = maxMana;
         Gold = gold;
-        AttackPower = baseAttackPower + EquipedWeapon.Offense;
-        DefensePower = baseDefensePower + EquipedArmor.Defense;
+        if(EquipedWeapon != null) AttackPower = baseAttackPower + EquipedWeapon.Offense;
+        if(EquipedArmor != null) DefensePower = baseDefensePower + EquipedArmor.Defense;
         // 유민) 변수 선언부분에서 초기화처리도 같이 하도록 수정했습니다. 
         // ExpToNextLevel = 100;
         // Inventory = new List<Item>();

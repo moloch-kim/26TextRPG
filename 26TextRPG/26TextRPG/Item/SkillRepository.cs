@@ -39,11 +39,11 @@ namespace _26TextRPG
             };
 			Wizard = new List<Skill>()  // 마법사 스킬 리스트
             {
-				new Skill("매직 미사일", 4, 4, 0.5f, false, 250), 
-				new Skill("매직 에로우", 6, 4, 0.8f, false, 500), 
-				new Skill("매직 스피어", 3, 4, 1.1f, false, 1000), 
-				new Skill("체인 라이트닝", 7, 4, 1.6f, true, 2000),
-				new Skill("파이어 스톰", 10, 4, 2.0f, true, 4000), 
+				new Skill("매직 미사일", 4, 4, 1f, false, 250), 
+				new Skill("매직 에로우", 3, 4, 2.5f, false, 500), 
+				new Skill("매직 스피어", 6, 4, 4.5f, false, 1000), 
+				new Skill("체인 라이트닝", 7, 4, 4f, true, 2000),
+				new Skill("파이어 스톰", 10, 4, 8f, true, 4000), 
                 //스킬 추가
             };
 			AllSkills = new List<Skill>();

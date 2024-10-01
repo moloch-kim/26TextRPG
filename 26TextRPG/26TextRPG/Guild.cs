@@ -1,4 +1,4 @@
-﻿using _26TextRPG.Main;
+using _26TextRPG.Main;
 
 namespace _26TextRPG
 {
@@ -9,7 +9,7 @@ namespace _26TextRPG
         public Guild()
         {
             // 예시 퀘스트 추가
-            QuestList.Add(new Quest("고블린 죽이기", "오크를 5마리 처치하시오.", "오크", 5, 1000, 100, ItemRepository.GetRandomWeapon()));
+            QuestList.AddRange(QuestRepository.QuestList);
         }
 
         public void DisplayQuests()

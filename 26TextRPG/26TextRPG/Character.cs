@@ -42,25 +42,30 @@ public class Character
 			int damage = (AttackPower + DamageRoll) - character.DefensePower;
 			if (damage < 0) damage = 0;
 			character.Health -= damage * 2;
-			mainScene.TypingEffect("Á¤¸» Ä¡¸íÀûÀÎ ÀÏ°ÝÀÔ´Ï´Ù!!", 10);
-			mainScene.TypingEffect($"{Name}ÀÌ(°¡) {character.Name}¿¡°Ô {damage}¸¸Å­ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù!", 5);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine();
+            Console.WriteLine("!!!!!!!!!! CRITICAL HIT !!!!!!!!!!");
+            Console.WriteLine();
+            mainScene.TypingEffect("ì •ë§ ì¹˜ëª…ì ì¸ ì¼ê²©ìž…ë‹ˆë‹¤!!", 20);
+            Console.ResetColor();
+			mainScene.TypingEffect($"{Name}ì´(ê°€) {character.Name}ì—ê²Œ {damage}ë§Œí¼ì˜ í”¼í•´ë¥¼ ìž…í˜”ìŠµë‹ˆë‹¤!", 20);
 		}
 		else if (AttackRoll == 1)
 		{
-			mainScene.TypingEffect("¾îÀÌ¾ø´Â ½Ç¼ö·Î °ø°ÝÀÌ ºø³ª°©´Ï´Ù!!", 10);
+			mainScene.TypingEffect("ì–´ì´ì—†ëŠ” ì‹¤ìˆ˜ë¡œ ê³µê²©ì´ ë¹—ë‚˜ê°‘ë‹ˆë‹¤!!", 10);
 		}
 		else
 		{
 			int damage = (AttackPower + DamageRoll) - character.DefensePower;
 			if (damage < 0) damage = 0;
 			character.Health -= damage;
-			Console.WriteLine($"{Name}ÀÌ(°¡) {character.Name}¿¡°Ô {damage}¸¸Å­ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+			Console.WriteLine($"{Name}ì´(ê°€) {character.Name}ì—ê²Œ {damage}ë§Œí¼ì˜ í”¼í•´ë¥¼ ìž…í˜”ìŠµë‹ˆë‹¤.");
 		}
 	}
 
 	public void ChargeActionGauge()
 	{
-		if ( IsAlive() ) // ÀûÀÌ »ì¾ÆÀÖÀ» ¶§¸¸ °ÔÀÌÁö ÃæÀü
+		if ( IsAlive() ) // ì ì´ ì‚´ì•„ìžˆì„ ë•Œë§Œ ê²Œì´ì§€ ì¶©ì „
 		{
 			ActionGauge += Speed;
 			if (ActionGauge >= 100)

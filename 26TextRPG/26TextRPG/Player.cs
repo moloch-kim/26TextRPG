@@ -24,7 +24,7 @@ public class Player : Character
     public new int AttackPower { get; set; }
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();
-    public List<Potion> ActivePotion { get; set; } = null;
+    public List<Potion> ActivePotion { get; } = new List<Potion>();
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -132,17 +132,18 @@ public class Player : Character
 
     public void ApplyPotion()
     {
+        int count = 0;
         if (ActivePotion != null)
         {
             for (int i = 0; i < ActivePotion.Count; i++)
             {
-                int count = 0;
                 int maxCount = ActivePotion[i].Duration;
                 count++;
                 if (count > maxCount)
                 {
                     Console.WriteLine($"{ActivePotion[i].Name}의 효과가 다하였습니다!");
                     Console.WriteLine();
+                    Thread.Sleep(500);
                     ActivePotion.Remove(ActivePotion[i]);
                 }
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -82,6 +82,7 @@ namespace _26TextRPG.Dungeon
             {
                 FindStair();
             }
+            FindStair();
             Trap();
             TriggerEvent();
             Thread.Sleep(200);

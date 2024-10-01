@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,20 +41,24 @@ namespace _26TextRPG
                     playerData.Health += Effect;
                     if(playerData.Health > playerData.MaxHealth) { playerData.Health = playerData.MaxHealth; }
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 체력이 {Effect}만큼 회복되었습니다.");
+                    Thread.Sleep(500);
                     break;
                 case 2: //공격력 강화 포션
                     //playerData.AttackPower += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 공격력이 {Effect}만큼 상승했습니다!");
+                    Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
                 case 3: //방어력 강화 포션
                     //playerData.DefensePower += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 방어력이 {Effect}만큼 상승했습니다!");
+                    Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
                 case 4: //속도 강화 포션
                     //playerData.Speed += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 속도가 {Effect}만큼 상승했습니다!");
+                    Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
                 case 5: //전체 능력치 강화 포션
@@ -62,6 +66,7 @@ namespace _26TextRPG
                     //playerData.DefensePower += Effect;
                     //playerData.Speed += Effect;
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 모든 능력치가 {Effect}만큼 상승했습니다!!");
+                    Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
             }

@@ -86,9 +86,9 @@ namespace _26TextRPG.Main
             Console.Write("능력치 : S   인벤토리 : I   상점 : P   훈련장 : Q");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ||");
-            Console.Write("||     ");
+            Console.Write("|| ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("던전 : D       휴식 : R       종료 : ESC");
+            Console.Write("던전 : D    휴식 : R   길드 : G   종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("      ||");
             Console.WriteLine("||                                                   ||");
@@ -102,6 +102,7 @@ namespace _26TextRPG.Main
         public void RunGame()
         {
             Player playerData = Player.Instance;
+            Guild guild = new Guild();
             Shop shop = new Shop(Shoplist.Startshop);
             RestScene restScene = new RestScene();
             Status status = new Status();
@@ -160,6 +161,9 @@ namespace _26TextRPG.Main
                     case ConsoleKey.Q://훈련장
                         TrainingRoom room = new TrainingRoom();
                         room.BuySkill();
+                        break;
+                    case ConsoleKey.G:
+                        guild.ObtainQuests();
                         break;
                     case ConsoleKey.Escape:
                         Save();

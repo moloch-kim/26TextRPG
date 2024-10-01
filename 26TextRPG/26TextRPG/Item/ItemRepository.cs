@@ -108,10 +108,10 @@ namespace _26TextRPG
 
         public static void Inventory()
         {
+            Player playerData = Player.Instance;
             bool isIn = true;
             while (isIn)
             {
-                Player playerData = Player.Instance;
                 if (playerData.Inventory.Count == 0)
                 {
                     Console.WriteLine("인벤토리가 비어 있습니다.");
@@ -161,10 +161,6 @@ namespace _26TextRPG
                     playerData.Inventory[choice - 1].UseItem();
                 }
             }
-            
-
-
-
         }
 
     }

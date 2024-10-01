@@ -19,8 +19,8 @@ public class Player : Character
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; } = new List<Item>();
-    public Armor EquipedArmor { get; set; } = null;
-    public Weapon EquipedWeapon { get; set; } = null;
+    public Armor EquipedArmor { get; set; }
+    public Weapon EquipedWeapon { get; set; }
     public new int AttackPower { get; set; }
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();

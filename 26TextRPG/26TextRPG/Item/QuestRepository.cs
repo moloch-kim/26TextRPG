@@ -32,7 +32,7 @@ namespace _26TextRPG
 
         public static Quest GetQuestByName(string name)
         {
-            return QuestList.FirstOrDefault(Quest => Quest.Name == Quest);
+            return QuestList.FirstOrDefault(Quest => Quest.Name == name);
         }
     }
 }

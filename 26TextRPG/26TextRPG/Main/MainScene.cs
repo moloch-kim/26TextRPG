@@ -87,6 +87,11 @@ namespace _26TextRPG.Main
             Console.WriteLine("      ||");
             Console.Write("||       ");
             Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("              훈련장 : Q              ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("      ||");
+            Console.Write("||       ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("던전 : D      휴식 : R        종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("    ||");
@@ -111,17 +116,17 @@ namespace _26TextRPG.Main
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
                 {
-                    case ConsoleKey.S:
+                    case ConsoleKey.S://능력치
                         Console.WriteLine("S");
                         break;
-                    case ConsoleKey.I:
+                    case ConsoleKey.I://인벤토리
                         ItemRepository.Inventory();
                         break;
-                    case ConsoleKey.P:
+                    case ConsoleKey.P://상점
                         Console.WriteLine("P");
                         shop.BuyItem();
                         break;
-                    case ConsoleKey.D:
+                    case ConsoleKey.D://던전
                         Player player = Player.Instance;
                         if (player.Inventory.Count <= 0)
                         {
@@ -148,11 +153,15 @@ namespace _26TextRPG.Main
                             RunStage();
                             break;
                         }
-                    case ConsoleKey.R:
+                    case ConsoleKey.R://휴식
                         restScene.Rest();
                         break;
-                    case ConsoleKey.K:
+                    case ConsoleKey.K://데이터초기화
                         ResetDataScene();
+                        break;
+                    case ConsoleKey.Q://훈련장
+                        TrainingRoom room = new TrainingRoom();
+                        room.BuySkill();
                         break;
                     case ConsoleKey.Escape:
                         Save();

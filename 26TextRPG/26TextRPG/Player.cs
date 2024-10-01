@@ -19,11 +19,12 @@ public class Player : Character
     public bool IsDefending { get; set; }
     public List<Skill> SkillList { get; } = new List<Skill>();
     public List<Item> Inventory { get; } = new List<Item>();
-    public Armor EquipedArmor { get; set; } = null;
-    public Weapon EquipedWeapon { get; set; } = null;
+    public Armor EquipedArmor { get; set; }
+    public Weapon EquipedWeapon { get; set; }
     public new int AttackPower { get; set; }
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();
+    public List<Potion> ActivePotion { get; set; } = null;
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -33,15 +34,40 @@ public class Player : Character
         MaxHealth = maxHealth;
         Health = maxHealth;
         Speed = speed;
-        if (Speed <= 10)
-        {
-            Speed = 10;
-        }
         Mana = maxMana;
         MaxMana = maxMana;
         Gold = gold;
         if(EquipedWeapon != null) AttackPower = baseAttackPower + EquipedWeapon.Offense;
         if(EquipedArmor != null) DefensePower = baseDefensePower + EquipedArmor.Defense;
+        if(ActivePotion != null)
+        {
+            for (int i = 0; i < ActivePotion.Count; i++)
+            {
+                int potiontype = ActivePotion[i].PotionType;
+                int potionEffect = ActivePotion[i].Effect;
+                if (potiontype != 1)
+                {
+                    switch (potiontype)
+                    {
+                        case 2:
+                            AttackPower += potionEffect;
+                            break;
+                        case 3:
+                            DefensePower += potionEffect;
+                            break;
+                        case 4:
+                            Speed += potionEffect;
+                            break;
+                        case 5:
+                            AttackPower += potionEffect;
+                            DefensePower += potionEffect;
+                            Speed += potionEffect;
+                            break;
+                    }
+                }
+            }
+        }
+        
         // 유민) 변수 선언부분에서 초기화처리도 같이 하도록 수정했습니다. 
         // ExpToNextLevel = 100;
         // Inventory = new List<Item>();
@@ -93,13 +119,31 @@ public class Player : Character
     {
         if (IsAlive()) // 적이 살아있을 때만 게이지 충전
         {
+            if (Speed <= 10)
+            {
+                Speed = 10;
+            }
             ActionGauge += Speed;
             if (ActionGauge >= 100)
                 ActionGauge = 100;
         }
     }
 
-
+    public void ApplyPotion()
+    {
+        for (int i = 0; i < ActivePotion.Count; i++)
+        {
+            int count = 0;
+            int maxCount = ActivePotion[i].Duration;
+            count++;
+            if (count > maxCount)
+            {
+                Console.WriteLine($"{ActivePotion[i].Name}의 효과가 다하였습니다!");
+                Console.WriteLine();
+                ActivePotion.Remove(ActivePotion[i]);
+            }
+        }
+    }
 
     public void Defend()
     {

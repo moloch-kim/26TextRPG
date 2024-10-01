@@ -1,4 +1,5 @@
-﻿using _26TextRPG.Dungeon;
+﻿using _26TextRPG;
+using _26TextRPG.Dungeon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ public class Battle
 
     public void Start(int Floor)
     {
-
         List<Enemy> enemies = EnemyRepository.GetEnemyListByFloor(Floor);
 
         List<Enemy> selectedEnemies = new List<Enemy> {  };

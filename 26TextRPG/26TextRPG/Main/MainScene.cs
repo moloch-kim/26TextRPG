@@ -87,7 +87,7 @@ namespace _26TextRPG.Main
             Console.WriteLine(" ||");
             Console.Write("||     ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("던전 : D      휴식 : R        종료 : ESC");
+            Console.Write("던전 : D       휴식 : R       종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("      ||");
             Console.WriteLine("||                                                   ||");

@@ -19,4 +19,18 @@ public class Enemy : Character
 		ExperienceReward = experienceReward;
 		GoldReward = goldReward;
 	}
+
+    public Enemy(Enemy original)
+    {
+        Name = original.Name;
+        ID = original.ID;
+        Health = original.Health;
+        MaxHealth = original.MaxHealth;
+        AttackPower = original.AttackPower;
+        DefensePower = original.DefensePower;
+        Speed = original.Speed;
+        ExperienceReward = original.ExperienceReward;
+        GoldReward = original.GoldReward;
+    }
+
 }

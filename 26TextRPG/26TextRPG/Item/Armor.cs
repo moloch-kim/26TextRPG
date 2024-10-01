@@ -40,8 +40,6 @@ namespace _26TextRPG
             Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착했습니다.");
             playerData.EquipedArmor = this;
-            playerData.DefensePower += Defense;
-            playerData.Speed -= Weight;
             IsEquip = true;
             //장착 메소드
         }
@@ -50,8 +48,6 @@ namespace _26TextRPG
             Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
             playerData.EquipedArmor = null;
-            playerData.DefensePower -= Defense;
-            playerData.Speed += Weight;
             IsEquip = false;
             //장착해제 메소드
         }

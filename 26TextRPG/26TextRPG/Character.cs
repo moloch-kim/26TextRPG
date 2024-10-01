@@ -42,12 +42,12 @@ public class Character
 			int damage = (AttackPower + DamageRoll) - character.DefensePower;
 			if (damage < 0) damage = 0;
 			character.Health -= damage * 2;
-			mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
-			mainScene.TypingEffect($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다!", 50);
+			mainScene.TypingEffect("정말 치명적인 일격입니다!!", 10);
+			mainScene.TypingEffect($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다!", 5);
 		}
 		else if (AttackRoll == 1)
 		{
-			mainScene.TypingEffect("어이없는 실수로 공격이 빗나갑니다!!", 50);
+			mainScene.TypingEffect("어이없는 실수로 공격이 빗나갑니다!!", 10);
 		}
 		else
 		{

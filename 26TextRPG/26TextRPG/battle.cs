@@ -12,6 +12,8 @@ public class Battle
         this.player = player;
     }
 
+    bool keepBattle = true;
+
     public void Start(int Floor)
     {
         
@@ -34,7 +36,8 @@ public class Battle
         Console.WriteLine();
         DisplayMono(player, selectedEnemies);
 
-        while (true)
+        
+        while (keepBattle)
         {
             player.ChargeActionGauge();
             foreach (var enemy in selectedEnemies)
@@ -64,7 +67,7 @@ public class Battle
                 player.Health = 1;
                 Console.ReadKey();
                 Console.Clear();
-                break;
+                ReturnToStage();
             }
 
             if (selectedEnemies.All(e => e.Health <= 0))
@@ -73,19 +76,18 @@ public class Battle
                 Console.WriteLine("아무키나 누르세요...");
                 Console.ReadKey();
                 Console.Clear();
-                break;
+                ReturnToStage();
             }
 
             //Console.WriteLine("아무키나 누르세요...");
             //Console.ReadKey();
             Thread.Sleep(50);
         }
-
-        ReturnToStage();
     }
 
     private void ReturnToStage()
     {
+        keepBattle = false;
         Console.WriteLine($"{player.Name}은 다음 방으로 눈을 돌립니다...");
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();

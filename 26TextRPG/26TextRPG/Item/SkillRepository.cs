@@ -1,4 +1,4 @@
-using _26TextRPG;
+ï»¿using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,54 +7,54 @@ using System.Threading.Tasks;
 
 namespace _26TextRPG
 {
-	internal class SkillRepository
-	{
-		public static List<Skill> Warrior { get; private set; }
-		public static List<Skill> Archer { get; private set; }
-		public static List<Skill> Wizard { get; private set; }
-		private static List<Skill> AllSkills; 
+    internal class SkillRepository
+    {
+        public static List<Skill> Warrior { get; private set; }
+        public static List<Skill> Archer { get; private set; }
+        public static List<Skill> Wizard { get; private set; }
+        private static List<Skill> AllSkills;
 
-		// Á¤·Ä ±âÁØÀº ¼Ö·ç¼Ç Å½»ö±â
-		static SkillRepository()
-		{
-			//Skill(string name, int manaCost,int reference, float multiplier, bool isArea)
-			//Reference 1:°ø°İ·Â, 2:¹æ¾î·Â, 3:ÃÖ´ëÃ¼·Â, 4:ÃÖ´ë¸¶³ª 5:¼Óµµ
-			Warrior = new List<Skill>() // Àü»ç ½ºÅ³ ¸®½ºÆ®
+        // ì •ë ¬ ê¸°ì¤€ì€ ì†”ë£¨ì…˜ íƒìƒ‰ê¸°
+        static SkillRepository()
+        {
+            //Skill(string name, int manaCost,int reference, float multiplier, bool isArea)
+            //Reference 1:ê³µê²©ë ¥, 2:ë°©ì–´ë ¥, 3:ìµœëŒ€ì²´ë ¥, 4:ìµœëŒ€ë§ˆë‚˜ 5:ì†ë„
+            Warrior = new List<Skill>() // ì „ì‚¬ ìŠ¤í‚¬ ë¦¬ìŠ¤íŠ¸
             {
-				new Skill("¹è½¬", 3, 1, 1.5f, false, 250),
-				new Skill("½½·¡½¬", 5, 1, 2.0f, false, 500),
-				new Skill("¹æÆĞ ¹ĞÄ¡±â", 4, 2, 1.5f, false, 1000),
-				new Skill("¿øµå¹Ğ", 8, 1, 1.5f, true, 2000),
-				new Skill("ÆÄÀÌ³Î È÷Æ®", 10, 3, 1.5f, false, 4000),
-				//½ºÅ³ Ãß°¡
+                new Skill("ë°°ì‰¬", 3, 1, 1.5f, false, 250),
+                new Skill("ìŠ¬ë˜ì‰¬", 5, 1, 2.0f, false, 500),
+                new Skill("ë°©íŒ¨ ë°€ì¹˜ê¸°", 4, 2, 1.5f, false, 1000),
+                new Skill("ì›ë“œë°€", 8, 1, 1.5f, true, 2000),
+                new Skill("íŒŒì´ë„ íˆíŠ¸", 10, 3, 1.5f, false, 4000),
+				//ìŠ¤í‚¬ ì¶”ê°€
 			};
-			Archer = new List<Skill>() // ±Ã¼ö ½ºÅ³ ¸®½ºÆ®
+            Archer = new List<Skill>() // ê¶ìˆ˜ ìŠ¤í‚¬ ë¦¬ìŠ¤íŠ¸
             {
-				new Skill("ÇØµå¼¦", 3, 1, 1.5f, false, 250),
-				new Skill("¿¬¼Ó »ç°İ", 5, 1, 2.0f, false, 500), 
-				new Skill("´ÙÁß È­»ì", 5, 1, 1.3f, true, 1000), 
-				new Skill("½Å¼Ó ¹ß»ç", 3, 5, 2.5f, true, 2000), 
-				new Skill("ÆÄÀÌ³Î ¼¦", 10, 1, 3.0f, false, 4000), 
-                //½ºÅ³ Ãß°¡
+                new Skill("í•´ë“œìƒ·", 3, 1, 1.5f, false, 250),
+                new Skill("ì—°ì† ì‚¬ê²©", 5, 1, 2.0f, false, 500),
+                new Skill("ë‹¤ì¤‘ í™”ì‚´", 5, 1, 1.3f, true, 1000),
+                new Skill("ì‹ ì† ë°œì‚¬", 3, 5, 2.5f, true, 2000),
+                new Skill("íŒŒì´ë„ ìƒ·", 10, 1, 3.0f, false, 4000), 
+                //ìŠ¤í‚¬ ì¶”ê°€
             };
-			Wizard = new List<Skill>()  // ¸¶¹ı»ç ½ºÅ³ ¸®½ºÆ®
+            Wizard = new List<Skill>()  // ë§ˆë²•ì‚¬ ìŠ¤í‚¬ ë¦¬ìŠ¤íŠ¸
             {
-				new Skill("¸ÅÁ÷ ¹Ì»çÀÏ", 4, 5, 0.5f, false, 250), 
-				new Skill("¸ÅÁ÷ ¿¡·Î¿ì", 6, 5, 0.8f, false, 500), 
-				new Skill("¸ÅÁ÷ ½ºÇÇ¾î", 3, 5, 1.1f, false, 1000), 
-				new Skill("Ã¼ÀÎ ¶óÀÌÆ®´×", 7, 5, 1.6f, true, 2000),
-				new Skill("ÆÄÀÌ¾î ½ºÅè", 10, 5, 2.0f, true, 4000), 
-                //½ºÅ³ Ãß°¡
+                new Skill("ë§¤ì§ ë¯¸ì‚¬ì¼", 4, 5, 0.5f, false, 250),
+                new Skill("ë§¤ì§ ì—ë¡œìš°", 6, 5, 0.8f, false, 500),
+                new Skill("ë§¤ì§ ìŠ¤í”¼ì–´", 3, 5, 1.1f, false, 1000),
+                new Skill("ì²´ì¸ ë¼ì´íŠ¸ë‹", 7, 5, 1.6f, true, 2000),
+                new Skill("íŒŒì´ì–´ ìŠ¤í†°", 10, 5, 2.0f, true, 4000), 
+                //ìŠ¤í‚¬ ì¶”ê°€
             };
-			AllSkills = new List<Skill>();
-			AllSkills.AddRange(Warrior);
-			AllSkills.AddRange(Archer);
-			AllSkills.AddRange(Wizard);
-		}
+            AllSkills = new List<Skill>();
+            AllSkills.AddRange(Warrior);
+            AllSkills.AddRange(Archer);
+            AllSkills.AddRange(Wizard);
+        }
 
-		public static Skill GetSkillByName(string name)
-		{
-			return AllSkills.FirstOrDefault(skill => skill.Name == name);
-		}
-	}
+        public static Skill GetSkillByName(string name)
+        {
+            return AllSkills.FirstOrDefault(skill => skill.Name == name);
+        }
+    }
 }

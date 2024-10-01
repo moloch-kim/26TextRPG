@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,26 +13,28 @@ public class Battle
 
     public void Start(int Floor)
     {
-        List<Enemy> enemies = new List<Enemy> //Ãş º°·Î µîÀåÇÒ ¼ö ÀÖ´Â ¸ó½ºÅÍÀÇ ¸®½ºÆ® ex) enemyListByFloor[int Floor] °°Àº °Í¿¡¼­ ¹Ş¾Æ¿Ã°Í
+        
+        List<Enemy> enemies = new List<Enemy> //ì¸µ ë³„ë¡œ ë“±ì¥í•  ìˆ˜ ìˆëŠ” ëª¬ìŠ¤í„°ì˜ ë¦¬ìŠ¤íŠ¸ ex) enemyListByFloor[int Floor] ê°™ì€ ê²ƒì—ì„œ ë°›ì•„ì˜¬ê²ƒ
         {
-            //¿¡³Ê¹Ì ¸®½ºÆ®ÀÇ ¿¹½Ã
-            // ÀÌ¸§, id, Ã¼·Â, °ø°İ·Â, ¹æ¾î·Â, ¼Óµµ, °æÇèÄ¡º¸»ó, °ñµåº¸»ó ¼ø¼­
-            new Enemy("°íºí¸°", 1, 50, 10, 2, 8, 20, 50),
-            new Enemy("¿ÀÅ©", 2, 80, 12, 4, 6, 40, 100),
-            new Enemy("Æ®·Ñ", 3, 100, 8, 6, 5, 60, 150)
+            //ì—ë„ˆë¯¸ ë¦¬ìŠ¤íŠ¸ì˜ ì˜ˆì‹œ
+            // ì´ë¦„, id, ì²´ë ¥, ê³µê²©ë ¥, ë°©ì–´ë ¥, ì†ë„, ê²½í—˜ì¹˜ë³´ìƒ, ê³¨ë“œë³´ìƒ ìˆœì„œ
+            new Enemy("ê³ ë¸”ë¦°", 1, 50, 10, 2, 8, 20, 50),
+            new Enemy("ì˜¤í¬", 2, 80, 12, 4, 6, 40, 100),
+            new Enemy("íŠ¸ë¡¤", 3, 100, 8, 6, 5, 60, 150)
         };
 
         Random random = new Random();
-        int numberOfEnemies = random.Next(1, 5); // 1¸í¿¡¼­ 4¸í »çÀÌÀÇ Àû »ı¼º
+        int numberOfEnemies = random.Next(1, 5); // 1ëª…ì—ì„œ 4ëª… ì‚¬ì´ì˜ ì  ìƒì„±
         var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+
+        Console.Clear();
+        Console.WriteLine("==== ë‹¹ì‹ ì€ ëª¬ìŠ¤í„°ë¥¼ ì¡°ìš°í–ˆë‹¤. ====");
+        Console.WriteLine($"{player.Name} VS ì ë“¤: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
+        Console.WriteLine();
+        DisplayMono(player, selectedEnemies);
 
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("==== ´ç½ÅÀº ¸ó½ºÅÍ¸¦ Á¶¿ìÇß´Ù. ====");
-            Console.WriteLine($"{player.Name} VS Àûµé: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
-            Console.WriteLine();
-
             player.ChargeActionGauge();
             foreach (var enemy in selectedEnemies)
             {
@@ -50,29 +52,29 @@ public class Battle
             {
                 if (enemy.Health > 0 && enemy.CanAct())
                 {
-                    EnemyTurn(enemy);
+                    EnemyTurn(enemy, enemies);
                 }
             }
 
             if (player.Health <= 0)
             {
-                Console.WriteLine("´ç½ÅÀº ÆĞ¹èÇß½À´Ï´Ù....");
-                Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+                Console.WriteLine("ë‹¹ì‹ ì€ íŒ¨ë°°í–ˆìŠµë‹ˆë‹¤....");
+                Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
                 Console.ReadKey();
                 break;
             }
 
             if (selectedEnemies.All(e => e.Health <= 0))
             {
-                Console.WriteLine("¸ğµç ÀûÀ» ¹°¸®ÃÆ½À´Ï´Ù!");
-                Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+                Console.WriteLine("ëª¨ë“  ì ì„ ë¬¼ë¦¬ì³¤ìŠµë‹ˆë‹¤!");
+                Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
                 Console.ReadKey();
                 break;
             }
 
-            //Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+            //Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
             //Console.ReadKey();
-            Thread.Sleep(20);
+            Thread.Sleep(50);
         }
 
         ReturnToStage();
@@ -80,29 +82,65 @@ public class Battle
 
     private void ReturnToStage()
     {
-        Console.WriteLine($"{player.Name}Àº ´ÙÀ½ ¹æÀ¸·Î ´«À» µ¹¸³´Ï´Ù...");
-        Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+        Console.WriteLine($"{player.Name}ì€ ë‹¤ìŒ ë°©ìœ¼ë¡œ ëˆˆì„ ëŒë¦½ë‹ˆë‹¤...");
+        Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
         Console.ReadKey();
     }
 
+    private void DisplayMono(Player player, List<Enemy> enemies)
+    {
+        // í”Œë ˆì´ì–´ ìƒíƒœ ì¶œë ¥
+        Console.SetCursorPosition(0, 3);
+        Console.Write($"{player.Name}: ");
+        Console.SetCursorPosition(7, 3);
+        Console.Write($"ì²´ë ¥ =     /{player.MaxHealth}");
+        Console.SetCursorPosition(25, 3);
+        Console.Write($"í–‰ë™ë ¥ =");
+
+
+        // ì ì˜ ìƒíƒœ ì¶œë ¥
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Console.SetCursorPosition(0, 5 + i);
+            Console.Write($"{enemies[i].Name}: ");
+            Console.SetCursorPosition(7, 5 + i);
+            Console.Write($"ì²´ë ¥ =     /{enemies[i].MaxHealth}");
+            Console.SetCursorPosition(25, 5 + i);
+            Console.Write($"í–‰ë™ë ¥ =");
+        }
+    }
 
     private void DisplayStatus(Player player, List<Enemy> enemies)
     {
-        Console.WriteLine($"{player.Name}: Health = {player.Health}/{player.MaxHealth}, Action Gauge = {player.ActionGauge}%");
-        foreach (var enemy in enemies)
+        // í”Œë ˆì´ì–´ ìƒíƒœ ìˆ«ì ì—…ë°ì´íŠ¸
+        Console.SetCursorPosition(15, 3);
+        Console.Write($"{player.Health} "); // ì²´ë ¥
+        Console.SetCursorPosition(35, 3);
+        Console.Write($"{player.ActionGauge}%    "); // í–‰ë™ë ¥
+
+        // ì ì˜ ìƒíƒœ ìˆ«ì ì—…ë°ì´íŠ¸
+        for (int i = 0; i < enemies.Count; i++)
         {
-            Console.WriteLine($"{enemy.Name}: Health = {enemy.Health}, Action Gauge = {enemy.ActionGauge}%");
+            Console.SetCursorPosition(15, 5 + i);
+            Console.Write($"{enemies[i].Health} "); // ì  ì²´ë ¥
+            Console.SetCursorPosition(35, 5 + i);
+            Console.Write($"{enemies[i].ActionGauge}%    "); // ì  í–‰ë™ë ¥
         }
+
+        Console.SetCursorPosition(0, enemies.Count + 2); // ë‹¤ìŒ ì¶œë ¥ ìœ„ì¹˜ ì¡°ì •
     }
+
 
     private void PlayerTurn(List<Enemy> enemies)
     {
         player.ResetActionGauge();
-        Console.WriteLine("´ç½ÅÀÇ ÅÏÀÔ´Ï´Ù. ÇÒ Çàµ¿À» ¼±ÅÃÇÏ½Ê½Ã¿À.");
-        Console.WriteLine("1. °ø°İ");
-        Console.WriteLine("2. ½ºÅ³");
-        Console.WriteLine("3. ¹æ¾î");
-        Console.WriteLine("4. µµ¸ÁÄ¡±â");
+        ClearLines(10, 20);
+        Console.SetCursorPosition(0, 10);
+        Console.WriteLine("ë‹¹ì‹ ì˜ í„´ì…ë‹ˆë‹¤. í•  í–‰ë™ì„ ì„ íƒí•˜ì‹­ì‹œì˜¤.");
+        Console.WriteLine("1. ê³µê²©");
+        Console.WriteLine("2. ìŠ¤í‚¬");
+        Console.WriteLine("3. ë°©ì–´");
+        Console.WriteLine("4. ë„ë§ì¹˜ê¸°");
 
         bool validInput = false;
         while (!validInput)
@@ -120,22 +158,23 @@ public class Battle
             }
             else if (choice == "3")
             {
-                player.Defend(); // ¹æ¾î ¸Ş¼Òµå
+                player.Defend(); // ë°©ì–´ ë©”ì†Œë“œ
                 validInput = true;
             }
             else if (choice == "4")
             {
-                Console.WriteLine("µµ¸ÁÃÆ½À´Ï´Ù!");
-                validInput = true; // µµ¸ÁÄ¡±â ·ÎÁ÷ ÇÊ¿ä
+                Console.WriteLine("ë„ë§ì³¤ìŠµë‹ˆë‹¤!");
+                validInput = true; // ë„ë§ì¹˜ê¸° ë¡œì§ í•„ìš”
             }
             else
             {
-                Console.WriteLine("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ¼±ÅÃÇÏ¼¼¿ä.");
+                Console.WriteLine("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì„ íƒí•˜ì„¸ìš”.");
             }
         }
 
-        Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+        Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
         Console.ReadKey();
+        ClearLines(15, 30);
     }
 
     private void AttackChoice(List<Enemy> enemies)
@@ -143,7 +182,7 @@ public class Battle
         var aliveEnemies = enemies.Where(e => e.Health > 0).ToList();
         if (aliveEnemies.Count > 0)
         {
-            Console.WriteLine("°ø°İÇÒ ÀûÀÇ ¹øÈ£¸¦ ¼±ÅÃÇÏ¼¼¿ä:");
+            Console.WriteLine("ê³µê²©í•  ì ì˜ ë²ˆí˜¸ë¥¼ ì„ íƒí•˜ì„¸ìš”:");
             for (int i = 0; i < aliveEnemies.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {aliveEnemies[i].Name}");
@@ -156,21 +195,21 @@ public class Battle
             }
             else
             {
-                Console.WriteLine("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù. ´Ù½Ã ¼±ÅÃÇÏ¼¼¿ä.");
+                Console.WriteLine("ì˜ëª»ëœ ì„ íƒì…ë‹ˆë‹¤. ë‹¤ì‹œ ì„ íƒí•˜ì„¸ìš”.");
             }
         }
         else
         {
-            Console.WriteLine("°ø°İÇÒ ÀûÀÌ ¾ø½À´Ï´Ù.");
+            Console.WriteLine("ê³µê²©í•  ì ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
     private void SkillChoice(List<Enemy> enemies)
     {
-        Console.WriteLine("»ç¿ëÇÒ ½ºÅ³À» ¼±ÅÃÇÏ¼¼¿ä:");
+        Console.WriteLine("ì‚¬ìš©í•  ìŠ¤í‚¬ì„ ì„ íƒí•˜ì„¸ìš”:");
         for (int i = 0; i < player.SkillList.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {player.SkillList[i].Name} (¼Ò¸ğ ¸¶³ª: {player.SkillList[i].ManaCost})");
+            Console.WriteLine($"{i + 1}. {player.SkillList[i].Name} (ì†Œëª¨ ë§ˆë‚˜: {player.SkillList[i].ManaCost})");
         }
 
         string input = Console.ReadLine();
@@ -193,22 +232,35 @@ public class Battle
             }
             else
             {
-                Console.WriteLine("¸¶³ª°¡ ºÎÁ·ÇÕ´Ï´Ù.");
+                Console.WriteLine("ë§ˆë‚˜ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
             }
         }
         else
         {
-            Console.WriteLine("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù. ´Ù½Ã ¼±ÅÃÇÏ¼¼¿ä.");
+            Console.WriteLine("ì˜ëª»ëœ ì„ íƒì…ë‹ˆë‹¤. ë‹¤ì‹œ ì„ íƒí•˜ì„¸ìš”.");
         }
     }
 
-    private void EnemyTurn(Enemy enemy)
+    private void EnemyTurn(Enemy enemy, List<Enemy> enemies)
     {
-        Console.WriteLine($"Àû {enemy.Name}ÀÇ ÅÏÀÔ´Ï´Ù....");
-        enemy.Attack(player); //enemyÅ¬·¡½º¿¡ Attack(player) ¸Ş¼Òµå ÇÊ¿ä
+        ClearLines(10, 20);
+        Console.SetCursorPosition(0, 10);
+        Console.WriteLine($"ì  {enemy.Name}ì˜ í„´ì…ë‹ˆë‹¤....");
+        enemy.Attack(player); //enemyí´ë˜ìŠ¤ì— Attack(player) ë©”ì†Œë“œ í•„ìš”
         enemy.ResetActionGauge();
 
-        Console.WriteLine("¾Æ¹«Å°³ª ´©¸£¼¼¿ä...");
+        Console.WriteLine("ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”...");
         Console.ReadKey();
+        ClearLines(15, 30);
     }
+
+    private void ClearLines(int startLine, int numberOfLines)
+    {
+        for (int i = 0; i < numberOfLines; i++)
+        {
+            Console.SetCursorPosition(0, startLine + i);
+            Console.Write(new string(' ', Console.WindowWidth)); // í•´ë‹¹ ì¤„ì„ ê³µë°±ìœ¼ë¡œ ë®ì–´ì“°ê¸°
+        }
+    }
+
 }

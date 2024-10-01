@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using _26TextRPG.Dungeon;
 using System;
 using System.Collections.Generic;
@@ -101,9 +101,9 @@ public class Battle
         // 플레이어 상태 출력
         Console.SetCursorPosition(0, 3);
         Console.Write($"{player.Name}: ");
-        Console.SetCursorPosition(7, 3);
+        Console.SetCursorPosition(15, 3);
         Console.Write($"체력 =     /{player.MaxHealth}");
-        Console.SetCursorPosition(25, 3);
+        Console.SetCursorPosition(33, 3);
         Console.Write($"행동력 =");
 
 
@@ -112,9 +112,9 @@ public class Battle
         {
             Console.SetCursorPosition(0, 5 + i);
             Console.Write($"{enemies[i].Name}: ");
-            Console.SetCursorPosition(7, 5 + i);
+            Console.SetCursorPosition(15, 5 + i);
             Console.Write($"체력 =     /{enemies[i].MaxHealth}");
-            Console.SetCursorPosition(25, 5 + i);
+            Console.SetCursorPosition(33, 5 + i);
             Console.Write($"행동력 =");
         }
     }
@@ -122,17 +122,17 @@ public class Battle
     private void DisplayStatus(Player player, List<Enemy> enemies)
     {
         // 플레이어 상태 숫자 업데이트
-        Console.SetCursorPosition(15, 3);
+        Console.SetCursorPosition(23, 3);
         Console.Write($"{player.Health} "); // 체력
-        Console.SetCursorPosition(35, 3);
+        Console.SetCursorPosition(43, 3);
         Console.Write($"{player.ActionGauge}%    "); // 행동력
 
         // 적의 상태 숫자 업데이트
         for (int i = 0; i < enemies.Count; i++)
         {
-            Console.SetCursorPosition(15, 5 + i);
+            Console.SetCursorPosition(23, 5 + i);
             Console.Write($"{enemies[i].Health} "); // 적 체력
-            Console.SetCursorPosition(35, 5 + i);
+            Console.SetCursorPosition(43, 5 + i);
             Console.Write($"{enemies[i].ActionGauge}%    "); // 적 행동력
         }
 

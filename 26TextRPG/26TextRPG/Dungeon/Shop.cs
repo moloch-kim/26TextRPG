@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using _26TextRPG.Main;
 using System;
 using System.Collections.Generic;
@@ -30,6 +30,7 @@ namespace _26TextRPG.Dungeon
                     ItemRepository.GetItemByID(1002),
                     ItemRepository.GetItemByID(1003),
                     ItemRepository.GetItemByID(2000),
+                    ItemRepository.GetItemByID(2002),
                     ItemRepository.GetItemByID(3000),
                     ItemRepository.GetItemByID(3001),
                     ItemRepository.GetItemByID(3002),

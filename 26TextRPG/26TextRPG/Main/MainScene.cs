@@ -1,4 +1,4 @@
-﻿using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
 using _26TextRPG.Main;
@@ -191,7 +191,7 @@ namespace _26TextRPG.Main
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("탐험하기 : A");
-
+                Console.WriteLine("인벤토리 : I");
                 // 다음층 확인
                 if (runStage.StairFound)
                 {
@@ -228,6 +228,9 @@ namespace _26TextRPG.Main
                             runStage.ShopFound = false;
                             shop.BuyItem();
                         }
+                        break;
+                    case ConsoleKey.I:
+                        ItemRepository.Inventory();
                         break;
                 }
             }

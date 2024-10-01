@@ -5,7 +5,7 @@ using System.ComponentModel;
 public class Player : Character
 {
     private static Player instance;
-    // ÃÊ±â°ª ¼³Á¤(»óÅÂ º¸±â È­¸é¿¡ ¶ß´Â)
+    // ì´ˆê¸°ê°’ ì„¤ì •(ìƒíƒœ ë³´ê¸° í™”ë©´ì— ëœ¨ëŠ”)
     public int Level { get; set; }
     public string Job { get; set; } 
     public int BaseAttackPower { get; set; }
@@ -68,7 +68,7 @@ public class Player : Character
             }
         }
         
-        // À¯¹Î) º¯¼ö ¼±¾ğºÎºĞ¿¡¼­ ÃÊ±âÈ­Ã³¸®µµ °°ÀÌ ÇÏµµ·Ï ¼öÁ¤Çß½À´Ï´Ù. 
+        // ìœ ë¯¼) ë³€ìˆ˜ ì„ ì–¸ë¶€ë¶„ì—ì„œ ì´ˆê¸°í™”ì²˜ë¦¬ë„ ê°™ì´ í•˜ë„ë¡ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤. 
         // ExpToNextLevel = 100;
         // Inventory = new List<Item>();
         // EquipedArmor = null;
@@ -99,25 +99,25 @@ public class Player : Character
             int damage = ((AttackPower + DamageRoll) * 2) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
-            mainScene.TypingEffect("Á¤¸» Ä¡¸íÀûÀÎ ÀÏ°İÀÔ´Ï´Ù!!", 30);
-            mainScene.TypingEffect($"{Name}ÀÌ(°¡) {character.Name}¿¡°Ô {damage}¸¸Å­ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù!", 50);
+            mainScene.TypingEffect("ì •ë§ ì¹˜ëª…ì ì¸ ì¼ê²©ì…ë‹ˆë‹¤!!", 30);
+            mainScene.TypingEffect($"{Name}ì´(ê°€) {character.Name}ì—ê²Œ {damage}ë§Œí¼ì˜ í”¼í•´ë¥¼ ì…í˜”ìŠµë‹ˆë‹¤!", 50);
         }
         else if (AttackRoll == 1)
         {
-            mainScene.TypingEffect("¾îÀÌ¾ø´Â ½Ç¼ö·Î °ø°İÀÌ ºø³ª°©´Ï´Ù!!", 50);
+            mainScene.TypingEffect("ì–´ì´ì—†ëŠ” ì‹¤ìˆ˜ë¡œ ê³µê²©ì´ ë¹—ë‚˜ê°‘ë‹ˆë‹¤!!", 50);
         }
         else
         {
             int damage = (AttackPower + DamageRoll) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
-            Console.WriteLine($"{Name}ÀÌ(°¡) {character.Name}¿¡°Ô {damage}¸¸Å­ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+            Console.WriteLine($"{Name}ì´(ê°€) {character.Name}ì—ê²Œ {damage}ë§Œí¼ì˜ í”¼í•´ë¥¼ ì…í˜”ìŠµë‹ˆë‹¤.");
         }
     }
 
     public void ChargeActionGauge()
     {
-        if (IsAlive()) // ÀûÀÌ »ì¾ÆÀÖÀ» ¶§¸¸ °ÔÀÌÁö ÃæÀü
+        if (IsAlive()) // ì ì´ ì‚´ì•„ìˆì„ ë•Œë§Œ ê²Œì´ì§€ ì¶©ì „
         {
             if (Speed <= 10)
             {
@@ -127,20 +127,24 @@ public class Player : Character
             if (ActionGauge >= 100)
                 ActionGauge = 100;
         }
+        ApplyPotion();
     }
 
     public void ApplyPotion()
     {
-        for (int i = 0; i < ActivePotion.Count; i++)
+        if (ActivePotion != null)
         {
-            int count = 0;
-            int maxCount = ActivePotion[i].Duration;
-            count++;
-            if (count > maxCount)
+            for (int i = 0; i < ActivePotion.Count; i++)
             {
-                Console.WriteLine($"{ActivePotion[i].Name}ÀÇ È¿°ú°¡ ´ÙÇÏ¿´½À´Ï´Ù!");
-                Console.WriteLine();
-                ActivePotion.Remove(ActivePotion[i]);
+                int count = 0;
+                int maxCount = ActivePotion[i].Duration;
+                count++;
+                if (count > maxCount)
+                {
+                    Console.WriteLine($"{ActivePotion[i].Name}ì˜ íš¨ê³¼ê°€ ë‹¤í•˜ì˜€ìŠµë‹ˆë‹¤!");
+                    Console.WriteLine();
+                    ActivePotion.Remove(ActivePotion[i]);
+                }
             }
         }
     }
@@ -148,7 +152,7 @@ public class Player : Character
     public void Defend()
     {
         IsDefending = true;
-        Console.WriteLine($"{Name}ÀÌ(°¡) ¹æ¾î ÅÂ¼¼¸¦ ÃëÇß½À´Ï´Ù.");
+        Console.WriteLine($"{Name}ì´(ê°€) ë°©ì–´ íƒœì„¸ë¥¼ ì·¨í–ˆìŠµë‹ˆë‹¤.");
     }
 
     public void UseSkill(Skill skill, Enemy enemy)
@@ -177,13 +181,13 @@ public class Player : Character
 		if (damage < 0) damage = 0;
 		enemy.Health -= damage;
 
-		Console.WriteLine($"{Name}ÀÌ(°¡) {enemy.Name}¿¡°Ô {skill.Name}À» »ç¿ëÇØ {damage}¸¸Å­ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.");
+		Console.WriteLine($"{Name}ì´(ê°€) {enemy.Name}ì—ê²Œ {skill.Name}ì„ ì‚¬ìš©í•´ {damage}ë§Œí¼ì˜ í”¼í•´ë¥¼ ì…í˜”ìŠµë‹ˆë‹¤.");
 	}
 
     public void GainExp(int amount)
     {
         Exp += amount;
-        Console.WriteLine($"{amount} °æÇèÄ¡¸¦ È¹µæÇß½À´Ï´Ù.");
+        Console.WriteLine($"{amount} ê²½í—˜ì¹˜ë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤.");
         if (Exp >= ExpToNextLevel)
         {
             LevelUp();
@@ -196,7 +200,7 @@ public class Player : Character
         Level++;
         ExpToNextLevel = (int)(ExpToNextLevel * 1.5);
         StatPoint += 5;
-        Console.WriteLine("·¹º§¾÷! ½ºÅÈ Æ÷ÀÎÆ® 5Á¡À» È¹µæÇß½À´Ï´Ù.");
+        Console.WriteLine("ë ˆë²¨ì—…! ìŠ¤íƒ¯ í¬ì¸íŠ¸ 5ì ì„ íšë“í–ˆìŠµë‹ˆë‹¤.");
         DistributeStatPoint();
     }
 
@@ -205,47 +209,47 @@ public class Player : Character
         while (StatPoint > 0)
         {
             Console.Clear();
-            Console.WriteLine("½ºÅÈ Æ÷ÀÎÆ®¸¦ ºĞ¹èÇÏ¼¼¿ä.");
-            Console.WriteLine($"³²Àº ½ºÅÈ Æ÷ÀÎÆ®: {StatPoint}");
-            Console.WriteLine("1. °ø°İ·Â");
-            Console.WriteLine("2. ¹æ¾î·Â");
-            Console.WriteLine("3. Ã¼·Â");
-            Console.WriteLine("4. ¸¶·Â");
-            Console.WriteLine("5. ¼Óµµ");
-            Console.Write("¿øÇÏ´Â ½ºÅÈÀ» ¼±ÅÃÇÏ¼¼¿ä: ");
+            Console.WriteLine("ìŠ¤íƒ¯ í¬ì¸íŠ¸ë¥¼ ë¶„ë°°í•˜ì„¸ìš”.");
+            Console.WriteLine($"ë‚¨ì€ ìŠ¤íƒ¯ í¬ì¸íŠ¸: {StatPoint}");
+            Console.WriteLine("1. ê³µê²©ë ¥");
+            Console.WriteLine("2. ë°©ì–´ë ¥");
+            Console.WriteLine("3. ì²´ë ¥");
+            Console.WriteLine("4. ë§ˆë ¥");
+            Console.WriteLine("5. ì†ë„");
+            Console.Write("ì›í•˜ëŠ” ìŠ¤íƒ¯ì„ ì„ íƒí•˜ì„¸ìš”: ");
             string choice = Console.ReadLine();
             
             switch (choice)
             {
                 case "1":
                     BaseAttackPower += 5;
-                    Console.WriteLine("°ø°İ·ÂÀÌ Áõ°¡Çß½À´Ï´Ù.");
+                    Console.WriteLine("ê³µê²©ë ¥ì´ ì¦ê°€í–ˆìŠµë‹ˆë‹¤.");
                     StatPoint--;
                     break;
                 case "2":
                     BaseDefensePower += 5;
-                    Console.WriteLine("¹æ¾î·ÂÀÌ Áõ°¡Çß½À´Ï´Ù.");
+                    Console.WriteLine("ë°©ì–´ë ¥ì´ ì¦ê°€í–ˆìŠµë‹ˆë‹¤.");
                     StatPoint--;
                     break;
                 case "3":
                     MaxHealth += 5;
                     Health = MaxHealth;
-                    Console.WriteLine("ÃÖ´ë Ã¼·ÂÀÌ Áõ°¡Çß½À´Ï´Ù.");
+                    Console.WriteLine("ìµœëŒ€ ì²´ë ¥ì´ ì¦ê°€í–ˆìŠµë‹ˆë‹¤.");
                     StatPoint--;
                     break;
                 case "4":
                     MaxMana += 5;
                     Mana = MaxMana;
-                    Console.WriteLine("ÃÖ´ë ¸¶·ÂÀÌ Áõ°¡Çß½À´Ï´Ù.");
+                    Console.WriteLine("ìµœëŒ€ ë§ˆë ¥ì´ ì¦ê°€í–ˆìŠµë‹ˆë‹¤.");
                     StatPoint--;
                     break;
                 case "5":
                     Speed += 5;
-                    Console.WriteLine("¼Óµµ°¡ Áõ°¡Çß½À´Ï´Ù.");
+                    Console.WriteLine("ì†ë„ê°€ ì¦ê°€í–ˆìŠµë‹ˆë‹¤.");
                     StatPoint--;
                     break;
                 default:
-                    Console.WriteLine("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù.");
+                    Console.WriteLine("ì˜ëª»ëœ ì„ íƒì…ë‹ˆë‹¤.");
                     continue;
             }
         }

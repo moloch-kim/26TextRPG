@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using _26TextRPG.Dungeon;
 using System;
 using System.Collections.Generic;
@@ -149,7 +149,8 @@ public class Battle
         Console.WriteLine("1. 공격");
         Console.WriteLine("2. 스킬");
         Console.WriteLine("3. 방어");
-        Console.WriteLine("4. 도망치기");
+        Console.WriteLine("4. 인벤토리");
+        Console.WriteLine("5. 도망치기");
 
         bool validInput = false;
         while (!validInput)
@@ -171,6 +172,11 @@ public class Battle
                 validInput = true;
             }
             else if (choice == "4")
+            {
+                ItemRepository.Inventory();
+                validInput = true;
+            }
+            else if (choice == "5")
             {
                 Console.WriteLine("도망쳤습니다!");
                 validInput = true;

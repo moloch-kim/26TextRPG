@@ -113,17 +113,17 @@ public class Battle
     {
         // 플레이어 상태 숫자 업데이트
         Console.SetCursorPosition(15, 3);
-        Console.Write($"{player.Health}"); // 체력
+        Console.Write($"{player.Health} "); // 체력
         Console.SetCursorPosition(35, 3);
-        Console.Write($"{player.ActionGauge}%"); // 행동력
+        Console.Write($"{player.ActionGauge}%    "); // 행동력
 
         // 적의 상태 숫자 업데이트
         for (int i = 0; i < enemies.Count; i++)
         {
             Console.SetCursorPosition(15, 5 + i);
-            Console.Write($"{enemies[i].Health}"); // 적 체력
+            Console.Write($"{enemies[i].Health} "); // 적 체력
             Console.SetCursorPosition(35, 5 + i);
-            Console.Write($"{enemies[i].ActionGauge}%"); // 적 행동력
+            Console.Write($"{enemies[i].ActionGauge}%    "); // 적 행동력
         }
 
         Console.SetCursorPosition(0, enemies.Count + 2); // 다음 출력 위치 조정

@@ -16,19 +16,20 @@ public class Battle
 
     public void Start(int Floor)
     {
-        
-        List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
-        {
-            //에너미 리스트의 예시
-            // 이름, id, 체력, 공격력, 방어력, 속도, 경험치보상, 골드보상 순서
-            new Enemy("고블린", 1, 50, 10, 2, 8, 20, 50),
-            new Enemy("오크", 2, 80, 12, 4, 6, 40, 100),
-            new Enemy("트롤", 3, 100, 8, 6, 5, 60, 150)
-        };
 
-        Random random = new Random();
-        int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
-        var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+        List<Enemy> enemies = GetEnemyListByFloor(int Floor);
+
+
+        if (Floor % 5 != 0)
+        {
+            Random random = new Random();
+            int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
+            var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+        }
+        else if (Floor % 5 == 0) {
+            var selectedEnemies = enemies;
+        }
+        
 
         Console.Clear();
         Console.WriteLine("==== 당신은 몬스터를 조우했다. ====");

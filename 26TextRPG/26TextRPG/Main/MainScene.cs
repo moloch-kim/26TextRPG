@@ -18,7 +18,6 @@ namespace _26TextRPG.Main
             Console.Clear();
             Logo();
             Player.LoadPlayer(playerData);
-            TypingEffect("기억을 찾는 중입니다...", 50);
         }
 
         public void Save()// 저장
@@ -88,6 +87,11 @@ namespace _26TextRPG.Main
             Console.WriteLine("      ||");
             Console.Write("||       ");
             Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("              훈련장 : Q              ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("      ||");
+            Console.Write("||       ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("던전 : D      휴식 : R        종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("    ||");
@@ -101,6 +105,7 @@ namespace _26TextRPG.Main
 
         public void RunGame()
         {
+            Player playerData = Player.Instance;
             Shop shop = new Shop(Shoplist.Startshop);
             RestScene restScene = new RestScene();
 
@@ -111,25 +116,52 @@ namespace _26TextRPG.Main
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
                 {
-                    case ConsoleKey.S:
+                    case ConsoleKey.S://능력치
                         Console.WriteLine("S");
                         break;
-                    case ConsoleKey.I:
-                        Console.WriteLine("I");
+                    case ConsoleKey.I://인벤토리
                         ItemRepository.Inventory();
                         break;
-                    case ConsoleKey.P:
+                    case ConsoleKey.P://상점
                         Console.WriteLine("P");
                         shop.BuyItem();
                         break;
-                    case ConsoleKey.D:
-                        RunStage();
-                        break;
-                    case ConsoleKey.R:
+                    case ConsoleKey.D://던전
+                        Player player = Player.Instance;
+                        if (player.Inventory.Count <= 0)
+                        {
+                            Console.WriteLine("당신은 아무 장비도 없습니다! 진행하시겠습니까?");
+                            Console.WriteLine("[예 : Yes ]");
+                            string input = Console.ReadLine();
+                            if (input == "Yes")
+                            {
+                                RunStage();
+                                break;
+                            }
+                            else if (input == "yes")
+                            {
+                                Console.WriteLine("정확히 Yes라고 입력해주세요.");
+                                break;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            RunStage();
+                            break;
+                        }
+                    case ConsoleKey.R://휴식
                         restScene.Rest();
                         break;
-                    case ConsoleKey.K:
+                    case ConsoleKey.K://데이터초기화
                         ResetDataScene();
+                        break;
+                    case ConsoleKey.Q://훈련장
+                        TrainingRoom room = new TrainingRoom();
+                        room.BuySkill();
                         break;
                     case ConsoleKey.Escape:
                         Save();
@@ -164,7 +196,10 @@ namespace _26TextRPG.Main
                 {
                     Console.WriteLine("다음층으로 : S");
                 }
-
+                if (runStage.ShopFound)
+                {
+                    Console.WriteLine("상점으로 : P");
+                }
                 Console.WriteLine("나가기 : ESC");
                 Console.ResetColor();
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -181,6 +216,16 @@ namespace _26TextRPG.Main
                         {
                             ++runStage.StageFloor;
                             runStage.StairFound = false;
+                        }
+                        break;
+                    case ConsoleKey.P:
+                        if (runStage.ShopFound)
+                        {
+                            Random random = new Random();
+                            int randomShop = random.Next(1, 5);
+                            Shop shop = new Shop((Shoplist)randomShop);
+                            runStage.ShopFound = false;
+                            shop.BuyItem();
                         }
                         break;
                 }

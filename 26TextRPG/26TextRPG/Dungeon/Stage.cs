@@ -77,7 +77,10 @@ namespace _26TextRPG.Dungeon
                 Console.WriteLine();
                 return;
             }
-            FindStair();
+            if (StairFound)
+            {
+                FindStair();
+            }
             Trap();
             TriggerEvent();
             Thread.Sleep(200);
@@ -130,7 +133,7 @@ namespace _26TextRPG.Dungeon
             else
             {
                 // 아무일도 없음 - 랜덤 택스트 출력
-                int Randomtext = Random.Next(1, 3);
+                int Randomtext = Random.Next(1, 4);
                 switch (Randomtext)
                 {
                     case 1:
@@ -151,10 +154,12 @@ namespace _26TextRPG.Dungeon
         }
         public void EncounterEnemy() 
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             mainScene.TypingEffect("어둠속에서 무언가가 움직입니다....!!" , 50);
             Thread.Sleep(800);
             Console.WriteLine();
-            int Randomtext = Random.Next(1, 3);
+            int Randomtext = Random.Next(1, 4);
+            Console.ForegroundColor = ConsoleColor.Red;
             switch (Randomtext)
             {
                 case 1:
@@ -170,6 +175,7 @@ namespace _26TextRPG.Dungeon
                     Console.WriteLine();
                     break;
             }
+            Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine("계속_(아무키나 입력해 진행)");
             Console.ReadLine();
@@ -259,6 +265,7 @@ namespace _26TextRPG.Dungeon
             int eventChance = Random.Next(1, 101);
             if (eventChance >= 80)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 int Randomtext = Random.Next(1, 3);
                 switch (Randomtext)
                 {
@@ -275,6 +282,7 @@ namespace _26TextRPG.Dungeon
                         Console.WriteLine();
                         break;
                 }
+                Console.ResetColor();
                 int EvasionRoll = Dice.Roll(1, 20);
                 int Evasion = EvasionRoll + currentPlayer.Speed;
                 int TrapDamage = Dice.Roll(StageFloor, 4);
@@ -294,8 +302,7 @@ namespace _26TextRPG.Dungeon
 
                 if (EvasionRoll == 20)
                 {
-                    mainScene.TypingEffect("함정의 잔해에 반짝이는것이 보입니다!", 50);
-                    Console.WriteLine();
+                    mainScene.TypingEffect("함정의 잔해에..", 50);
                     FindItem();
                 }
                 else if (EvasionRoll == 1)

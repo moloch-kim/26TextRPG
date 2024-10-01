@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _26TextRPG.Dungeon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,21 +12,24 @@ public class Battle
         this.player = player;
     }
 
+    bool keepBattle = true;
+
     public void Start(int Floor)
     {
-        
-        List<Enemy> enemies = new List<Enemy> //층 별로 등장할 수 있는 몬스터의 리스트 ex) enemyListByFloor[int Floor] 같은 것에서 받아올것
-        {
-            //에너미 리스트의 예시
-            // 이름, id, 체력, 공격력, 방어력, 속도, 경험치보상, 골드보상 순서
-            new Enemy("고블린", 1, 50, 10, 2, 8, 20, 50),
-            new Enemy("오크", 2, 80, 12, 4, 6, 40, 100),
-            new Enemy("트롤", 3, 100, 8, 6, 5, 60, 150)
-        };
 
-        Random random = new Random();
-        int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
-        var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+        List<Enemy> enemies = GetEnemyListByFloor(int Floor);
+
+
+        if (Floor % 5 != 0)
+        {
+            Random random = new Random();
+            int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
+            var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+        }
+        else if (Floor % 5 == 0) {
+            var selectedEnemies = enemies;
+        }
+        
 
         Console.Clear();
         Console.WriteLine("==== 당신은 몬스터를 조우했다. ====");
@@ -33,7 +37,8 @@ public class Battle
         Console.WriteLine();
         DisplayMono(player, selectedEnemies);
 
-        while (true)
+        
+        while (keepBattle)
         {
             player.ChargeActionGauge();
             foreach (var enemy in selectedEnemies)
@@ -60,8 +65,10 @@ public class Battle
             {
                 Console.WriteLine("당신은 패배했습니다....");
                 Console.WriteLine("아무키나 누르세요...");
+                player.Health = 1;
                 Console.ReadKey();
-                break;
+                Console.Clear();
+                ReturnToStage();
             }
 
             if (selectedEnemies.All(e => e.Health <= 0))
@@ -69,22 +76,23 @@ public class Battle
                 Console.WriteLine("모든 적을 물리쳤습니다!");
                 Console.WriteLine("아무키나 누르세요...");
                 Console.ReadKey();
-                break;
+                Console.Clear();
+                ReturnToStage();
             }
 
             //Console.WriteLine("아무키나 누르세요...");
             //Console.ReadKey();
             Thread.Sleep(50);
         }
-
-        ReturnToStage();
     }
 
     private void ReturnToStage()
     {
+        keepBattle = false;
         Console.WriteLine($"{player.Name}은 다음 방으로 눈을 돌립니다...");
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
+        
     }
 
     private void DisplayMono(Player player, List<Enemy> enemies)
@@ -164,7 +172,8 @@ public class Battle
             else if (choice == "4")
             {
                 Console.WriteLine("도망쳤습니다!");
-                validInput = true; // 도망치기 로직 필요
+                validInput = true;
+                ReturnToStage();
             }
             else
             {
@@ -174,7 +183,7 @@ public class Battle
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
-        ClearLines(15, 30);
+        ClearLines(10,20);
     }
 
     private void AttackChoice(List<Enemy> enemies)
@@ -251,7 +260,7 @@ public class Battle
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
-        ClearLines(15, 30);
+        ClearLines(10,20);
     }
 
     private void ClearLines(int startLine, int numberOfLines)
@@ -261,6 +270,7 @@ public class Battle
             Console.SetCursorPosition(0, startLine + i);
             Console.Write(new string(' ', Console.WindowWidth)); // 해당 줄을 공백으로 덮어쓰기
         }
+        Console.SetCursorPosition(0, startLine);
     }
 
 }

@@ -39,31 +39,35 @@ public class Player : Character
         Gold = gold;
         if(EquipedWeapon != null) AttackPower = baseAttackPower + EquipedWeapon.Offense;
         if(EquipedArmor != null) DefensePower = baseDefensePower + EquipedArmor.Defense;
-        for(int i = 0; i < ActivePotion.Count; i++)
+        if(ActivePotion != null)
         {
-            int potiontype = ActivePotion[i].PotionType;
-            int potionEffect = ActivePotion[i].Effect;
-            if(potiontype != 1)
+            for (int i = 0; i < ActivePotion.Count; i++)
             {
-                switch (potiontype)
+                int potiontype = ActivePotion[i].PotionType;
+                int potionEffect = ActivePotion[i].Effect;
+                if (potiontype != 1)
                 {
-                    case 2 :
-                        AttackPower += potionEffect;
-                        break;
-                    case 3 :
-                        DefensePower += potionEffect;
-                        break;
-                    case 4:
-                        Speed += potionEffect;
-                        break;
-                    case 5:
-                        AttackPower += potionEffect;
-                        DefensePower += potionEffect;
-                        Speed += potionEffect;
-                        break;
+                    switch (potiontype)
+                    {
+                        case 2:
+                            AttackPower += potionEffect;
+                            break;
+                        case 3:
+                            DefensePower += potionEffect;
+                            break;
+                        case 4:
+                            Speed += potionEffect;
+                            break;
+                        case 5:
+                            AttackPower += potionEffect;
+                            DefensePower += potionEffect;
+                            Speed += potionEffect;
+                            break;
+                    }
                 }
             }
         }
+        
         // 유민) 변수 선언부분에서 초기화처리도 같이 하도록 수정했습니다. 
         // ExpToNextLevel = 100;
         // Inventory = new List<Item>();

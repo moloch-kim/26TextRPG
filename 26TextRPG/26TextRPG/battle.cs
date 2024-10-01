@@ -26,13 +26,14 @@ public class Battle
         int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
         var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
 
+        Console.Clear();
+        Console.WriteLine("==== 당신은 몬스터를 조우했다. ====");
+        Console.WriteLine($"{player.Name} VS 적들: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
+        Console.WriteLine();
+        DisplayMono(player, selectedEnemies);
+
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("==== 당신은 몬스터를 조우했다. ====");
-            Console.WriteLine($"{player.Name} VS 적들: {string.Join(", ", selectedEnemies.Select(e => e.Name))}");
-            Console.WriteLine();
-
             player.ChargeActionGauge();
             foreach (var enemy in selectedEnemies)
             {
@@ -50,7 +51,7 @@ public class Battle
             {
                 if (enemy.Health > 0 && enemy.CanAct())
                 {
-                    EnemyTurn(enemy);
+                    EnemyTurn(enemy, enemies);
                 }
             }
 
@@ -72,7 +73,7 @@ public class Battle
 
             //Console.WriteLine("아무키나 누르세요...");
             //Console.ReadKey();
-            Thread.Sleep(20);
+            Thread.Sleep(50);
         }
 
         ReturnToStage();
@@ -85,19 +86,55 @@ public class Battle
         Console.ReadKey();
     }
 
+    private void DisplayMono(Player player, List<Enemy> enemies)
+    {
+        // 플레이어 상태 출력
+        Console.SetCursorPosition(0, 3);
+        Console.Write($"{player.Name}: ");
+        Console.SetCursorPosition(7, 3);
+        Console.Write($"체력 =     /{player.MaxHealth}");
+        Console.SetCursorPosition(25, 3);
+        Console.Write($"행동력 =");
+
+
+        // 적의 상태 출력
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Console.SetCursorPosition(0, 5 + i);
+            Console.Write($"{enemies[i].Name}: ");
+            Console.SetCursorPosition(7, 5 + i);
+            Console.Write($"체력 =     /{enemies[i].MaxHealth}");
+            Console.SetCursorPosition(25, 5 + i);
+            Console.Write($"행동력 =");
+        }
+    }
 
     private void DisplayStatus(Player player, List<Enemy> enemies)
     {
-        Console.WriteLine($"{player.Name}: Health = {player.Health}/{player.MaxHealth}, Action Gauge = {player.ActionGauge}%");
-        foreach (var enemy in enemies)
+        // 플레이어 상태 숫자 업데이트
+        Console.SetCursorPosition(15, 3);
+        Console.Write($"{player.Health}"); // 체력
+        Console.SetCursorPosition(35, 3);
+        Console.Write($"{player.ActionGauge}%"); // 행동력
+
+        // 적의 상태 숫자 업데이트
+        for (int i = 0; i < enemies.Count; i++)
         {
-            Console.WriteLine($"{enemy.Name}: Health = {enemy.Health}, Action Gauge = {enemy.ActionGauge}%");
+            Console.SetCursorPosition(15, 5 + i);
+            Console.Write($"{enemies[i].Health}"); // 적 체력
+            Console.SetCursorPosition(35, 5 + i);
+            Console.Write($"{enemies[i].ActionGauge}%"); // 적 행동력
         }
+
+        Console.SetCursorPosition(0, enemies.Count + 2); // 다음 출력 위치 조정
     }
+
 
     private void PlayerTurn(List<Enemy> enemies)
     {
         player.ResetActionGauge();
+        ClearLines(10, 20);
+        Console.SetCursorPosition(0, 10);
         Console.WriteLine("당신의 턴입니다. 할 행동을 선택하십시오.");
         Console.WriteLine("1. 공격");
         Console.WriteLine("2. 스킬");
@@ -136,6 +173,7 @@ public class Battle
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
+        ClearLines(15, 30);
     }
 
     private void AttackChoice(List<Enemy> enemies)
@@ -202,13 +240,26 @@ public class Battle
         }
     }
 
-    private void EnemyTurn(Enemy enemy)
+    private void EnemyTurn(Enemy enemy, List<Enemy> enemies)
     {
+        ClearLines(10, 20);
+        Console.SetCursorPosition(0, 10);
         Console.WriteLine($"적 {enemy.Name}의 턴입니다....");
         enemy.Attack(player); //enemy클래스에 Attack(player) 메소드 필요
         enemy.ResetActionGauge();
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
+        ClearLines(15, 30);
     }
+
+    private void ClearLines(int startLine, int numberOfLines)
+    {
+        for (int i = 0; i < numberOfLines; i++)
+        {
+            Console.SetCursorPosition(0, startLine + i);
+            Console.Write(new string(' ', Console.WindowWidth)); // 해당 줄을 공백으로 덮어쓰기
+        }
+    }
+
 }

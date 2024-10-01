@@ -7,22 +7,24 @@ using System.Threading.Tasks;
 
 namespace _26TextRPG
 {
-    internal class Potion : Item, IConsumable
+    public class Potion : Item, IConsumable
     {
         public int ID { get; private set; }
         public int PotionType { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public int Effect { get; private set; }
+        public int Duration { get; private set; }
         public int Value { get; private set; }
 
-        public Potion(int iD, int potionType, string name, string description, int effect, int value)
+        public Potion(int iD, int potionType, string name, string description, int effect,int duration, int value)
         {
             ID = iD;
             PotionType = potionType;
             Name = name;
             Description = description;
             Effect = effect;
+            Duration = duration;
             Value = value;
         }
         public void UseItem() //괄호에 캐릭터 클래스 매개변수 삽입

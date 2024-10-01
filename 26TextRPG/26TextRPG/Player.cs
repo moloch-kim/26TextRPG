@@ -24,6 +24,7 @@ public class Player : Character
     public new int AttackPower { get; set; }
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();
+    public List<Potion> ActivePotion { get; set; } = null;
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;

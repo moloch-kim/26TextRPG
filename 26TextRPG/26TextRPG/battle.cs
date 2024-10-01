@@ -17,17 +17,18 @@ public class Battle
     public void Start(int Floor)
     {
 
-        List<Enemy> enemies = GetEnemyListByFloor(int Floor);
+        List<Enemy> enemies = EnemyRepository.GetEnemyListByFloor(Floor);
 
+        List<Enemy> selectedEnemies = new List<Enemy> {  };
 
         if (Floor % 5 != 0)
         {
             Random random = new Random();
             int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
-            var selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+            selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
         }
         else if (Floor % 5 == 0) {
-            var selectedEnemies = enemies;
+            selectedEnemies = enemies;
         }
         
 

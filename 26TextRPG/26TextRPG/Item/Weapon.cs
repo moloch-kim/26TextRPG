@@ -44,8 +44,7 @@ namespace _26TextRPG
             Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착했습니다.");
             playerData.EquipedWeapon = this;
-            playerData.AttackPower += Offense;
-            playerData.Speed -= Weight;
+            IsEquip = true;
             //장착 메소드
         }
         public void UnEquip() //괄호에 캐릭터 클래스 매개변수 삽입
@@ -53,8 +52,7 @@ namespace _26TextRPG
             Player playerData = Player.Instance;
             Console.WriteLine($"{Name}을(를) 장착 해제했습니다.");
             playerData.EquipedWeapon = null;
-            playerData.AttackPower -= Offense;
-            playerData.Speed += Weight;
+            IsEquip=false;
             //장착해제 메소드
         }
     }

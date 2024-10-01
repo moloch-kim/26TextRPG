@@ -46,7 +46,7 @@ namespace _26TextRPG.Main
         public void Opening()
         {
             Logo();
-            string message = "눈을 떠보니 아무것도 기억나질 않는다.. ";
+            string message = "눈을 떠보니 아무것도 기억나질 않는다...";
             TypingEffect(message, 50);
             Thread.Sleep(1000);
             Console.Clear();
@@ -258,7 +258,10 @@ namespace _26TextRPG.Main
         public void CreatePlayer()// 닉네임 생성
         {
             Console.Clear();
-            TypingEffect("아무것도 기억나지 않는다...", 30);
+            TypingEffect("내가 누군지조차 모르겠다. 생각을 하기 시작하자 알수없는 두려움이 느껴진다..", 30);
+            Console.WriteLine();
+            Console.WriteLine("계속하려면 아무 키나 누르십시오...");
+            Console.ReadKey();
             Console.WriteLine();
             TypingEffect("내 이름을 떠올려보자", 30);
             Console.WriteLine();
@@ -309,7 +312,11 @@ namespace _26TextRPG.Main
             }
 
             playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana, gold);
-
+            TypingEffect($"내가 {playerData.Job} 라고 ? {playerData.Job}라면 모험을 시작해야지 기억을 찾기 위한 모험을 하자 ! ", 30);
+            Console.WriteLine();
+            Console.WriteLine("계속하려면 아무 키나 누르십시오...");
+            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine($"{playerData.Name} 님 ! 대부분의 기억이 살아났습니다 !");
             Console.WriteLine($"직업: {playerData.Job}, 체력: {playerData.MaxHealth}, 공격력: {playerData.AttackPower}");
 

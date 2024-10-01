@@ -32,7 +32,8 @@ namespace _26TextRPG.Dungeon
                     ItemRepository.GetItemByID(2000),
                     ItemRepository.GetItemByID(3000),
                     ItemRepository.GetItemByID(3001),
-                    ItemRepository.GetItemByID(3002)
+                    ItemRepository.GetItemByID(3002),
+                    ItemRepository.GetItemByID(3010)
                 };
                     break;
                 case 1:

@@ -80,21 +80,16 @@ namespace _26TextRPG.Main
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=======================================================");
             Console.WriteLine("||                                                   ||");
-            Console.Write("||       ");
+            Console.Write("|| ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("능력치 : S    인벤토리 : I    상점 : P");
+            Console.Write("능력치 : S   인벤토리 : I   상점 : P   훈련장 : Q");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("      ||");
-            Console.Write("||       ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("              훈련장 : Q              ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("      ||");
-            Console.Write("||       ");
+            Console.WriteLine(" ||");
+            Console.Write("||     ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("던전 : D      휴식 : R        종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("    ||");
+            Console.WriteLine("      ||");
             Console.WriteLine("||                                                   ||");
             Console.WriteLine("=======================================================");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
@@ -168,6 +163,9 @@ namespace _26TextRPG.Main
                         Console.WriteLine("게임을 종료하겠습니다.");
                         Thread.Sleep(1000);
                         Environment.Exit(0);
+                        break;
+                    default:
+                        RunGame();
                         break;
                 }
             }

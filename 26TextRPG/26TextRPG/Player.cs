@@ -21,7 +21,7 @@ public class Player : Character
     public List<Item> Inventory { get; } = new List<Item>();
     public Armor EquipedArmor { get; set; } = null;
     public Weapon EquipedWeapon { get; set; } = null;
-    public Quest Quest { get; set; }
+    public List<Quest> Quest { get; set; }
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -124,34 +124,44 @@ public class Player : Character
             Console.WriteLine("1. 공격력");
             Console.WriteLine("2. 방어력");
             Console.WriteLine("3. 체력");
-            Console.WriteLine("4. 속도");
+            Console.WriteLine("4. 마력");
+            Console.WriteLine("5. 속도");
             Console.Write("원하는 스탯을 선택하세요: ");
             string choice = Console.ReadLine();
             
             switch (choice)
             {
                 case "1":
-                    BaseAttackPower++;
+                    BaseAttackPower += 5;
                     Console.WriteLine("공격력이 증가했습니다.");
+                    StatPoint--;
                     break;
                 case "2":
-                    BaseDefensePower++;
+                    BaseDefensePower += 5;
                     Console.WriteLine("방어력이 증가했습니다.");
+                    StatPoint--;
                     break;
                 case "3":
-                    MaxHealth += 10;
+                    MaxHealth += 5;
                     Health = MaxHealth;
                     Console.WriteLine("최대 체력이 증가했습니다.");
+                    StatPoint--;
                     break;
                 case "4":
-                    Speed++;
+                    MaxMana += 5;
+                    Mana = MaxMana;
+                    Console.WriteLine("최대 마력이 증가했습니다.");
+                    StatPoint--;
+                    break;
+                case "5":
+                    Speed += 5;
                     Console.WriteLine("속도가 증가했습니다.");
+                    StatPoint--;
                     break;
                 default:
                     Console.WriteLine("잘못된 선택입니다.");
                     continue;
             }
-            StatPoint--;
         }
     }
 }

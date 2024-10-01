@@ -9,6 +9,7 @@
         public int CurrentCount { get; set; }
         public bool IsCompleted => CurrentCount >= TargetCount;
 
+        public bool IsCommissioned { get; set; } = false;
         public int RewardGold { get; set; }
         public int RewardExp { get; set; }
 

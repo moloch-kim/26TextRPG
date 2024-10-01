@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _26TextRPG.Dungeon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -88,6 +89,7 @@ public class Battle
         Console.WriteLine($"{player.Name}은 다음 방으로 눈을 돌립니다...");
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
+        
     }
 
     private void DisplayMono(Player player, List<Enemy> enemies)
@@ -265,7 +267,7 @@ public class Battle
             Console.SetCursorPosition(0, startLine + i);
             Console.Write(new string(' ', Console.WindowWidth)); // 해당 줄을 공백으로 덮어쓰기
         }
-        Console.SetCursorPosition(0, startLine + i);
+        Console.SetCursorPosition(0, startLine);
     }
 
 }

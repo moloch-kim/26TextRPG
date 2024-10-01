@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 namespace _26TextRPG.Dungeon
 {
-    //public enum Roomlist
-    //{
-    //    WarriorRoom = 0, WizardRoom = 1, ArcherRoom = 2
-    //}
     public class TrainingRoom
     {
         MainScene mainScene = new MainScene();
@@ -31,19 +27,6 @@ namespace _26TextRPG.Dungeon
             {
                 SkillList = SkillRepository.Archer;
             }
-            //SkillList = new List<Skill>();
-            //switch ((int)roomlist)
-            //{
-            //    case 0:
-            //        SkillList = SkillRepository.Warrior;
-            //        break;
-            //    case 1:
-            //        SkillList = SkillRepository.Wizard;
-            //        break;
-            //    case 2:
-            //        SkillList = SkillRepository.Archer;
-            //        break;
-            //}
         }
         public void DisplaySkills() // 판매 아이템 출력
         {

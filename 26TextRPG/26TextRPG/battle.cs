@@ -60,7 +60,9 @@ public class Battle
             {
                 Console.WriteLine("당신은 패배했습니다....");
                 Console.WriteLine("아무키나 누르세요...");
+                player.Health = 1;
                 Console.ReadKey();
+                Console.Clear();
                 break;
             }
 
@@ -69,6 +71,7 @@ public class Battle
                 Console.WriteLine("모든 적을 물리쳤습니다!");
                 Console.WriteLine("아무키나 누르세요...");
                 Console.ReadKey();
+                Console.Clear();
                 break;
             }
 
@@ -164,7 +167,8 @@ public class Battle
             else if (choice == "4")
             {
                 Console.WriteLine("도망쳤습니다!");
-                validInput = true; // 도망치기 로직 필요
+                validInput = true;
+                ReturnToStage();
             }
             else
             {
@@ -174,7 +178,7 @@ public class Battle
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
-        ClearLines(15, 30);
+        ClearLines(10,20);
     }
 
     private void AttackChoice(List<Enemy> enemies)
@@ -251,7 +255,7 @@ public class Battle
 
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
-        ClearLines(15, 30);
+        ClearLines(10,20);
     }
 
     private void ClearLines(int startLine, int numberOfLines)
@@ -261,6 +265,7 @@ public class Battle
             Console.SetCursorPosition(0, startLine + i);
             Console.Write(new string(' ', Console.WindowWidth)); // 해당 줄을 공백으로 덮어쓰기
         }
+        Console.SetCursorPosition(0, startLine + i);
     }
 
 }

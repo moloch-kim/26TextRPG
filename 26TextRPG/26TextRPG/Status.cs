@@ -1,162 +1,54 @@
-// using _26TextRPG;
+using _26TextRPG;
 
-// public class Status
-// {
-//     Player playerData = Player.Instance;
-//     public Shop(Shoplist shoplist)
-//     {
-//         ItemsForSale = new List<Item>();
-//         Random random = new Random();
-//         switch ((int)shoplist)
-//         {
-//             case 0:
-//                 ItemsForSale = new List<Item>
-//             {
-//                 ItemRepository.GetItemByID(1000),
-//                 ItemRepository.GetItemByID(1001),
-//                 ItemRepository.GetItemByID(1002),
-//                 ItemRepository.GetItemByID(1003),
-//                 ItemRepository.GetItemByID(2000),
-//                 ItemRepository.GetItemByID(3000),
-//                 ItemRepository.GetItemByID(3001),
-//                 ItemRepository.GetItemByID(3002)
-//             };
-//                 break;
-//             case 1:
-//                 for (int i = 0; i < random.Next(6, 10); i++)
-//                 {
-//                     int coinflip = random.Next(1, 101);
-//                     if (coinflip >= 50)
-//                     {
-//                         ItemsForSale.Add(ItemRepository.GetRandomWeapon());
-//                     }
-//                     else
-//                     {
-//                         ItemsForSale.Add(ItemRepository.GetRandomArmor());
-//                     }
-//                 }
-//                 break;
-//             case 2:
-//                 for (int i = 0; i < random.Next(6, 10); i++)
-//                 {
-//                     ItemsForSale.Add(ItemRepository.GetRandomPotion());
-//                 }
-//                 break;
-//             case 3:
-//                 for (int i = 0; i < random.Next(6, 10); i++)
-//                 {
-//                     ItemsForSale.Add(ItemRepository.GetRandomArmor());
-//                 }
-//                 break;
-//             case 4:
-//                 for (int i = 0; i < random.Next(6, 10); i++)
-//                 {
-//                     ItemsForSale.Add(ItemRepository.GetRandomWeapon());
-//                 }
-//                 break;
-//         }
-//     }
+public class Status
+{
+    public void DisplayStatus() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    {
+        Player playerData = Player.Instance;
 
-//     public void DisplayStatus() // ½ºÅÈ Ãâ·Â
-//     {
-//         // ¾ê³» µÑµµ Å¬·¡½º¿¡ Áý¾î³Ö¾îµµµÉµí
-//         int enforceAttack = playerData.AttackPower - playerData.BaseAttackPower;
-//         int enforceDefense = playerData.DefensePower - playerData.BaseDefensePower;
+        // ï¿½ê³» ï¿½Ñµï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö¾îµµï¿½Éµï¿½
+        int enforceAttack = playerData.AttackPower - playerData.BaseAttackPower;
+        int enforceDefense = playerData.DefensePower - playerData.BaseDefensePower;
 
-//         Console.WriteLine("½ºÅÈ º¸±â: ");
-//         Console.WriteLine("Ä³¸¯ÅÍÀÇ Á¤º¸ ¹× ½ºÅÈÀÌ Ç¥½ÃµË´Ï´Ù.");
-//         Console.WriteLine("--------------------------------------------------------------------");
-//         Console.WriteLine($"Lv. {playerData.Level}");
-//         Console.WriteLine($"Á÷¾÷ : ({playerData.Job} )");
+        Console.WriteLine("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ");
+        Console.WriteLine("Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃµË´Ï´ï¿½.");
+        Console.WriteLine("--------------------------------------------------------------------");
+        Console.WriteLine($"Lv. {playerData.Level}");
+        Console.WriteLine($"ï¿½ï¿½ï¿½ï¿½ : {playerData.Job}");
 
-//         if (enforceAttack == 0) { Console.WriteLine($"{playerData.AttackPower}"); }
-//         else { Console.WriteLine($"{playerData.AttackPower} (+{enforceAttack})"); }
+        if (enforceAttack == 0) { Console.WriteLine($"{playerData.AttackPower}"); }
+        else { Console.WriteLine($"ï¿½ï¿½ï¿½Ý·ï¿½ : {playerData.AttackPower} (+{enforceAttack})"); }
 
-//         if (enforceDefense == 0) { Console.WriteLine($"{playerData.DefensePower}"); }
-//         else { Console.WriteLine($"{playerData.DefensePower} (+{enforceDefense})"); }
+        if (enforceDefense == 0) { Console.WriteLine($"{playerData.DefensePower}"); }
+        else { Console.WriteLine($"ï¿½ï¿½ï¿½ï¿½ : {playerData.DefensePower} (+{enforceDefense})"); }
 
-//         Console.WriteLine($"Ã¼ ·Â : {playerData.MaxHealth}");
-//         Console.WriteLine($"Gold : . {playerData.Gold}");
-//         Console.WriteLine($"Lv. {playerData.Level}");
-//         Console.WriteLine($"Lv. {playerData.Level}");
-//         Console.WriteLine($"Lv. {playerData.Level}");
-//         Console.WriteLine($"Lv. {playerData.Level}");
-//         Console.WriteLine("--------------------------------------------------------------------");
-//         Console.WriteLine();
-//     }
-//     public void BuyItem() // ¾ÆÀÌÅÛ ±¸¸Å ¸Þ¼Òµå
-//     {
-//         Player playerData = Player.Instance;
-//         Console.Clear();
-//         TypingEffect("»óÁ¡¿¡ ÀÔÀåÇß½À´Ï´Ù!", 40);
-//         bool InShop = true;
-//         while (InShop)
-//         {
-            
-//             Console.WriteLine();
-//             Console.WriteLine("--------------------------------------------------------------------");
-//             Console.WriteLine($"ÇöÀç °ñµå: {playerData.Gold}°ñµå");
-//             DisplayItems();
-//             Console.WriteLine("³ª°¡±â : P"); 
-//             TypingEffect("±¸¸ÅÇÒ ¾ÆÀÌÅÛÀÇ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä (Ãë¼ÒÇÏ·Á¸é 0 ÀÔ·Â):", 40);
-//             Console.WriteLine(); Thread.Sleep(100);
-//             string input = Console.ReadLine();
-//             if (input == "p" || input == "P")
-//             {
-//                 InShop = false;
-//                 TypingEffect("»óÁ¡¿¡¼­ ³ª°¬½À´Ï´Ù.", 40);
-//                 Console.WriteLine(); Thread.Sleep(100);
-//             }
-//             else if (int.TryParse(input, out int choice))
-//             {
-//                 if (choice == 0)
-//                 {
-//                     TypingEffect("±¸¸Å¸¦ Ãë¼ÒÇß½À´Ï´Ù.", 40);
-//                     Console.WriteLine(); Thread.Sleep(100);
-//                     return;
-//                 }
+        Console.WriteLine($"Ã¼ ï¿½ï¿½ : {playerData.MaxHealth}");
+        Console.WriteLine($"Gold : {playerData.Gold}");
+        Console.WriteLine("--------------------------------------------------------------------");
+        Console.WriteLine();
+        Console.WriteLine("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ESC");
 
-//                 if (choice > 0 && choice <= ItemsForSale.Count)
-//                 {
-//                     Item selectedItem = ItemsForSale[choice - 1];
+        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-//                     if (playerData.Gold >= selectedItem.Value)
-//                     {
-//                         playerData.Gold -= selectedItem.Value;
-//                         playerData.Inventory.Add(selectedItem);
-//                         ItemsForSale.RemoveAt(choice - 1);
-//                         TypingEffect($"{selectedItem.Name}À»(¸¦) ±¸¸ÅÇÏ¿© ÀÎº¥Åä¸®¿¡ Ãß°¡Çß½À´Ï´Ù.", 40);
-//                         Console.WriteLine();
-//                             TypingEffect($"³²Àº °ñµå: {playerData.Gold}°ñµå", 40); Console.WriteLine(); Thread.Sleep(100);
-//                     }
-//                     else
-//                     {
-//                         TypingEffect("°ñµå°¡ ºÎÁ·ÇÏ¿© ¾ÆÀÌÅÛÀ» ±¸¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.", 40); 
-//                         Console.WriteLine(); Thread.Sleep(100);
-//                     }
-//                 }
-//                 else
-//                 {
-//                     TypingEffect("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù.", 40); 
-//                     Console.WriteLine(); Thread.Sleep(100);
-//                 }
-//             }
-//             else
-//             {
-//                 TypingEffect("¼ýÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", 40); 
-//                 Console.WriteLine(); Thread.Sleep(100);
-//             }
-//             Console.Clear();
-//         }
-//     }
-//     private void TypingEffect(string text, int delay) // (Å¸ÀÌÇÎÀ» Á÷Á¢ Ä¡´Â°Í °°Àº È¿°ú) srting ¹®ÀÚ¿­°ú int µô·¹ÀÌ °ªÀ» ³Ö¾îÁÖ¸é
-//     {
-//         foreach (char c in text)// text¿¡ µé¾îÀÖ´Â ¹®ÀÚ¿­À» foreach¸¦ ÀÌ¿ëÇØ ¼ø¼­´ë·Î c¿¡ ¹®ÀÚ·Î ´ã¾ÆÁÜ
-//         {
-//             Console.Write(c); //c¿¡ ´ã±ä ¹®ÀÚ¸¦ Ãâ·Â
-//             Thread.Sleep(delay);// ¼³Á¤ÇÑ µô·¹ÀÌ¸¸Å­ ½½¸³
-//         }// ¹®ÀÚ¿­À» ¹®ÀÚ·Î º¯È¯ÇÏ¿© Â÷·Ê´ë·Î Ãâ·ÂÇÏ¸é¼­ ¹®ÀÚ »çÀÌ»çÀÌ¿¡ µô·¹ÀÌ¸¦ ÁÖ¾î Å¸ÀÌÇÎ È¿°ú¸¦ ¸¸µê
-//     }
+        if (keyInfo.Key == ConsoleKey.Escape)
+        {
+            return;
+        }
+        else
+        {
+            TypingEffect("ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.", 40); 
+            Console.WriteLine(); Thread.Sleep(100);
+        }
+    }
 
-// }
+    private void TypingEffect(string text, int delay) // (Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½) srting ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ int ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö¸ï¿½
+    {
+        foreach (char c in text)// textï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ foreachï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+        {
+            Console.Write(c); //cï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½
+            Thread.Sleep(delay);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
+        }// ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸é¼­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ö¾ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    }
+
+}
 

@@ -28,6 +28,8 @@ public class Player : Character
         Job = job;
         BaseAttackPower = baseAttackPower;
         BaseDefensePower = baseDefensePower;
+        AttackPower = baseAttackPower;
+        DefensePower = baseDefensePower;
         MaxHealth = maxHealth;
         Health = maxHealth;
         Speed = speed;
@@ -38,12 +40,6 @@ public class Player : Character
         Mana = maxMana;
         MaxMana = maxMana;
         Gold = gold;
-        // 유민) 변수 선언부분에서 초기화처리도 같이 하도록 수정했습니다. 
-        // ExpToNextLevel = 100;
-        // Inventory = new List<Item>();
-        // EquipedArmor = null;
-        // EquipedWeapon = null;
-        // SkillList = new List<Skill>();
     }
 
     public static Player Instance

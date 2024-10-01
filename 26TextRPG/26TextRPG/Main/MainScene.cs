@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
 using _26TextRPG.Main;
+using _26TextRPG;
 
 using static System.Net.Mime.MediaTypeNames;
 
@@ -103,6 +104,7 @@ namespace _26TextRPG.Main
             Player playerData = Player.Instance;
             Shop shop = new Shop(Shoplist.Startshop);
             RestScene restScene = new RestScene();
+            Status status = new Status();
 
             while (true)
             {
@@ -113,6 +115,7 @@ namespace _26TextRPG.Main
                 {
                     case ConsoleKey.S://능력치
                         Console.WriteLine("S");
+                        status.DisplayStatus();
                         break;
                     case ConsoleKey.I://인벤토리
                         ItemRepository.Inventory();

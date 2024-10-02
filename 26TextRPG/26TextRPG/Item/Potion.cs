@@ -40,24 +40,32 @@ namespace _26TextRPG
                 case 1: //체력 회복 포션
                     playerData.Health += Effect;
                     if(playerData.Health > playerData.MaxHealth) { playerData.Health = playerData.MaxHealth; }
-                    Console.WriteLine($"{Name}을(를) 사용하여 잠시 체력이 {Effect}만큼 회복되었습니다.");
+                    Console.WriteLine();
+                    Console.WriteLine($"{Name}을(를) 사용하여 체력이 {Effect}만큼 회복되었습니다.");
+                    Console.WriteLine();
                     Thread.Sleep(500);
                     break;
                 case 2: //공격력 강화 포션
                     //playerData.AttackPower += Effect;
+                    Console.WriteLine();
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 공격력이 {Effect}만큼 상승했습니다!");
+                    Console.WriteLine();
                     Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
                 case 3: //방어력 강화 포션
                     //playerData.DefensePower += Effect;
+                    Console.WriteLine();
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 방어력이 {Effect}만큼 상승했습니다!");
+                    Console.WriteLine();
                     Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
                 case 4: //속도 강화 포션
                     //playerData.Speed += Effect;
+                    Console.WriteLine();
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 속도가 {Effect}만큼 상승했습니다!");
+                    Console.WriteLine();
                     Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
                     break;
@@ -65,9 +73,27 @@ namespace _26TextRPG
                     //playerData.AttackPower += Effect;
                     //playerData.DefensePower += Effect;
                     //playerData.Speed += Effect;
+                    Console.WriteLine();
                     Console.WriteLine($"{Name}을(를) 사용하여 잠시 모든 능력치가 {Effect}만큼 상승했습니다!!");
+                    Console.WriteLine();
                     Thread.Sleep(500);
                     playerData.ActivePotion.Add(this);
+                    break;
+                case 6: //마력 회복 포션
+                    playerData.Mana += Effect;
+                    if (playerData.Mana > playerData.MaxMana) { playerData.Mana = playerData.MaxMana; }
+                    Console.WriteLine();
+                    Console.WriteLine($"{Name}을(를) 사용하여 마력이 {Effect}만큼 회복되었습니다.");
+                    Console.WriteLine();
+                    Thread.Sleep(500);
+                    break;
+                case 7: //완전 회복 포션
+                    playerData.Mana = playerData.MaxMana;
+                    playerData.Health = playerData.MaxHealth;
+                    Console.WriteLine();
+                    Console.WriteLine($"{Name}을(를) 사용하여 체력과 마력이 전부 회복되었습니다!");
+                    Console.WriteLine();
+                    Thread.Sleep(500);
                     break;
             }
             playerData.Inventory.Remove(this);

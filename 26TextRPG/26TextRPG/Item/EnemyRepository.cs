@@ -29,11 +29,11 @@ namespace _26TextRPG
             //public Enemy(string name, int id, int health, int attackPower, int defensePower, int speed, int experienceReward, int goldReward)
             floor1List = new List<Enemy>()
             {
-                new Enemy("들개", 1, 30, 5, 3, 8, 7, 0),
+                new Enemy("들개", 1, 30, 5, 3, 8, 7, 10),
                 new Enemy("시궁쥐", 2, 10, 3, 3, 12, 3, 0),
-                new Enemy("뿔토끼", 3, 20, 7, 3, 15, 6, 0),
-                new Enemy("거미", 4, 25, 6, 3, 10, 8, 0),
-                new Enemy("검은 들개", 5, 35, 6, 4, 9, 10, 5),
+                new Enemy("뿔토끼", 3, 20, 7, 3, 15, 6, 10),
+                new Enemy("거미", 4, 25, 6, 3, 10, 8, 15),
+                new Enemy("검은 들개", 5, 35, 6, 4, 9, 10, 20),
                 new Enemy("독거미", 8, 22, 5, 3, 10, 7, 0),
                 new Enemy("쥐", 9, 12, 2, 1, 13, 4, 0),
                 new Enemy("검은 뿔토끼", 10, 18, 7, 3, 15, 6, 0),

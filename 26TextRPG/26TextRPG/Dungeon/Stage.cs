@@ -41,66 +41,96 @@ namespace _26TextRPG.Dungeon
         }
         public void Explore() 
         {
-            Console.Clear();
-            if (Progress == 0)
+            if (StageFloor == 5)
             {
-                mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50); 
-            }
-            Console.WriteLine();
-            Console.WriteLine("--------------------------------------------------------------------");
-            Console.WriteLine($"[ 던전 {StageFloor}층 ]");
-            Console.WriteLine($"진행도 : {Progress}/{MaxProgress}");
-            Console.WriteLine(); // 진행도 출력
-            Console.WriteLine();
-            if (!IsCompleted)
-            {
-                Progress += 10;
-                int Randomtext = Random.Next(1, 4);
-                switch (Randomtext)
+                Console.Clear();
+                if (Progress == 0)
                 {
-                    case 1:
-                        mainScene.TypingEffect("당신은 어두운 방과 던전 사이를 걷습니다.", 50);
-                        break;
-                    case 2:
-                        mainScene.TypingEffect("당신의 길은 어둠과 미지로 가득차있습니다.", 50);  
-                        break;
-                    case 3:
-                        mainScene.TypingEffect($"{currentPlayer.Name} : 온통 어둠과 먼지 뿐이군.", 50); // 플레이어 이름 값 삽입
-                        break;
+                    mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
                 }
-                // ... 삽입 딜레이 연출
-                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                 Console.WriteLine();
-            }
-            else
-            {
-                mainScene.TypingEffect("더 탐험할게 없습니다.", 50); 
+                Console.WriteLine("--------------------------------------------------------------------");
+                Console.WriteLine($"[ 던전 {StageFloor}층 ]");
                 Console.WriteLine();
-                return;
-            }
-            if (StairFound)
-            {
+                Console.WriteLine();
+                Progress = MaxProgress;
                 FindStair();
+                BossEncounter5();
             }
-            FindStair();
-            Trap();
-            TriggerEvent();
-            Thread.Sleep(200);
-
-            if(Progress >= MaxProgress) 
+            else if (StageFloor == 10)
             {
-                if (!StairFound)
+                Console.Clear();
+                if (Progress == 0)
                 {
-                    mainScene.TypingEffect("무언가 잘못되었습니다. 스테이지를 다시 시작합니다.", 50); 
+                    mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
+                }
+                Console.WriteLine();
+                Console.WriteLine("--------------------------------------------------------------------");
+                Console.WriteLine($"[ 던전 {StageFloor}층 ]");
+                Console.WriteLine();
+                Console.WriteLine();
+                Progress = MaxProgress;
+                FindStair();
+                BossEncounter10();
+            }
+            else 
+            {
+                Console.Clear();
+                if (Progress == 0)
+                {
+                    mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
+                }
+                Console.WriteLine();
+                Console.WriteLine("--------------------------------------------------------------------");
+                Console.WriteLine($"[ 던전 {StageFloor}층 ]");
+                Console.WriteLine($"진행도 : {Progress}/{MaxProgress}");
+                Console.WriteLine(); // 진행도 출력
+                Console.WriteLine();
+                if (!IsCompleted)
+                {
+                    Progress += 10;
+                    if (Progress > MaxProgress) { Progress = MaxProgress; }
+                    int Randomtext = Random.Next(1, 4);
+                    switch (Randomtext)
+                    {
+                        case 1:
+                            mainScene.TypingEffect("당신은 어두운 방과 던전 사이를 걷습니다.", 50);
+                            break;
+                        case 2:
+                            mainScene.TypingEffect("당신의 길은 어둠과 미지로 가득차있습니다.", 50);
+                            break;
+                        case 3:
+                            mainScene.TypingEffect($"{currentPlayer.Name} : 온통 어둠과 먼지 뿐이군.", 50); // 플레이어 이름 값 삽입
+                            break;
+                    }
+                    // ... 삽입 딜레이 연출
+                    Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                     Console.WriteLine();
-                    //리스타트
                 }
                 else
                 {
-                    mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50); 
+                    mainScene.TypingEffect("더 탐험할게 없습니다.", 50);
                     Console.WriteLine();
+                    return;
+                }
+                FindStair();
+                TriggerEvent();
+                Thread.Sleep(200);
+
+                if (Progress >= MaxProgress)
+                {
+                    if (!StairFound)
+                    {
+                        FindStair();
+                    }
+                    else
+                    {
+                        mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
+                        Console.WriteLine();
+                    }
                 }
             }
+            
             
         }
         public void FindStair() 
@@ -108,7 +138,10 @@ namespace _26TextRPG.Dungeon
             if (Progress >= StairPosition && !StairFound)
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
                 mainScene.TypingEffect("계단을 발견했습니다! 다음 스테이지로 이동 가능합니다.", 50);
+                Console.ResetColor();
                 Console.WriteLine();
                 Console.WriteLine();
             } 
@@ -121,9 +154,13 @@ namespace _26TextRPG.Dungeon
         {
             int eventChance = Random.Next(1, 101);
 
-            if (eventChance <= 50)
+            if (eventChance <= 40)
             {
                 EncounterEnemy();//적 조우 메소드 - 50퍼센트
+            }
+            else if (eventChance <= 50)
+            {
+                Trap();
             }
             else if (eventChance <= 70)
             {
@@ -285,7 +322,7 @@ namespace _26TextRPG.Dungeon
                         Console.WriteLine();
                         break;
                     case 2:
-                        mainScene.TypingEffect("함정을 발견했습니다!! 조치를 취하셔야 합니다!!", 50);
+                        mainScene.TypingEffect("함정을 밟았습니다!! 조치를 취하셔야 합니다!!", 50);
                         Console.WriteLine();
                         break;
                     case 3:
@@ -327,6 +364,52 @@ namespace _26TextRPG.Dungeon
             }
 
         }
-
+        private void BossEncounter5()
+        {
+            mainScene.TypingEffect("당신은 어두운 던전 복도를 걷습니다.", 50);
+            Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            mainScene.TypingEffect("저 멀리서 불길한 불빛과 북소리, 그리고 환호하는 괴물의 목소리가 들립니다.", 50);
+            Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+            Console.WriteLine();
+            mainScene.TypingEffect(" [???] : 잊혀진 제물이 제 발로 걸어들어오는구나!! 가까이 오거라!!", 50);
+            Console.WriteLine();
+            Console.ResetColor();
+            mainScene.TypingEffect("힘든 싸움이 될것 같습니다....", 50);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("계속_(아무키나 입력해 진행)");
+            Console.ReadLine();
+            Battle battle = new(currentPlayer);
+            battle.Start(StageFloor);
+        }
+        private void BossEncounter10()
+        {
+            mainScene.TypingEffect("당신은 어두운 던전 복도를 걷습니다.", 50);
+            Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+            Console.WriteLine();
+            mainScene.TypingEffect("이곳이 마지막입니다. 이 길 앞에 기다리는게 무엇이든, 당신은 준비가 되었습니다.", 50);
+            Thread.Sleep(1000);
+            mainScene.TypingEffect("당신은 무거운 석문 앞에 서서 문을 힘차게 열어봅니다.", 50);
+            Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            mainScene.TypingEffect("[???] : 아이야, 내 품을 떠나 자리를 잡은줄 알았건만, 기여코 이곳에 돌아왔구나.", 50);
+            Thread.Sleep(1000);
+            Console.ResetColor();
+            mainScene.TypingEffect("당신은 이자에게 알수없는 분노가 생긴다는것 말곤 기억나는게 없지만, 이자는 당신을 아는것같습니다.", 50);
+            Thread.Sleep(500); Console.WriteLine();
+            mainScene.TypingEffect("분명 당신의 잃어버린 기억에 대해 알고있는게 분명합니다.", 50);
+            Thread.Sleep(1000); Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            mainScene.TypingEffect("[???] : 오거라, 너의 여정도 이제는 끝이다.", 50);
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("계속_(아무키나 입력해 진행)");
+            Console.ReadLine();
+            Battle battle = new(currentPlayer);
+            battle.Start(StageFloor);
+        }
     }
 }

@@ -200,13 +200,12 @@ namespace _26TextRPG.Main
         {
             foreach (char c in text)// text에 들어있는 문자열을 foreach를 이용해 순서대로 c에 문자로 담아줌
             {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                Console.Write(c); //c에 담긴 문자를 출력
+                Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
                 if (Console.KeyAvailable)// 만약 키 입력이 있다면
                 {
                     delay = 0;// 딜레이 0 (스킵)
                 }
-                    Console.Write(c); //c에 담긴 문자를 출력
-                Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
             }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
         }
         

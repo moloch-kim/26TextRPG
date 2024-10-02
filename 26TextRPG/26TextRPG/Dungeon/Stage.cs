@@ -106,6 +106,9 @@ namespace _26TextRPG.Dungeon
                     // ... 삽입 딜레이 연출
                     Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                     Console.WriteLine();
+                    FindStair();
+                    TriggerEvent();
+                    Thread.Sleep(200);
                 }
                 else
                 {
@@ -113,9 +116,6 @@ namespace _26TextRPG.Dungeon
                     Console.WriteLine();
                     return;
                 }
-                FindStair();
-                TriggerEvent();
-                Thread.Sleep(200);
 
                 if (Progress >= MaxProgress)
                 {
@@ -126,6 +126,7 @@ namespace _26TextRPG.Dungeon
                     else
                     {
                         mainScene.TypingEffect($"{StageFloor}층 탐험이 완료되었습니다!", 50);
+                        IsCompleted = true;
                         Console.WriteLine();
                     }
                 }

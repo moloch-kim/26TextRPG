@@ -239,6 +239,7 @@ namespace _26TextRPG.Main
                         {
                             ++runStage.StageFloor;
                             runStage.StairFound = false;
+                            runStage.Progress = 0;
                         }
                         break;
                     case ConsoleKey.P:

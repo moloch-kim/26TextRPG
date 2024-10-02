@@ -18,16 +18,16 @@ public class Status
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("--------------------------------------------------------------------");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"Lv. {playerData.Level}");
+        Console.WriteLine($"Lv. {playerData.Level} , Exp. {playerData.Exp} ");
         Console.WriteLine($"직업 : {playerData.Job}");
 
-        if (enforceAttack <= 0) { Console.WriteLine($"공격력 : {playerData.AttackPower}"); }
-        else { Console.WriteLine($"공격력 : {playerData.AttackPower} (+{enforceAttack})"); }
+        if (playerData.EquipedWeapon != null) { Console.WriteLine($"공격력 : {playerData.BaseAttackPower} (+ {playerData.EquipedWeapon.Offense})"); }
+        else { Console.WriteLine($"공격력 : {playerData.BaseAttackPower}"); }
 
-        if (enforceDefense <= 0) { Console.WriteLine($"방어력 : {playerData.DefensePower}"); }
-        else { Console.WriteLine($"방어력 : {playerData.DefensePower} (+{enforceDefense})"); }
+        if (playerData.EquipedArmor != null) { Console.WriteLine($"방어력 : {playerData.BaseDefensePower} (+ {playerData.EquipedArmor.Defense})"); }
+        else { Console.WriteLine($"방어력 : {playerData.BaseDefensePower}"); }
 
-        Console.WriteLine($"체력 : {playerData.MaxHealth}");
+        Console.WriteLine($"체력 : {playerData.MaxHealth} , 마력 : {playerData.MaxMana} ");
         Console.WriteLine($"Gold : {playerData.Gold}");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("--------------------------------------------------------------------");

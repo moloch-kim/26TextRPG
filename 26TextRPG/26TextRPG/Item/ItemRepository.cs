@@ -132,7 +132,7 @@ namespace _26TextRPG
 
                     // 아이템이 장착된 상태인지 확인
                     bool isEquipped = false;
-                    if (item == playerData.EquipedWeapon || item == playerData.EquipedArmor)
+                    if (item.Name == playerData.EquipedWeapon.Name || item.Name == playerData.EquipedArmor.Name)
                     {
                         isEquipped = true;
                     }

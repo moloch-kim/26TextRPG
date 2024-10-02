@@ -1,4 +1,4 @@
-﻿using _26TextRPG;
+using _26TextRPG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +23,17 @@ namespace _26TextRPG
             {
                 new Skill("배쉬", 3, 1, 1.5f, false, 250),
                 new Skill("슬래쉬", 5, 1, 2.0f, false, 500),
+                new Skill("존 어택", 5, 1, 1f, true, 500),
                 new Skill("방패 밀치기", 4, 2, 1.5f, false, 1000),
                 new Skill("원드밀", 8, 1, 1.5f, true, 2000),
                 new Skill("파이널 히트", 10, 3, 1.5f, false, 4000),
+                new Skill("글로리 킬", 30, 1, 15f , false, 6000)
 				//스킬 추가
 			};
             Archer = new List<Skill>() // 궁수 스킬 리스트
             {
                 new Skill("해드샷", 3, 1, 1.5f, false, 250),
+                new Skill("도탄 사격",5, 1, 0.8f, true, 500),
                 new Skill("연속 사격", 5, 1, 2.0f, false, 500),
                 new Skill("다중 화살", 5, 1, 1.3f, true, 1000),
                 new Skill("신속 발사", 3, 5, 2.5f, true, 2000),
@@ -39,11 +42,13 @@ namespace _26TextRPG
             };
             Wizard = new List<Skill>()  // 마법사 스킬 리스트
             {
-                new Skill("매직 미사일", 4, 5, 0.5f, false, 250),
-                new Skill("매직 에로우", 6, 5, 0.8f, false, 500),
-                new Skill("매직 스피어", 3, 5, 1.1f, false, 1000),
-                new Skill("체인 라이트닝", 7, 5, 1.6f, true, 2000),
-                new Skill("파이어 스톰", 10, 5, 2.0f, true, 4000), 
+                new Skill("매직 미사일", 4, 4, 0.5f, false, 250),
+                new Skill("신비한 폭발", 5, 4, 0.5f, true, 500),
+                new Skill("매직 에로우", 6, 4, 0.8f, false, 500),
+                new Skill("매직 스피어", 3, 4, 1.1f, false, 1000),
+                new Skill("체인 라이트닝", 7, 4, 1.6f, true, 2000),
+                new Skill("파이어 스톰", 10, 4, 2.0f, true, 4000), 
+                new Skill("아마게돈", 50, 4, 5f, true, 8000)
                 //스킬 추가
             };
             AllSkills = new List<Skill>();

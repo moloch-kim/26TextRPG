@@ -35,7 +35,6 @@ public class Character
 
 	public void Attack(Character character)
 	{
-        
 		int AttackRoll = Dice.Roll(1, 20);
 		int DamageRoll = Dice.Roll(2, 6);
         if (AttackRoll == 20)

@@ -37,13 +37,12 @@ namespace _26TextRPG.Dungeon
 
             Random = new Random();
 
-            StairPosition = Random.Next(20, MaxProgress); // 계단의 위치 = 진행도 최소 20부터 등장
+           
         }
         public void Explore() 
         {
             if (StageFloor == 5)
             {
-                Console.Clear();
                 if (Progress == 0)
                 {
                     mainScene.TypingEffect("당신은 던전에 입장했습니다...", 50);
@@ -55,6 +54,7 @@ namespace _26TextRPG.Dungeon
                 Console.WriteLine();
                 Progress = MaxProgress;
                 FindStair();
+                Console.Clear();
                 BossEncounter5();
             }
             else if (StageFloor == 10)
@@ -136,6 +136,7 @@ namespace _26TextRPG.Dungeon
         }
         public void FindStair() 
         {
+            StairPosition = Random.Next(20, MaxProgress); // 계단의 위치 = 진행도 최소 20부터 등장
             if (Progress >= StairPosition && !StairFound)
             {
                 StairFound = true; // '다음 스테이지로 진행' 선택지 활성화에 사용
@@ -389,17 +390,19 @@ namespace _26TextRPG.Dungeon
         {
             mainScene.TypingEffect("당신은 어두운 던전 복도를 걷습니다.", 50);
             Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
-            Console.WriteLine();
+            Console.WriteLine(); Console.WriteLine();
             mainScene.TypingEffect("이곳이 마지막입니다. 이 길 앞에 기다리는게 무엇이든, 당신은 준비가 되었습니다.", 50);
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); Console.WriteLine(); 
             mainScene.TypingEffect("당신은 무거운 석문 앞에 서서 문을 힘차게 열어봅니다.", 50);
             Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+            Console.WriteLine(); 
             Console.ForegroundColor = ConsoleColor.DarkRed;
             mainScene.TypingEffect("[???] : 아이야, 내 품을 떠나 자리를 잡은줄 알았건만, 기여코 이곳에 돌아왔구나.", 50);
             Thread.Sleep(1000);
             Console.ResetColor();
+            Console.WriteLine(); Console.WriteLine();
             mainScene.TypingEffect("당신은 이자에게 알수없는 분노가 생긴다는것 말곤 기억나는게 없지만, 이자는 당신을 아는것같습니다.", 50);
-            Thread.Sleep(500); Console.WriteLine();
+            Thread.Sleep(500); Console.WriteLine(); Console.WriteLine();
             mainScene.TypingEffect("분명 당신의 잃어버린 기억에 대해 알고있는게 분명합니다.", 50);
             Thread.Sleep(1000); Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkRed;

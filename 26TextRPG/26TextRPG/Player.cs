@@ -28,10 +28,10 @@ public class Player : Character
     public List<Potion> ActivePotion { get; } = new List<Potion>();
     public TimeSpan PlayTime { get; set; } = TimeSpan.Zero;//플레이타임계산
 
-    private int manaRegen;
-    private int healthRegen;
-    private int regenCount;
-    private int potionCount;
+    private int manaRegen { get; }
+    private int healthRegen { get; }
+    private int regenCount { get; set; }
+
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -99,28 +99,17 @@ public class Player : Character
         instance = loadedPlayer;
     }
 
-    public void Attack(Enemy character)
+    public new void Attack(Enemy character)
     {
         MainScene mainScene = new MainScene();
-        int Weapon = 0;
         int AttackRoll = Dice.Roll(1, 20);
         int DamageRoll = Dice.Roll(2, 6);
-        if (EquipedWeapon != null)
-        {
-            Weapon = EquipedWeapon.Offense;
-        }
-
         if (AttackRoll == 20)
         {
-            int damage = ((AttackPower + DamageRoll + Weapon)  * 2) - character.DefensePower;
+            int damage = ((AttackPower + DamageRoll) * 2) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine();
-            Console.WriteLine("!!!!!!!!!! CRITICAL HIT !!!!!!!!!!");
-            Console.WriteLine();
-            mainScene.TypingEffect("정말 치명적인 일격입니다!!", 20);
-            Console.ResetColor();
+            mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
             mainScene.TypingEffect($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다!", 50);
 
             if (character.Health <= 0)
@@ -135,7 +124,7 @@ public class Player : Character
         }
         else
         {
-            int damage = (AttackPower + DamageRoll + Weapon) - character.DefensePower;
+            int damage = (AttackPower + DamageRoll) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
             Console.WriteLine($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다.");
@@ -167,20 +156,19 @@ public class Player : Character
 
     public void ApplyPotion()
     {
-
+        int count = 0;
         if (ActivePotion != null)
         {
             for (int i = 0; i < ActivePotion.Count; i++)
             {
                 int maxCount = ActivePotion[i].Duration;
-                potionCount++;
-                if (potionCount > maxCount)
+                count++;
+                if (count > maxCount)
                 {
                     Console.WriteLine($"{ActivePotion[i].Name}의 효과가 다하였습니다!");
                     Console.WriteLine();
                     Thread.Sleep(500);
                     ActivePotion.Remove(ActivePotion[i]);
-                    potionCount = 0;    
                 }
             }
         }
@@ -189,12 +177,13 @@ public class Player : Character
     public void Regeneration()
     {
         regenCount++;
-        if (regenCount >= 10)
+        if (regenCount >=10)
         {
-            Mana += manaRegen;
-            if (Mana >= MaxMana) Mana = MaxMana;
-            Health += healthRegen;
-            if (Health >= healthRegen) Health = healthRegen;
+            if (Mana + manaRegen > MaxMana) Mana = MaxMana;
+            else Mana += manaRegen;
+
+            if (Health + healthRegen > MaxHealth) Health = MaxHealth;
+            else Health += healthRegen;
             regenCount = 0;
         }
     }
@@ -263,7 +252,6 @@ public class Player : Character
     {
         while (StatPoint > 0)
         {
-            Console.Clear();
             Console.WriteLine("스탯 포인트를 분배하세요.");
             Console.WriteLine($"남은 스탯 포인트: {StatPoint}");
             Console.WriteLine("1. 공격력");

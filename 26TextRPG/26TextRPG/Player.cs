@@ -28,9 +28,10 @@ public class Player : Character
     public List<Potion> ActivePotion { get; } = new List<Potion>();
     public TimeSpan PlayTime { get; set; } = TimeSpan.Zero;//플레이타임계산
 
-    private int manaRegen;
-    private int healthRegen;
-    private int regenCount;
+    private int manaRegen { get; }
+    private int healthRegen { get; }
+    private int regenCount { get; set; }
+
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -178,12 +179,13 @@ public class Player : Character
         regenCount++;
         if (regenCount >=10)
         {
-            Mana += manaRegen;
-            if (Mana >= MaxMana) Mana = MaxMana;
-            Health += healthRegen;
-            if (Health >= healthRegen) Health = healthRegen;
+            if (Mana + manaRegen > MaxMana) Mana = MaxMana;
+            else Mana += manaRegen;
+
+            if (Health + healthRegen > MaxHealth) Health = MaxHealth;
+            else Health += healthRegen;
+            regenCount = 0;
         }
-        regenCount = 0;
     }
 
     public void Defend()
@@ -250,7 +252,6 @@ public class Player : Character
     {
         while (StatPoint > 0)
         {
-            Console.Clear();
             Console.WriteLine("스탯 포인트를 분배하세요.");
             Console.WriteLine($"남은 스탯 포인트: {StatPoint}");
             Console.WriteLine("1. 공격력");

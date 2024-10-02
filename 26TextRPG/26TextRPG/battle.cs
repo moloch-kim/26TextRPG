@@ -220,6 +220,33 @@ public class Battle
         }
     }
 
+    private void SkillTargetChoice(Skill skill, List<Enemy> enemies)
+    {
+        var aliveEnemies = enemies.Where(e => e.Health > 0).ToList();
+        if (aliveEnemies.Count > 0)
+        {
+            Console.WriteLine("공격할 적의 번호를 선택하세요:");
+            for (int i = 0; i < aliveEnemies.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {aliveEnemies[i].Name}");
+            }
+
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out int targetIndex) && targetIndex > 0 && targetIndex <= aliveEnemies.Count)
+            {
+                player.UseSkill(skill, aliveEnemies[targetIndex - 1]);
+            }
+            else
+            {
+                Console.WriteLine("잘못된 선택입니다. 다시 선택하세요.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("공격할 적이 없습니다.");
+        }
+    }
+
     private void SkillChoice(List<Enemy> enemies)
     {
         Console.WriteLine("사용할 스킬을 선택하세요:");
@@ -243,7 +270,7 @@ public class Battle
                 }
                 else
                 {
-                    AttackChoice(enemies);
+                    SkillTargetChoice(selectedSkill, enemies);
                 }
             }
             else

@@ -1,6 +1,7 @@
 using _26TextRPG;
 using _26TextRPG.Dungeon;
 using _26TextRPG.Main;
+using System;
 using System.ComponentModel;
 public class Player : Character
 {
@@ -25,6 +26,11 @@ public class Player : Character
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();
     public List<Potion> ActivePotion { get; } = new List<Potion>();
+    public TimeSpan PlayTime { get; set; } = TimeSpan.Zero;//플레이타임계산
+
+    private int manaRegen;
+    private int healthRegen;
+    private int regenCount;
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -36,6 +42,9 @@ public class Player : Character
         Speed = speed;
         Mana = maxMana;
         MaxMana = maxMana;
+        manaRegen = (int)(MaxMana * 0.01f) + 1;
+        healthRegen = (int)(MaxHealth * 0.01f) + 1;
+        regenCount = 0;
         Gold = gold;
         if(EquipedWeapon != null) AttackPower = baseAttackPower + EquipedWeapon.Offense;
         if(EquipedArmor != null) DefensePower = baseDefensePower + EquipedArmor.Defense;
@@ -89,7 +98,7 @@ public class Player : Character
         instance = loadedPlayer;
     }
 
-    public new void Attack(Character character)
+    public new void Attack(Enemy character)
     {
         MainScene mainScene = new MainScene();
         int AttackRoll = Dice.Roll(1, 20);
@@ -101,6 +110,12 @@ public class Player : Character
             character.Health -= damage;
             mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
             mainScene.TypingEffect($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다!", 50);
+
+            if (character.Health <= 0)
+            {
+                GainExp(character.ExperienceReward);
+                Gold += character.GoldReward;
+            }
         }
         else if (AttackRoll == 1)
         {
@@ -112,6 +127,13 @@ public class Player : Character
             if (damage < 0) damage = 0;
             character.Health -= damage;
             Console.WriteLine($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다.");
+
+            if (character.Health <= 0)
+            {
+                GainExp(character.ExperienceReward);
+                Gold += character.GoldReward;
+            }
+
         }
     }
 
@@ -128,6 +150,7 @@ public class Player : Character
                 ActionGauge = 100;
         }
         ApplyPotion();
+        Regeneration();
     }
 
     public void ApplyPotion()
@@ -148,6 +171,19 @@ public class Player : Character
                 }
             }
         }
+    }
+
+    public void Regeneration()
+    {
+        regenCount++;
+        if (regenCount >=10)
+        {
+            Mana += manaRegen;
+            if (Mana >= MaxMana) Mana = MaxMana;
+            Health += healthRegen;
+            if (Health >= healthRegen) Health = healthRegen;
+        }
+        regenCount = 0;
     }
 
     public void Defend()
@@ -183,6 +219,11 @@ public class Player : Character
 		enemy.Health -= damage;
 
 		Console.WriteLine($"{Name}이(가) {enemy.Name}에게 {skill.Name}을 사용해 {damage}만큼의 피해를 입혔습니다.");
+        if (enemy.Health <= 0)
+        {
+            GainExp(enemy.ExperienceReward);
+            Gold += enemy.GoldReward;
+        }
 	}
 
     public void GainExp(int amount)

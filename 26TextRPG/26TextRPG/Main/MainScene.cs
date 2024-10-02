@@ -3,6 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using _26TextRPG.Dungeon;
 using _26TextRPG.Main;
 using _26TextRPG;
+using System.Diagnostics;
 
 using static System.Net.Mime.MediaTypeNames;
 
@@ -11,10 +12,12 @@ namespace _26TextRPG.Main
 
     public class MainScene
     {
+        static Stopwatch stopwatch = new Stopwatch();
         Player playerData = Player.Instance;
         //저장, 불러오기, 싱글톤 업데이트
         public void Loading()
         {
+            stopwatch.Start();
             Save();
             Console.Clear();
             Logo();
@@ -95,10 +98,23 @@ namespace _26TextRPG.Main
             Console.WriteLine("=======================================================");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
             Console.ForegroundColor = ConsoleColor.Yellow;
+            ShowPlayTime();
             Console.WriteLine("                                         기억초기화 : K");
             Console.ResetColor();
         }
 
+        public void ShowPlayTime()
+        {
+            TimeSpan currentPlayTime = stopwatch.Elapsed;
+            TimeSpan totalPlayTime = playerData.PlayTime + currentPlayTime; //데이터 + 현재플레이타임
+            //시간:분:초 형식으로 출력
+            string formattedPlayTime = string.Format("{0:D2}:{1:D2}:{2:D2}",
+                totalPlayTime.Hours,
+                totalPlayTime.Minutes,
+                totalPlayTime.Seconds);
+            Console.WriteLine($"                                  함께한 시간: {formattedPlayTime}");
+        }
+        
         public void RunGame()
         {
             Player playerData = Player.Instance;
@@ -166,6 +182,8 @@ namespace _26TextRPG.Main
                         guild.ObtainQuests();
                         break;
                     case ConsoleKey.Escape:
+                        stopwatch.Stop();
+                        playerData.PlayTime += stopwatch.Elapsed;
                         Save();
                         Console.WriteLine("게임을 종료하겠습니다.");
                         Thread.Sleep(1000);

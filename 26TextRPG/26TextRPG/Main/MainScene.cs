@@ -146,7 +146,7 @@ namespace _26TextRPG.Main
                         if (player.Inventory.Count <= 0)
                         {
                             Console.WriteLine("당신은 아무 장비도 없습니다! 진행하시겠습니까?");
-                            Console.WriteLine("[예 : Yes ]");
+                            Console.WriteLine("[예 : Yes ] [아니요 : 아무키나입력]");
                             string input = Console.ReadLine();
                             if (input == "Yes")
                             {

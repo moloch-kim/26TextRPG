@@ -25,6 +25,7 @@ public class Player : Character
     public new int DefensePower { get; set; }
     public List<Quest> Quest { get; } = new List<Quest>();
     public List<Potion> ActivePotion { get; } = new List<Potion>();
+    public TimeSpan PlayTime { get; set; } = TimeSpan.Zero;//플레이타임계산
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;

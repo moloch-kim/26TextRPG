@@ -91,15 +91,15 @@ namespace _26TextRPG.Main
             Console.WriteLine(" ||");
             Console.Write("|| ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("던전 : D    휴식 : R   길드 : G   종료 : ESC");
+            Console.Write("던전 : D     휴식 : R       길드 : G   종료 : ESC");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("      ||");
+            Console.WriteLine(" ||");
             Console.WriteLine("||                                                   ||");
             Console.WriteLine("=======================================================");
             Console.WriteLine("");// 사용감의 답답함을 없애기 위해 readkey 사용예정
             Console.ForegroundColor = ConsoleColor.Yellow;
             ShowPlayTime();
-            Console.WriteLine("                                         기억초기화 : K");
+            Console.WriteLine("                                         기억지우기 : K");
             Console.ResetColor();
         }
 

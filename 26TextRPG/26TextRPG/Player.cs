@@ -31,7 +31,7 @@ public class Player : Character
     private int manaRegen { get; }
     private int healthRegen { get; }
     private int regenCount { get; set; }
-
+    private int potionCount { get; set; }
     public Player(string name, string job, int baseAttackPower, int baseDefensePower, int maxHealth, int speed, int maxMana, int gold)
     {
         Name = name;
@@ -101,12 +101,17 @@ public class Player : Character
 
     public new void Attack(Enemy character)
     {
+        int Weapon = 0;
         MainScene mainScene = new MainScene();
+        if (EquipedWeapon != null)
+        {
+            Weapon = EquipedWeapon.Offense;
+        }
         int AttackRoll = Dice.Roll(1, 20);
         int DamageRoll = Dice.Roll(2, 6);
         if (AttackRoll == 20)
         {
-            int damage = ((AttackPower + DamageRoll) * 2) - character.DefensePower;
+            int damage = ((AttackPower + DamageRoll + Weapon) * 2) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
             mainScene.TypingEffect("정말 치명적인 일격입니다!!", 30);
@@ -124,7 +129,7 @@ public class Player : Character
         }
         else
         {
-            int damage = (AttackPower + DamageRoll) - character.DefensePower;
+            int damage = (AttackPower + DamageRoll + Weapon) - character.DefensePower;
             if (damage < 0) damage = 0;
             character.Health -= damage;
             Console.WriteLine($"{Name}이(가) {character.Name}에게 {damage}만큼의 피해를 입혔습니다.");
@@ -156,19 +161,20 @@ public class Player : Character
 
     public void ApplyPotion()
     {
-        int count = 0;
+        
         if (ActivePotion != null)
         {
             for (int i = 0; i < ActivePotion.Count; i++)
             {
                 int maxCount = ActivePotion[i].Duration;
-                count++;
-                if (count > maxCount)
+                potionCount++;
+                if (potionCount > maxCount)
                 {
                     Console.WriteLine($"{ActivePotion[i].Name}의 효과가 다하였습니다!");
                     Console.WriteLine();
                     Thread.Sleep(500);
                     ActivePotion.Remove(ActivePotion[i]);
+                    potionCount = 0;
                 }
             }
         }

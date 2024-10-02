@@ -1,5 +1,6 @@
 using _26TextRPG;
 using _26TextRPG.Dungeon;
+using _26TextRPG.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Linq;
 public class Battle
 {
     Player player = Player.Instance;
+    MainScene mainScene = new MainScene();
 
     public Battle(Player player)
     {
@@ -69,7 +71,7 @@ public class Battle
                 player.Health = 1;
                 Console.ReadKey();
                 Console.Clear();
-                ReturnToStage();
+                ReturnToVillage();
             }
 
             if (selectedEnemies.All(e => e.Health <= 0))
@@ -94,6 +96,14 @@ public class Battle
         Console.WriteLine("아무키나 누르세요...");
         Console.ReadKey();
         
+    }
+    private void ReturnToVillage()
+    {
+        keepBattle = false;
+        Console.WriteLine($"{player.Name}마을로 도망칩니다...");
+        Console.WriteLine("아무키나 누르세요...");
+        Console.ReadKey();
+        mainScene.RunGame();
     }
 
     private void DisplayMono(Player player, List<Enemy> enemies)

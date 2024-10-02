@@ -210,6 +210,7 @@ namespace _26TextRPG.Main
             Stage runStage = new(1);
             while (true)
             {
+                EndingCheck(runStage.StageFloor);// 11층이상이면 엔딩
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("탐험하기 : A");
@@ -282,6 +283,25 @@ namespace _26TextRPG.Main
                 File.Delete(filePath);
                 Console.WriteLine("저장된 기억을 삭제했습니다. 게임을 종료하겠습니다.");
                 Environment.Exit(0);
+        }
+
+        public void EndingCheck(int endingFloor)
+        {
+            if (endingFloor >= 11)
+            {
+                Console.Clear();
+                TypingEffect("갑자기 머리속에 알수없는 기억들이 들어오고있다..", 30);
+                Console.WriteLine();
+                Console.WriteLine();
+                TypingEffect("모든 기억이 났다. 나는 이곳에 갇힌 모험가이다.. 이곳에 갇힌것을 잊기위해 내 기억을 지우고 찾고를 반복하고 있었다..", 30);
+                Console.WriteLine();
+                Console.WriteLine();
+                TypingEffect("정신이 들때쯤 나는 또 기억을 지우려 하고있었다..", 30);
+                Console.WriteLine();
+                Console.WriteLine("계속하려면 아무 키나 누르십시오...");
+                Console.ReadLine();
+                ResetDataScene();
+            }
         }
 
         public void CreatePlayer()// 닉네임 생성

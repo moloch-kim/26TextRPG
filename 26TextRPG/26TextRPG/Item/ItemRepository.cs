@@ -132,14 +132,22 @@ namespace _26TextRPG
 
                     // 아이템이 장착된 상태인지 확인
                     bool isEquipped = false;
-                    if (item.Name == playerData.EquipedWeapon.Name || item.Name == playerData.EquipedArmor.Name)
+                    if (playerData.EquipedWeapon != null)
                     {
-                        isEquipped = true;
+                        if (item.Name == playerData.EquipedWeapon.Name)
+                        {
+                            isEquipped = true;
+                        }
+                    }
+                    if ( playerData.EquipedArmor != null)
+                    {
+                        if ( item.Name == playerData.EquipedArmor.Name)
+                        {
+                            isEquipped = true;
+                        }
                     }
                     // 장착된 아이템 앞에 [E] 추가
                     string equippedIndicator = isEquipped ? "[E] " : "";
-
-
                     Console.WriteLine($"{i + 1}. {equippedIndicator}[{itemType}] {item.Name}");
                 }
                 Console.WriteLine("---------------------------------------------");

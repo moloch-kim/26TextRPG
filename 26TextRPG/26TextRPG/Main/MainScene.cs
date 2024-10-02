@@ -290,13 +290,20 @@ namespace _26TextRPG.Main
             if (endingFloor >= 11)
             {
                 Console.Clear();
-                TypingEffect("갑자기 머리속에 알수없는 기억들이 들어오고있다..", 30);
+                TypingEffect("갑자기 당신의 머릿속이 명확해지고, 기억들이 흘러들어옵니다.", 30);
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                 Console.WriteLine();
+                TypingEffect("모든 기억이 돌아왔습니다. 당신은 이 던전에 갇힌 모험가이며, 이곳에 갇힌것을 잊기위해 당신의 기억을 지우고 되찾고를 반복하고 있었습니다.", 30);
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                 Console.WriteLine();
-                TypingEffect("모든 기억이 났다. 나는 이곳에 갇힌 모험가이다.. 이곳에 갇힌것을 잊기위해 내 기억을 지우고 찾고를 반복하고 있었다..", 30);
+                TypingEffect("마왕의 사체에 눈에 띄는 흉터의 수를 볼때, 이번에만 26번째 인것같습니다.", 30);
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine("."); 
                 Console.WriteLine();
+                TypingEffect("계속 그래왔듯이, 당신은 던전을 하염없이 떠돌기 시작하고, 마음은 또다시 무너져갑니다.", 30);
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                 Console.WriteLine();
-                TypingEffect("정신이 들때쯤 나는 또 기억을 지우려 하고있었다..", 30);
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
+                Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.Write("."); Thread.Sleep(500); Console.WriteLine(".");
                 Console.WriteLine();
                 Console.WriteLine("계속하려면 아무 키나 누르십시오...");
                 Console.ReadLine();
@@ -307,24 +314,24 @@ namespace _26TextRPG.Main
         public void CreatePlayer()// 닉네임 생성
         {
             Console.Clear();
-            TypingEffect("내가 누군지조차 모르겠다. 생각을 하기 시작하자 알수없는 두려움이 느껴진다..", 30);
+            TypingEffect("[???] : 내가 누군지조차 모르겠다. 생각을 하기 시작하자 알수없는 두려움이 느껴진다..", 30);
             Console.WriteLine();
             Console.WriteLine("계속하려면 아무 키나 누르십시오...");
             Console.ReadKey();
             Console.WriteLine();
-            TypingEffect("내 이름을 떠올려보자", 30);
+            TypingEffect("[???] :내 이름을 떠올려보자", 30);
             Console.WriteLine();
-            Console.Write("내 이름은 : ");
+            Console.Write("[???] : 내 이름은... : ");
             string nickName = Console.ReadLine();
             Console.WriteLine($"이름 : {nickName}");
             Console.WriteLine();
-            TypingEffect("이름은 기억을 해냈다. 하지만 나는 뭘 하던 사람이지..?", 30);
+            TypingEffect($"[{nickName}] : 이름은 기억을 해냈다. 하지만 나는 뭘 하던 사람이지..?", 30);
             Console.WriteLine();
             Console.WriteLine("1. 전사");
             Console.WriteLine("2. 마법사");
             Console.WriteLine("3. 궁수");
             Console.WriteLine();
-            Console.Write("내 직업은 : ");
+            Console.Write($"[{nickName}] 내 직업은... : ");
             string jobChoice = Console.ReadLine();
             Console.WriteLine();
             string job = "전사";
@@ -356,17 +363,16 @@ namespace _26TextRPG.Main
                     speed = 13;
                     break;
                 default:
-                    Console.WriteLine("실수로 아무말이나 해버렸다... 첫번째로 기억났던 전사를 하자");
+                    Console.WriteLine($"[{nickName}] 실수로 아무말이나 해버렸지만... 아마도 나는 전사였던것 같다.");
                     break;
             }
 
             playerData = new Player(nickName, job, attackPower, defensePower, maxHealth, speed, maxMana, gold);
-            TypingEffect($"내가 {playerData.Job} 라고 ? {playerData.Job}라면 모험을 시작해야지 기억을 찾기 위한 모험을 하자 ! ", 30);
+            TypingEffect($"[{nickName}] : 나는 {playerData.Job} 이며, {playerData.Job} 무언가가 나의 기억을 빼앗아갔다. 나의 기억을 되찾아야 한다! ", 30);
             Console.WriteLine();
             Console.WriteLine("계속하려면 아무 키나 누르십시오...");
             Console.ReadKey();
             Console.WriteLine();
-            Console.WriteLine($"{playerData.Name} 님 ! 대부분의 기억이 살아났습니다 !");
             Console.WriteLine($"직업: {playerData.Job}, 체력: {playerData.MaxHealth}, 공격력: {playerData.AttackPower}");
 
             Thread.Sleep(2000);

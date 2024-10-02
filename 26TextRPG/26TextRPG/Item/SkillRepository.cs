@@ -21,7 +21,7 @@ namespace _26TextRPG
             //Reference 1:공격력, 2:방어력, 3:최대체력, 4:최대마나 5:속도
             Warrior = new List<Skill>() // 전사 스킬 리스트
             {
-                new Skill("배쉬", 3, 1, 1.5f, false, 250),
+                new Skill("배쉬", 3, 2, 1.5f, false, 250),
                 new Skill("슬래쉬", 5, 1, 2.0f, false, 500),
                 new Skill("존 어택", 5, 1, 1f, true, 500),
                 new Skill("방패 밀치기", 4, 2, 1.5f, false, 1000),
@@ -32,12 +32,12 @@ namespace _26TextRPG
 			};
             Archer = new List<Skill>() // 궁수 스킬 리스트
             {
-                new Skill("해드샷", 3, 1, 1.5f, false, 250),
+                new Skill("해드샷", 3, 5, 1.5f, false, 250),
                 new Skill("도탄 사격",5, 1, 0.8f, true, 500),
-                new Skill("연속 사격", 5, 1, 2.0f, false, 500),
-                new Skill("다중 화살", 5, 1, 1.3f, true, 1000),
+                new Skill("연속 사격", 5, 5, 2.0f, false, 500),
+                new Skill("다중 화살", 10, 5, 1f, true, 1000),
                 new Skill("신속 발사", 3, 5, 2.5f, true, 2000),
-                new Skill("파이널 샷", 10, 1, 3.0f, false, 4000), 
+                new Skill("파이널 샷", 15, 1, 10f, false, 4000), 
                 //스킬 추가
             };
             Wizard = new List<Skill>()  // 마법사 스킬 리스트

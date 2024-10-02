@@ -1,4 +1,4 @@
-﻿using _26TextRPG.Main;
+using _26TextRPG.Main;
 
 namespace _26TextRPG
 {

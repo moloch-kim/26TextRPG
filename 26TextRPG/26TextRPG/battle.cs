@@ -25,7 +25,7 @@ public class Battle
         {
             Random random = new Random();
             int numberOfEnemies = random.Next(1, 5); // 1명에서 4명 사이의 적 생성
-            selectedEnemies = enemies.OrderBy(e => random.Next()).Take(numberOfEnemies).ToList();
+            selectedEnemies = enemies.OrderBy(e => random.Next()).Select(e => new Enemy(e)).Take(numberOfEnemies).ToList();
         }
         else if (Floor % 5 == 0) {
             selectedEnemies = enemies;

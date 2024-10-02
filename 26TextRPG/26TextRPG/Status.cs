@@ -8,8 +8,9 @@ public class Status
         Player playerData = Player.Instance;
 
         // 얘내 둘도 클래스에 집어넣어도될듯
-        int enforceAttack = playerData.AttackPower - playerData.BaseAttackPower;
-        int enforceDefense = playerData.DefensePower - playerData.BaseDefensePower;
+
+            int enforceAttack = playerData.AttackPower - playerData.BaseAttackPower;
+            int enforceDefense = playerData.DefensePower - playerData.BaseDefensePower;
 
         Console.WriteLine("스탯 보기: ");
         TypingEffect("캐릭터의 정보 및 스탯이 표시됩니다.", 40);
@@ -20,10 +21,10 @@ public class Status
         Console.WriteLine($"Lv. {playerData.Level}");
         Console.WriteLine($"직업 : {playerData.Job}");
 
-        if (enforceAttack == 0) { Console.WriteLine($"공격력 : {playerData.AttackPower}"); }
+        if (enforceAttack <= 0) { Console.WriteLine($"공격력 : {playerData.AttackPower}"); }
         else { Console.WriteLine($"공격력 : {playerData.AttackPower} (+{enforceAttack})"); }
 
-        if (enforceDefense == 0) { Console.WriteLine($"방어력 : {playerData.DefensePower}"); }
+        if (enforceDefense <= 0) { Console.WriteLine($"방어력 : {playerData.DefensePower}"); }
         else { Console.WriteLine($"방어력 : {playerData.DefensePower} (+{enforceDefense})"); }
 
         Console.WriteLine($"체력 : {playerData.MaxHealth}");

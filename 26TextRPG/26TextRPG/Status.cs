@@ -2,31 +2,37 @@ using _26TextRPG;
 
 public class Status
 {
-    public void DisplayStatus() // ���� ���
+    public void DisplayStatus() // 스탯 출력
     {
+        Console.Clear();
         Player playerData = Player.Instance;
 
-        // �곻 �ѵ� Ŭ������ ����־�ɵ�
+        // 얘내 둘도 클래스에 집어넣어도될듯
         int enforceAttack = playerData.AttackPower - playerData.BaseAttackPower;
         int enforceDefense = playerData.DefensePower - playerData.BaseDefensePower;
 
-        Console.WriteLine("���� ����: ");
-        Console.WriteLine("ĳ������ ���� �� ������ ǥ�õ˴ϴ�.");
-        Console.WriteLine("--------------------------------------------------------------------");
-        Console.WriteLine($"Lv. {playerData.Level}");
-        Console.WriteLine($"���� : {playerData.Job}");
-
-        if (enforceAttack == 0) { Console.WriteLine($"{playerData.AttackPower}"); }
-        else { Console.WriteLine($"���ݷ� : {playerData.AttackPower} (+{enforceAttack})"); }
-
-        if (enforceDefense == 0) { Console.WriteLine($"{playerData.DefensePower}"); }
-        else { Console.WriteLine($"���� : {playerData.DefensePower} (+{enforceDefense})"); }
-
-        Console.WriteLine($"ü �� : {playerData.MaxHealth}");
-        Console.WriteLine($"Gold : {playerData.Gold}");
-        Console.WriteLine("--------------------------------------------------------------------");
+        Console.WriteLine("스탯 보기: ");
+        TypingEffect("캐릭터의 정보 및 스탯이 표시됩니다.", 40);
         Console.WriteLine();
-        Console.WriteLine("������ : ESC");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("--------------------------------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"Lv. {playerData.Level}");
+        Console.WriteLine($"직업 : {playerData.Job}");
+
+        if (enforceAttack == 0) { Console.WriteLine($"공격력 : {playerData.AttackPower}"); }
+        else { Console.WriteLine($"공격력 : {playerData.AttackPower} (+{enforceAttack})"); }
+
+        if (enforceDefense == 0) { Console.WriteLine($"방어력 : {playerData.DefensePower}"); }
+        else { Console.WriteLine($"방어력 : {playerData.DefensePower} (+{enforceDefense})"); }
+
+        Console.WriteLine($"체력 : {playerData.MaxHealth}");
+        Console.WriteLine($"Gold : {playerData.Gold}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("--------------------------------------------------------------------");
+        Console.ResetColor();
+        Console.WriteLine();
+        Console.WriteLine("나가기 : ESC");
 
         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -36,19 +42,18 @@ public class Status
         }
         else
         {
-            TypingEffect("�߸��� �����Դϴ�.", 40); 
+            TypingEffect("잘못된 선택입니다.", 40);
             Console.WriteLine(); Thread.Sleep(100);
         }
     }
 
-    private void TypingEffect(string text, int delay) // (Ÿ������ ���� ġ�°� ���� ȿ��) srting ���ڿ��� int ������ ���� �־��ָ�
+    private void TypingEffect(string text, int delay) // (타이핑을 직접 치는것 같은 효과) srting 문자열과 int 딜레이 값을 넣어주면
     {
-        foreach (char c in text)// text�� ����ִ� ���ڿ��� foreach�� �̿��� ������� c�� ���ڷ� �����
+        foreach (char c in text)// text에 들어있는 문자열을 foreach를 이용해 순서대로 c에 문자로 담아줌
         {
-            Console.Write(c); //c�� ��� ���ڸ� ���
-            Thread.Sleep(delay);// ������ �����̸�ŭ ����
-        }// ���ڿ��� ���ڷ� ��ȯ�Ͽ� ���ʴ�� ����ϸ鼭 ���� ���̻��̿� �����̸� �־� Ÿ���� ȿ���� ����
+            Console.Write(c); //c에 담긴 문자를 출력
+            Thread.Sleep(delay);// 설정한 딜레이만큼 슬립
+        }// 문자열을 문자로 변환하여 차례대로 출력하면서 문자 사이사이에 딜레이를 주어 타이핑 효과를 만듦
     }
 
 }
-
